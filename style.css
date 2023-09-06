@@ -9,8 +9,8 @@ body {
 }
 
 .chat-container {
-    width: 80%; /* Adjust the width for smaller screens */
-    max-width: 500px; /* Limit the maximum width */
+    width: 70%; /* Adjust the width for smaller screens */
+    max-width: 400px; /* Limit the maximum width */
     background-color: #fff;
     border-radius: 20px; /* Add rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
