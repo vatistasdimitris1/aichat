@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // DOM elements
     const chatBox = document.getElementById("chat-box");
     const userInput = document.getElementById("user-input");
     const sendButton = document.getElementById("send-button");
@@ -6,41 +7,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const gpt3ModeButton = document.getElementById("gpt3-mode-button");
     const voiceButton = document.getElementById("voice-button");
 
-    let isGoogleModeActive = false;
-    let isGpt3ModeActive = false;
-
-    // Check if the screen width is greater than 600px (typical phone width)
-    const isMouseTrackingEnabled = window.innerWidth > 600;
-
-    if (isMouseTrackingEnabled) {
-        const circularCursor = document.createElement("div");
-        let mouseX = 0;
-        let mouseY = 0;
-
-        document.addEventListener("mousemove", function (e) {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-
-            circularCursor.style.left = mouseX + "px";
-            circularCursor.style.top = mouseY + "px";
-        });
-
-        chatBox.appendChild(circularCursor);
-        circularCursor.classList.add("circular-cursor");
-    }
-
-    googleModeButton.addEventListener("click", function () {
-        isGoogleModeActive = !isGoogleModeActive;
-        toggleGoogleMode(isGoogleModeActive);
-    });
-
-    gpt3ModeButton.addEventListener("click", function () {
-        isGpt3ModeActive = !isGpt3ModeActive;
-        toggleGpt3Mode(isGpt3ModeActive);
-    });
-
-    sendButton.addEventListener("click", sendMessage);
-    voiceButton.addEventListener("click", toggleVoiceRecognition);
+    // Voice recognition setup
+    const recognition = new webkitSpeechRecognition();
+    let isListening = false;
 
     recognition.continuous = true;
     recognition.interimResults = true;
@@ -48,13 +17,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
     recognition.onstart = function () {
         isListening = true;
-        voiceButton.textContent = "🔴"; // Change button text to indicate listening
+        toggleVoiceButton(true);
     };
 
     recognition.onend = function () {
         isListening = false;
-        voiceButton.textContent = "🎙️"; // Change button text back to microphone icon
+        toggleVoiceButton(false);
     };
+
+    recognition.onresult = function (event) {
+        const result = event.results[event.results.length - 1][0].transcript;
+        userInput.value = result;
+        sendMessage();
+    };
+
+    // Event listeners
+    googleModeButton.addEventListener("click", toggleGoogleMode);
+    gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
+    sendButton.addEventListener("click", sendMessage);
+    voiceButton.addEventListener("click", toggleVoiceRecognition);
+    userInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            sendMessage();
+        }
+    });
+
+    // Functions
+    function toggleGoogleMode() {
+        isGoogleModeActive = !isGoogleModeActive;
+        toggleButtonClass(googleModeButton, isGoogleModeActive);
+    }
+
+    function toggleGpt3Mode() {
+        isGpt3ModeActive = !isGpt3ModeActive;
+        toggleButtonClass(gpt3ModeButton, isGpt3ModeActive);
+    }
+
+    function toggleVoiceButton(isActive) {
+        if (isActive) {
+            voiceButton.textContent = "🔴"; // Listening
+        } else {
+            voiceButton.textContent = "🎙️"; // Microphone
+        }
+    }
 
     function toggleVoiceRecognition() {
         if (isListening) {
@@ -64,19 +69,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    recognition.onresult = function (event) {
-        const result = event.results[event.results.length - 1][0].transcript;
-        userInput.value = result;
-        sendMessage();
-    };
-
-    userInput.addEventListener("keydown", function (e) {
-        if (e.key === "Enter") {
-            sendMessage();
+    function toggleButtonClass(button, isActive) {
+        if (isActive) {
+            button.classList.add("active");
+        } else {
+            button.classList.remove("active");
         }
-    });
+    }
 
-   function sendMessage() {
+    function sendMessage() {
         const userMessage = userInput.value.trim();
 
         if (userMessage !== "") {
