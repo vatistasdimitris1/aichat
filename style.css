@@ -110,7 +110,7 @@ button:hover {
     transform: translate(-50%, -50%);
 }
 
-@media (max-width: 600px) { /* Apply styles for screens narrower than 600px (typical phone width) */
+@media (max-width: 500px) { /* Apply styles for screens narrower than 600px (typical phone width) */
     .chat-container {
         width: 100%;
         max-width: none;
