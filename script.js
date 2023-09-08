@@ -8,6 +8,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
+    let isListening = false;
+
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+
+    function toggleVoiceRecognition() {
+        if (!recognition) {
+            console.error("Speech recognition is not supported in this browser.");
+            return;
+        }
+
+        if (isListening) {
+            recognition.stop();
+        } else {
+            recognition.start();
+        }
+    }
+
 
     // Check if the screen width is greater than 600px (typical phone width)
     const isMouseTrackingEnabled = window.innerWidth > 600;
