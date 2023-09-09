@@ -1,42 +1,41 @@
 document.addEventListener("DOMContentLoaded", function () {
     const chatBox = document.getElementById("chat-box");
-    const messageForm = document.getElementById("message-form");
     const userInput = document.getElementById("user-input");
+    const sendButton = document.getElementById("send-button");
     const googleModeButton = document.getElementById("google-mode-button");
     const gpt3ModeButton = document.getElementById("gpt3-mode-button");
     const voiceButton = document.getElementById("voice-button");
     const resetButton = document.getElementById("reset-button");
     const commandList = document.getElementById("command-list");
- const chatbotButton = document.getElementById("chatbot-button");
-    // Initialize a counter to track the number of clicks on the "Chatbot" text
-    let chatbotClickCount = 0;
 
-    // Handle a click on the "Chatbot" text
-    chatbotButton.addEventListener("click", function () {
-        chatbotClickCount++;
-        
-        if (chatbotClickCount === 3) {
-            // When clicked three times, perform a special action
-            specialAction();
-            chatbotClickCount = 0; // Reset the counter
-        } else {
-            // Send a message when the "Chatbot" text is clicked once or twice
-            sendChatbotMessage();
-        }
-    });
-
-    function specialAction() {
-        // Perform your special action here
-        appendMessage("AI Chatbot", "You found it! Clicked 3 times on the secret button!");
-    }
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
     let isListening = false;
 
     resetButton.addEventListener("click", function () {
         // Clear the chat box when the reset button is clicked
-        chatBox.innerHTML = "";
+        chatBox.innerHTML = '';
     });
+
+    // Check if the screen width is greater than 600px (typical phone width)
+    const isMouseTrackingEnabled = window.innerWidth > 600;
+
+    if (isMouseTrackingEnabled) {
+        const circularCursor = document.createElement("div");
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener("mousemove", function (e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            circularCursor.style.left = mouseX + "px";
+            circularCursor.style.top = mouseY + "px";
+        });
+
+        chatBox.appendChild(circularCursor);
+        circularCursor.classList.add("circular-cursor");
+    }
 
     googleModeButton.addEventListener("click", function () {
         isGoogleModeActive = !isGoogleModeActive;
@@ -48,11 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
         toggleGpt3Mode(isGpt3ModeActive);
     });
 
-    // Handle form submission to send a message
-    messageForm.addEventListener("submit", function (e) {
-        e.preventDefault(); // Prevent the default form submission behavior
-        sendMessage();
-    });
+    sendButton.addEventListener("click", sendMessage);
 
     function toggleVoiceRecognition() {
         if (isListening) {
@@ -217,18 +212,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 10000); // Hide after 10 seconds
         } else {
             commandList.style.display = "none";
-        }
-
-            // Handle the secret button click event
-    secretButton.addEventListener("click", function () {
-        toggleSecretMode();
-    });
-
-    function toggleSecretMode() {
-        isSecretModeActive = !isSecretModeActive;
-        if (isSecretModeActive) {
-            // Perform your secret action here
-            alert("You've activated the secret mode!");
         }
     }
 });
