@@ -5,100 +5,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const googleModeButton = document.getElementById("google-mode-button");
     const gpt3ModeButton = document.getElementById("gpt3-mode-button");
     const voiceButton = document.getElementById("voice-button");
-
-       let isGoogleModeActive = false;
-    let isGpt3ModeActive = false;
-    let isListening = false;
-    let isPartyMode = false; // Flag to track party mode
-
-    const helpButton = document.getElementById("help-button");
+    const resetButton = document.getElementById("reset-button");
     const commandList = document.getElementById("command-list");
 
-    helpButton.addEventListener("click", showHelpCommands);
-
-    function showHelpCommands() {
-        // Toggle the display of the command list
-        if (commandList.style.display === "none" || commandList.style.display === "") {
-            commandList.style.display = "block";
-        } else {
-            commandList.style.display = "none";
-        }
-    }
-    
- let isGoogleModeActive = false;
+    let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
     let isListening = false;
-    let isPartyMode = false; // Flag to track party mode
 
-    const colors = [
-        "#FF5733", // Red
-        "#E8AEB7", // Pink
-        "#B8E1FF", // Light Blue
-        "#ffc107", // Yellow
-        "#9AFB85", // Light Green
-    ];
-
-    // Add this function to generate random background colors
-    function generateRandomColor() {
-        const randomIndex = Math.floor(Math.random() * colors.length);
-        return colors[randomIndex];
-    }
-
-    // Add event listener for the user input
-    userInput.addEventListener("keydown", function (e) {
-        if (e.key === "Enter") {
-            const userMessage = userInput.value.trim();
-
-            if (userMessage !== "") {
-                if (userMessage.toLowerCase() === "party") {
-                    isPartyMode = true;
-                    chatBox.style.transition = "background-color 1s"; // Smooth transition
-                    startPartyMode();
-                } else if (userMessage.toLowerCase() === "stop") {
-                    isPartyMode = false;
-                    chatBox.style.transition = "background-color 1s"; // Smooth transition
-                    stopPartyMode();
-                } else {
-                    sendMessage(userMessage);
-                }
-
-                userInput.value = "";
-            }
-        }
+    resetButton.addEventListener("click", function () {
+        // Clear the chat box when the reset button is clicked
+        chatBox.innerHTML = '';
     });
-
-    // Modify the sendMessage function to include message sender
-    function sendMessage(message) {
-        appendMessage("You", message);
-
-        if (isGoogleModeActive) {
-            fetchAnswersFromGoogle(message);
-        } else if (isGpt3ModeActive) {
-            interactWithGPT3(message);
-        } else {
-            const botResponse = chatbotResponse(message);
-            appendMessage("AI Chatbot", botResponse);
-        }
-    }
-
-function startPartyMode() {
-    chatBox.classList.add("party-mode"); // Add the party-mode class
-}
-
-function stopPartyMode() {
-    chatBox.classList.remove("party-mode"); // Remove the party-mode class
-}
-
-    
-
-
-    // Add this to your existing JavaScript code
-const resetButton = document.getElementById("reset-button");
-
-resetButton.addEventListener("click", function () {
-    // Clear the chat box when the reset button is clicked
-    chatBox.innerHTML = '';
-});
 
     // Check if the screen width is greater than 600px (typical phone width)
     const isMouseTrackingEnabled = window.innerWidth > 600;
@@ -186,12 +103,24 @@ resetButton.addEventListener("click", function () {
         }
     }
 
+    function sendMessage() {
+        const userMessage = userInput.value.trim();
 
+        if (userMessage !== "") {
+            appendMessage("You", userMessage);
 
+            if (isGoogleModeActive) {
+                fetchAnswersFromGoogle(userMessage);
+            } else if (isGpt3ModeActive) {
+                interactWithGPT3(userMessage);
+            } else {
+                const botResponse = chatbotResponse(userMessage);
+                appendMessage("AI Chatbot", botResponse);
+            }
 
-
-
-
+            userInput.value = "";
+        }
+    }
 
     function appendMessage(sender, message) {
         const messageDiv = document.createElement("div");
@@ -268,32 +197,21 @@ resetButton.addEventListener("click", function () {
         });
     }
 
-function showHelpCommands() {
-    const helpMessage = document.createElement("div");
-    helpMessage.classList.add("help-message");
-    helpMessage.textContent = "Available commands:\n\n" +
-        "- Type 'help' to display this list of commands.\n" +
-        "- Click 'Google Mode' to enable Google search mode.\n" +
-        "- Click 'GPT-3 Mode' to enable GPT-3 chat mode.\n" +
-        "- Click the microphone button to start/stop voice recognition.\n" +
-        "- Type your questions or messages in the input box and press Enter to send.";
+    // Command to show/hide the command list
+    document.addEventListener("keydown", function (e) {
+        if (e.key.toLowerCase() === "h" && e.ctrlKey) {
+            toggleCommandList();
+        }
+    });
 
-    chatBox.appendChild(helpMessage);
-
-    // Automatically hide the help message after 10-20 seconds
-    setTimeout(function () {
-        chatBox.removeChild(helpMessage);
-    }, Math.floor(Math.random() * 10000) + 10000); // Random timeout between 10-20 seconds
-}
-
-userInput.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-        const userMessage = userInput.value.trim();
-        if (userMessage.toLowerCase() === "help") {
-            showHelpCommands();
+    function toggleCommandList() {
+        if (commandList.style.display === "none" || commandList.style.display === "") {
+            commandList.style.display = "block";
+            setTimeout(() => {
+                commandList.style.display = "none";
+            }, 10000); // Hide after 10 seconds
         } else {
-            sendMessage();
+            commandList.style.display = "none";
         }
     }
-    
 });
