@@ -254,5 +254,32 @@ resetButton.addEventListener("click", function () {
         });
     }
 
+function showHelpCommands() {
+    const helpMessage = document.createElement("div");
+    helpMessage.classList.add("help-message");
+    helpMessage.textContent = "Available commands:\n\n" +
+        "- Type 'help' to display this list of commands.\n" +
+        "- Click 'Google Mode' to enable Google search mode.\n" +
+        "- Click 'GPT-3 Mode' to enable GPT-3 chat mode.\n" +
+        "- Click the microphone button to start/stop voice recognition.\n" +
+        "- Type your questions or messages in the input box and press Enter to send.";
 
+    chatBox.appendChild(helpMessage);
+
+    // Automatically hide the help message after 10-20 seconds
+    setTimeout(function () {
+        chatBox.removeChild(helpMessage);
+    }, Math.floor(Math.random() * 10000) + 10000); // Random timeout between 10-20 seconds
+}
+
+userInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        const userMessage = userInput.value.trim();
+        if (userMessage.toLowerCase() === "help") {
+            showHelpCommands();
+        } else {
+            sendMessage();
+        }
+    }
+    
 });
