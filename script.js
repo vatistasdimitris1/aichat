@@ -11,6 +11,20 @@ document.addEventListener("DOMContentLoaded", function () {
     let isListening = false;
     let isPartyMode = false; // Flag to track party mode
 
+    const helpButton = document.getElementById("help-button");
+    const commandList = document.getElementById("command-list");
+
+    helpButton.addEventListener("click", showHelpCommands);
+
+    function showHelpCommands() {
+        // Toggle the display of the command list
+        if (commandList.style.display === "none" || commandList.style.display === "") {
+            commandList.style.display = "block";
+        } else {
+            commandList.style.display = "none";
+        }
+    }
+    
  let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
     let isListening = false;
