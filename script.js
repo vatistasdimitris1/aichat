@@ -6,9 +6,74 @@ document.addEventListener("DOMContentLoaded", function () {
     const gpt3ModeButton = document.getElementById("gpt3-mode-button");
     const voiceButton = document.getElementById("voice-button");
 
-    let isGoogleModeActive = false;
+       let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
     let isListening = false;
+    let isPartyMode = false; // Flag to track party mode
+
+    const colors = [
+        "#FF5733", // Red
+        "#E8AEB7", // Pink
+        "#B8E1FF", // Light Blue
+        "#ffc107", // Yellow
+        "#9AFB85", // Light Green
+    ];
+
+    // Add this function to generate random background colors
+    function generateRandomColor() {
+        const randomIndex = Math.floor(Math.random() * colors.length);
+        return colors[randomIndex];
+    }
+
+    // Add event listener for the user input
+    userInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            const userMessage = userInput.value.trim();
+
+            if (userMessage !== "") {
+                if (userMessage.toLowerCase() === "party") {
+                    isPartyMode = true;
+                    chatBox.style.transition = "background-color 1s"; // Smooth transition
+                    startPartyMode();
+                } else if (userMessage.toLowerCase() === "stop") {
+                    isPartyMode = false;
+                    chatBox.style.transition = "background-color 1s"; // Smooth transition
+                    stopPartyMode();
+                } else {
+                    sendMessage(userMessage);
+                }
+
+                userInput.value = "";
+            }
+        }
+    });
+
+    // Modify the sendMessage function to include message sender
+    function sendMessage(message) {
+        appendMessage("You", message);
+
+        if (isGoogleModeActive) {
+            fetchAnswersFromGoogle(message);
+        } else if (isGpt3ModeActive) {
+            interactWithGPT3(message);
+        } else {
+            const botResponse = chatbotResponse(message);
+            appendMessage("AI Chatbot", botResponse);
+        }
+    }
+
+    // Add this function to start party mode
+    function startPartyMode() {
+        chatBox.style.backgroundColor = generateRandomColor();
+    }
+
+    // Add this function to stop party mode
+    function stopPartyMode() {
+        chatBox.style.backgroundColor = "#fff"; // Reset to white background
+    }
+
+    
+
 
     // Add this to your existing JavaScript code
 const resetButton = document.getElementById("reset-button");
