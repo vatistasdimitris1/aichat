@@ -24,5 +24,24 @@
     </div> 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
     <script src="script.js"></script> 
+       <script>    // Check if the screen width is greater than 600px (typical phone width)
+    const isMouseTrackingEnabled = window.innerWidth > 600;
+
+    if (isMouseTrackingEnabled) {
+        const circularCursor = document.createElement("div");
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener("mousemove", function (e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            circularCursor.style.left = mouseX + "px";
+            circularCursor.style.top = mouseY + "px";
+        });
+
+        chatBox.appendChild(circularCursor);
+        circularCursor.classList.add("circular-cursor");
+    }</script>   
 </body> 
 </html>
