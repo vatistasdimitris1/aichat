@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
     const chatBox = document.getElementById("chat-box");
     const userInput = document.getElementById("user-input");
@@ -49,6 +50,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     sendButton.addEventListener("click", sendMessage);
 
+    // Add an event listener to the user input for Enter key press
+    userInput.addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
+            sendMessage();
+        }
+    });
+
     function toggleVoiceRecognition() {
         if (isListening) {
             isListening = false;
@@ -61,7 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     voiceButton.addEventListener("click", toggleVoiceRecognition);
-
     let recognition;
 
     function startListening() {
