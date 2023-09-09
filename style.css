@@ -116,4 +116,11 @@ button:hover {
     transform: translate(-50%, -50%);
 }
 
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+    .chat-container {
+        width: 100%;
+        max-width: none;
+    }
+}
 
