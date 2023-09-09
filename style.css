@@ -169,18 +169,29 @@ button:hover {
     background-color: #D0ADA7;
 }
 
-/* Style for the help button */
-#help-button {
-    background-color: #5BC0DE;
-    color: #fff;
-    border: none;
-    padding: 10px 12px;
-    border-radius: 10%;
-    cursor: pointer;
-    margin: 5px;
-    transition: background-color 0.3s;
+
+/* Style for the command list */
+.command-list {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: none; /* Hide it by default */
+    z-index: 1;
 }
 
-#help-button:hover {
-    background-color: #46b8da;
+.command-list h3 {
+    margin-top: 0;
+}
+
+.command-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.command-list ul li {
+    margin-bottom: 5px;
 }
