@@ -25,52 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return colors[randomIndex];
     }
 
-    // Add event listener for the user input
-    userInput.addEventListener("keydown", function (e) {
-        if (e.key === "Enter") {
-            const userMessage = userInput.value.trim();
-
-            if (userMessage !== "") {
-                if (userMessage.toLowerCase() === "party") {
-                    isPartyMode = true;
-                    chatBox.style.transition = "background-color 1s"; // Smooth transition
-                    startPartyMode();
-                } else if (userMessage.toLowerCase() === "stop") {
-                    isPartyMode = false;
-                    chatBox.style.transition = "background-color 1s"; // Smooth transition
-                    stopPartyMode();
-                } else {
-                    sendMessage(userMessage);
-                }
-
-                userInput.value = "";
-            }
-        }
-    });
-
-    // Modify the sendMessage function to include message sender
-    function sendMessage(message) {
-        appendMessage("You", message);
-
-        if (isGoogleModeActive) {
-            fetchAnswersFromGoogle(message);
-        } else if (isGpt3ModeActive) {
-            interactWithGPT3(message);
-        } else {
-            const botResponse = chatbotResponse(message);
-            appendMessage("AI Chatbot", botResponse);
-        }
-    }
-
-    // Add this function to start party mode
-    function startPartyMode() {
-        chatBox.style.backgroundColor = generateRandomColor();
-    }
-
-    // Add this function to stop party mode
-    function stopPartyMode() {
-        chatBox.style.backgroundColor = "#fff"; // Reset to white background
-    }
 
     
 
@@ -169,24 +123,57 @@ resetButton.addEventListener("click", function () {
         }
     }
 
-    function sendMessage() {
-        const userMessage = userInput.value.trim();
 
-        if (userMessage !== "") {
-            appendMessage("You", userMessage);
+    // Add event listener for the user input
+    userInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            const userMessage = userInput.value.trim();
 
-            if (isGoogleModeActive) {
-                fetchAnswersFromGoogle(userMessage);
-            } else if (isGpt3ModeActive) {
-                interactWithGPT3(userMessage);
-            } else {
-                const botResponse = chatbotResponse(userMessage);
-                appendMessage("AI Chatbot", botResponse);
+            if (userMessage !== "") {
+                if (userMessage.toLowerCase() === "party") {
+                    isPartyMode = true;
+                    chatBox.style.transition = "background-color 1s"; // Smooth transition
+                    startPartyMode();
+                } else if (userMessage.toLowerCase() === "stop") {
+                    isPartyMode = false;
+                    chatBox.style.transition = "background-color 1s"; // Smooth transition
+                    stopPartyMode();
+                } else {
+                    sendMessage(userMessage);
+                }
+
+                userInput.value = "";
             }
+        }
+    });
 
-            userInput.value = "";
+    // Modify the sendMessage function to include message sender
+    function sendMessage(message) {
+        appendMessage("You", message);
+
+        if (isGoogleModeActive) {
+            fetchAnswersFromGoogle(message);
+        } else if (isGpt3ModeActive) {
+            interactWithGPT3(message);
+        } else {
+            const botResponse = chatbotResponse(message);
+            appendMessage("AI Chatbot", botResponse);
         }
     }
+
+    // Add this function to start party mode
+    function startPartyMode() {
+        chatBox.style.backgroundColor = generateRandomColor();
+    }
+
+    // Add this function to stop party mode
+    function stopPartyMode() {
+        chatBox.style.backgroundColor = "#fff"; // Reset to white background
+    }
+
+
+
+
 
     function appendMessage(sender, message) {
         const messageDiv = document.createElement("div");
