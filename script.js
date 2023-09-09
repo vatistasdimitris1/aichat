@@ -197,5 +197,17 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             commandList.style.display = "none";
         }
+
+            // Handle the secret button click event
+    secretButton.addEventListener("click", function () {
+        toggleSecretMode();
+    });
+
+    function toggleSecretMode() {
+        isSecretModeActive = !isSecretModeActive;
+        if (isSecretModeActive) {
+            // Perform your secret action here
+            alert("You've activated the secret mode!");
+        }
     }
 });
