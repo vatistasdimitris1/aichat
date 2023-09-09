@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.chat-container {
+    width: 80%; /* Adjust the width for smaller screens */
+    max-width: 500px; /* Limit the maximum width */
+    background-color: #fff;
+    border-radius: 20px; /* Add rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    padding: 15px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.chat-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-radius: 20px 20px 0 0; /* Rounded top corners */
+}
+
+.chat-box {
+    height: 300px;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+.chat-input {
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 5px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button.active {
+    background-color: #ff5733;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Button hover and active animations */
+#google-mode-button:hover {
+    background-color: #DDD78D;
+}
+
+#google-mode-button.active {
+    background-color: #DCBF85;
+}
+
+#gpt3-mode-button:hover {
+    background-color: #E8AEB7;
+}
+
+#gpt3-mode-button.active {
+    background-color: #B8E1FF;
+}
+
+#voice-button:hover {
+    background-color: #ffc107;
+}
+
+#voice-button.active {
+    background-color: #ffdb58;
+}
+
+.circular-cursor {
+    width: 20px;
+    height: 20px;
+    background-color: #007bff;
+    border-radius: 50%;
+    position: absolute;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+    .chat-container {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+/* Style for the reset button */
+#reset-button {
+    background-color: #E8D6CB; /* Red background color */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 12px;
+    border-radius: 10%; /* Make it round */
+    cursor: pointer;
+    margin: 5px; /* Add some spacing around the button */
+}
+
+#reset-button:hover {
+    background-color: #D0ADA7; /* Lighter red on hover */
+}
