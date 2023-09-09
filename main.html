@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="C:\Users\famil\Downloads\mp4-unscreen.gif">
     <title>Chatbot</title>
 </head>
 <body>
@@ -19,21 +19,17 @@
                 <button id="gpt3-mode-button">GPT-3</button>
                 <button id="voice-button">🎙️</button>
                 <button id="reset-button">Reset</button>
-                <button id="help-button">Help</button>
             </div>
         </div>
-    </div>
-    <div class="help-message" id="help-message">
-        <h3>Available Commands:</h3>
-        <ul>
-            <li>Type 'help' to display this list of commands.</li>
-            <li>Click 'Google Mode' to enable Google search mode.</li>
-            <li>Click 'GPT-3 Mode' to enable GPT-3 chat mode.</li>
-            <li>Click the microphone button to start/stop voice recognition.</li>
-            <li>Type your questions or messages in the input box and press Enter to send.</li>
-            <li>Type 'party' to change background color to random colors.</li>
-            <li>Type 'stop' to stop the party mode and revert to the previous background color.</li>
-        </ul>
+        <!-- Command list hidden by default -->
+        <div class="command-list" id="command-list">
+            <h3>Available Commands:</h3>
+            <ul>
+                <li><strong>help</strong> - Display available commands</li>
+                <li><strong>party</strong> - Activate party mode (background color changes)</li>
+                <li><strong>stop</strong> - Stop party mode and revert to normal background</li>
+            </ul>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
