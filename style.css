@@ -9,10 +9,10 @@ body {
 }
 
 .chat-container {
-    width: 80%;
-    max-width: 500px;
+    width: 80%; /* Adjust the width for smaller screens */
+    max-width: 500px; /* Limit the maximum width */
     background-color: #fff;
-    border-radius: 20px;
+    border-radius: 20px; /* Add rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     padding: 15px;
@@ -20,14 +20,8 @@ body {
 }
 
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
 .chat-header {
@@ -35,7 +29,7 @@ body {
     color: #fff;
     padding: 10px;
     text-align: center;
-    border-radius: 20px 20px 0 0;
+    border-radius: 20px 20px 0 0; /* Rounded top corners */
 }
 
 .chat-box {
@@ -46,7 +40,7 @@ body {
 
 .chat-input {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
     justify-content: space-between;
     align-items: center;
     padding: 10px;
@@ -87,6 +81,7 @@ button:hover {
     transform: scale(1.05);
 }
 
+/* Button hover and active animations */
 #google-mode-button:hover {
     background-color: #DDD78D;
 }
@@ -121,54 +116,20 @@ button:hover {
     transform: translate(-50%, -50%);
 }
 
-.help-message {
-    background-color: #f0f0f0;
-    color: #333;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    animation: fadeInOut 0.5s ease-in-out;
-    display: none;
-}
-
-.help-message h3 {
-    margin-top: 0;
-}
-
-.help-message ul {
-    list-style-type: disc;
-    padding-left: 20px;
-}
-
-.help-message li {
-    margin-bottom: 5px;
-}
-
-/* Media query for smaller screens */
-@media (max-width: 600px) {
-    .chat-container {
-        width: 100%;
-        max-width: none;
-    }
-}
-
 /* Style for the reset button */
 #reset-button {
-    background-color: #E8D6CB;
-    color: #fff;
+    background-color: #E8D6CB; /* Red background color */
+    color: #fff; /* White text color */
     border: none;
     padding: 10px 12px;
-    border-radius: 10%;
+    border-radius: 10%; /* Make it round */
     cursor: pointer;
-    margin: 5px;
-    transition: background-color 0.3s;
+    margin: 5px; /* Add some spacing around the button */
 }
 
 #reset-button:hover {
-    background-color: #D0ADA7;
+    background-color: #D0ADA7; /* Lighter red on hover */
 }
-
 
 /* Style for the command list */
 .command-list {
@@ -194,4 +155,12 @@ button:hover {
 
 .command-list ul li {
     margin-bottom: 5px;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+    .chat-container {
+        width: 100%;
+        max-width: none;
+    }
 }
