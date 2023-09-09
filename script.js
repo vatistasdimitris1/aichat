@@ -7,7 +7,28 @@ document.addEventListener("DOMContentLoaded", function () {
     const voiceButton = document.getElementById("voice-button");
     const resetButton = document.getElementById("reset-button");
     const commandList = document.getElementById("command-list");
+ const chatbotButton = document.getElementById("chatbot-button");
+    // Initialize a counter to track the number of clicks on the "Chatbot" text
+    let chatbotClickCount = 0;
 
+    // Handle a click on the "Chatbot" text
+    chatbotButton.addEventListener("click", function () {
+        chatbotClickCount++;
+        
+        if (chatbotClickCount === 3) {
+            // When clicked three times, perform a special action
+            specialAction();
+            chatbotClickCount = 0; // Reset the counter
+        } else {
+            // Send a message when the "Chatbot" text is clicked once or twice
+            sendChatbotMessage();
+        }
+    });
+
+    function specialAction() {
+        // Perform your special action here
+        appendMessage("AI Chatbot", "You found it! Clicked 3 times on the secret button!");
+    }
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
     let isListening = false;
