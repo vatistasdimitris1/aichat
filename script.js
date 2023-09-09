@@ -10,6 +10,14 @@ document.addEventListener("DOMContentLoaded", function () {
     let isGpt3ModeActive = false;
     let isListening = false;
 
+    // Add this to your existing JavaScript code
+const resetButton = document.getElementById("reset-button");
+
+resetButton.addEventListener("click", function () {
+    // Clear the chat box when the reset button is clicked
+    chatBox.innerHTML = '';
+});
+
     // Check if the screen width is greater than 600px (typical phone width)
     const isMouseTrackingEnabled = window.innerWidth > 600;
 
