@@ -51,8 +51,4 @@ h1 {
     transform: translate(-50%, -50%);
 }
 
-.logo {
-    width: 100px; /* Adjust the width as needed */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 20px; /* Optional margin below the logo */
-}
+
