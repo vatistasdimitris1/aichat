@@ -165,3 +165,30 @@ button:hover {
         background-color: #FF5733; /* Red */
     }
 }
+
+/* Style for the help message */
+.help-message {
+    background-color: #f0f0f0; /* Light gray background color */
+    color: #333; /* Dark gray text color */
+    border: 1px solid #ccc; /* Gray border */
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    animation: fadeInOut 0.5s ease-in-out; /* Add a fade-in/fade-out animation */
+}
+
+/* Keyframes for the fadeInOut animation */
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
