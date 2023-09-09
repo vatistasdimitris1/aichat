@@ -214,4 +214,11 @@ document.addEventListener("DOMContentLoaded", function () {
             commandList.style.display = "none";
         }
     }
+
+// Add this event listener to the user input field
+userInput.addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+    
 });
