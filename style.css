@@ -120,3 +120,19 @@ button:hover {
         flex-direction: column; /* Stack buttons vertically on smaller screens */
     }
 }
+
+/* Button hover and active animations */
+#generate-image-button:hover {
+    background-color: #ffc107;
+    transform: scale(1.1);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#generate-image-button.active {
+    background-color: #ffdb58;
+    transform: scale(1.1);
+}
+
+button:hover {
+    background-color: #0056b3;
+}
