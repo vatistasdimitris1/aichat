@@ -8,12 +8,11 @@ body {
     height: 100vh;
 }
 
-
 .chat-container {
-    width: 80%; /* Adjust the width for smaller screens */
-    max-width: 500px; /* Limit the maximum width */
+    width: 80%;
+    max-width: 500px;
     background-color: #fff;
-    border-radius: 20px; /* Add rounded corners */
+    border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     padding: 15px;
@@ -21,8 +20,14 @@ body {
 }
 
 @keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(-20px); }
-    100% { opacity: 1; transform: translateY(0); }
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .chat-header {
@@ -30,7 +35,7 @@ body {
     color: #fff;
     padding: 10px;
     text-align: center;
-    border-radius: 20px 20px 0 0; /* Rounded top corners */
+    border-radius: 20px 20px 0 0;
 }
 
 .chat-box {
@@ -41,7 +46,7 @@ body {
 
 .chat-input {
     display: flex;
-    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
@@ -82,7 +87,6 @@ button:hover {
     transform: scale(1.05);
 }
 
-/* Button hover and active animations */
 #google-mode-button:hover {
     background-color: #DDD78D;
 }
@@ -117,6 +121,30 @@ button:hover {
     transform: translate(-50%, -50%);
 }
 
+.help-message {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    animation: fadeInOut 0.5s ease-in-out;
+    display: none;
+}
+
+.help-message h3 {
+    margin-top: 0;
+}
+
+.help-message ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.help-message li {
+    margin-bottom: 5px;
+}
+
 /* Media query for smaller screens */
 @media (max-width: 600px) {
     .chat-container {
@@ -127,68 +155,32 @@ button:hover {
 
 /* Style for the reset button */
 #reset-button {
-    background-color: #E8D6CB; /* Red background color */
-    color: #fff; /* White text color */
+    background-color: #E8D6CB;
+    color: #fff;
     border: none;
     padding: 10px 12px;
-    border-radius: 10%; /* Make it round */
+    border-radius: 10%;
     cursor: pointer;
-    margin: 5px; /* Add some spacing around the button */
+    margin: 5px;
+    transition: background-color 0.3s;
 }
 
 #reset-button:hover {
-    background-color: #D0ADA7; /* Lighter red on hover */
+    background-color: #D0ADA7;
 }
 
-/* Add this CSS for the chat background color animation */
-.chat-box.party-mode {
-    animation: party-background 1s infinite;
+/* Style for the help button */
+#help-button {
+    background-color: #5BC0DE;
+    color: #fff;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 10%;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s;
 }
 
-@keyframes party-background {
-    0% {
-        background-color: #FF5733; /* Red */
-    }
-    20% {
-        background-color: #E8AEB7; /* Pink */
-    }
-    40% {
-        background-color: #B8E1FF; /* Light Blue */
-    }
-    60% {
-        background-color: #ffc107; /* Yellow */
-    }
-    80% {
-        background-color: #9AFB85; /* Light Green */
-    }
-    100% {
-        background-color: #FF5733; /* Red */
-    }
-}
-
-/* Style for the help message */
-.help-message {
-    background-color: #f0f0f0; /* Light gray background color */
-    color: #333; /* Dark gray text color */
-    border: 1px solid #ccc; /* Gray border */
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    animation: fadeInOut 0.5s ease-in-out; /* Add a fade-in/fade-out animation */
-}
-
-/* Keyframes for the fadeInOut animation */
-@keyframes fadeInOut {
-    0% {
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
+#help-button:hover {
+    background-color: #46b8da;
 }
