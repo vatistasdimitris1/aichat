@@ -164,32 +164,3 @@ button:hover {
         max-width: none;
     }
 }
-
-/* Header animation on hover */
-#chat-header:hover {
-    animation: colorChange 1s infinite alternate;
-    cursor: pointer;
-}
-
-@keyframes colorChange {
-    0% { color: #007bff; }
-    100% { color: #ff5733; }
-}
-
-
-/* Add this style within your CSS */
-.secret-command-container {
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* Header animation on hover */
-.chat-header:hover {
-    animation: colorChange 1s infinite alternate;
-    cursor: pointer;
-}
-
-@keyframes colorChange {
-    0% { color: #007bff; }
-    100% { color: #ff5733; }
-}
