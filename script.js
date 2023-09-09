@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const voiceButton = document.getElementById("voice-button");
     const resetButton = document.getElementById("reset-button");
     const commandList = document.getElementById("command-list");
-
+    const chatHeader = document.getElementById("chat-header");
+    
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
     let isListening = false;
@@ -17,6 +18,18 @@ document.addEventListener("DOMContentLoaded", function () {
         chatBox.innerHTML = '';
     });
 
+     // Add a click event to the chat header
+    chatHeader.addEventListener("click", function () {
+        const secretMessages = [
+            "You've found a secret message!",
+            "Congratulations, you're a curious one!",
+            "Keep clicking to discover more secrets!",
+        ];
+
+        // Display a random secret message in the chat box
+        const randomIndex = Math.floor(Math.random() * secretMessages.length);
+        appendMessage("Secret", secretMessages[randomIndex]);
+    });
     
 // Add this event listener to the user input field
 userInput.addEventListener("keyup", function (event) {
