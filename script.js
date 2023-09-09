@@ -9,36 +9,35 @@ document.addEventListener("DOMContentLoaded", function () {
     const generateImageFromPromptButton = document.getElementById("generate-image-from-prompt-button");
 
     // Function to generate an image from a user prompt
-    function generateImageFromPrompt() {
-        // Clear the chat box
-        chatBox.innerHTML = '';
+function generateImageFromPrompt() {
+    // Clear the chat box
+    chatBox.innerHTML = '';
 
-        // Get the user's input prompt
-        const userPrompt = userInput.value.trim();
+    // Get the user's input prompt
+    const userPrompt = userInput.value.trim();
 
-        if (userPrompt !== '') {
-            // Use Lorem Picsum API to generate an image from the prompt
-            const apiUrl = `https://picsum.photos/400/300?random=${Math.random()}&txt=${encodeURIComponent(userPrompt)}`;
+    if (userPrompt !== '') {
+        // Use Lorem Picsum API to generate an image from the prompt
+        const apiUrl = `https://picsum.photos/400/300/?random=${Math.random()}&txt=${encodeURIComponent(userPrompt)}`;
 
-            // Create an image element and set its attributes
-            const imageElement = document.createElement('img');
-            imageElement.src = apiUrl;
-            imageElement.alt = 'Generated Image';
+        // Create an image element and set its attributes
+        const imageElement = document.createElement('img');
+        imageElement.src = apiUrl;
+        imageElement.alt = 'Generated Image';
 
-            // Append the image to the chat box
-            chatBox.appendChild(imageElement);
+        // Append the image to the chat box
+        chatBox.appendChild(imageElement);
 
-            // Scroll to the bottom to show the new image
-            chatBox.scrollTop = chatBox.scrollHeight;
+        // Scroll to the bottom to show the new image
+        chatBox.scrollTop = chatBox.scrollHeight;
 
-            // Clear the user input
-            userInput.value = '';
-        }
+        // Clear the user input
+        userInput.value = '';
     }
+}
 
-    // Attach the generateImageFromPrompt function to the "Generate Image from Prompt" button click event
-    generateImageFromPromptButton.addEventListener("click", generateImageFromPrompt);
-
+// Attach the generateImageFromPrompt function to the "Generate Image from Prompt" button click event
+generateImageFromPromptButt
 
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
