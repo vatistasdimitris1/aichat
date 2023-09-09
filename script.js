@@ -5,38 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const googleModeButton = document.getElementById("google-mode-button");
     const gpt3ModeButton = document.getElementById("gpt3-mode-button");
     const voiceButton = document.getElementById("voice-button");
-    const generateImageButton = document.getElementById("generate-image-button");
-    const generateImageFromPromptButton = document.getElementById("generate-image-from-prompt-button");
-
-   function generateImageFromPrompt() {
-    // Clear the chat box
-    chatBox.innerHTML = '';
-
-    // Get the user's input prompt
-    const userPrompt = userInput.value.trim();
-
-    if (userPrompt !== '') {
-        // Replace this with the correct API endpoint and parameters
-        const apiUrl = `https://your-image-generation-api.com/generate?prompt=${encodeURIComponent(userPrompt)}`;
-
-        // Create an image element and set its attributes
-        const imageElement = document.createElement('img');
-        imageElement.src = apiUrl;
-        imageElement.alt = 'Generated Image';
-
-        // Append the image to the chat box
-        chatBox.appendChild(imageElement);
-
-        // Scroll to the bottom to show the new image
-        chatBox.scrollTop = chatBox.scrollHeight;
-
-        // Clear the user input
-        userInput.value = '';
-    }
-}
-
-// Attach the generateImageFromPrompt function to the "Generate Image from Prompt" button click event
-generateImageFromPromptButt
 
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
@@ -56,7 +24,6 @@ generateImageFromPromptButt
             recognition.start();
         }
     }
-
 
     // Check if the screen width is greater than 600px (typical phone width)
     const isMouseTrackingEnabled = window.innerWidth > 600;
@@ -125,7 +92,7 @@ generateImageFromPromptButt
         }
     });
 
-   function sendMessage() {
+    function sendMessage() {
         const userMessage = userInput.value.trim();
 
         if (userMessage !== "") {
@@ -255,6 +222,4 @@ generateImageFromPromptButt
             appendMessage("AI Chatbot", command);
         });
     }
-
-
 });
