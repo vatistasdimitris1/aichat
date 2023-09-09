@@ -51,4 +51,30 @@ h1 {
     transform: translate(-50%, -50%);
 }
 
+/* Style for the button container */
+.google-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #4285F4;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Style for the Google icon */
+.google-button i {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+/* Hover effect */
+.google-button:hover {
+  background-color: #357AE8;
+}
+In this CSS code, we've styled the button container with some padding, background color, and a hover effect. We've also styled the Google icon with a font size and margin.
+
+Now, when you use the HTML button with the google-button class, it will have the Google icon and the specified styles. Make sure to adjust the styles to match your overall design preferences.
 
