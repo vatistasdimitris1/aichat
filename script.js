@@ -17,6 +17,12 @@ document.addEventListener("DOMContentLoaded", function () {
         chatBox.innerHTML = '';
     });
 
+    
+// Add this event listener to the user input field
+userInput.addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
     // Check if the screen width is greater than 600px (typical phone width)
     const isMouseTrackingEnabled = window.innerWidth > 600;
 
@@ -215,10 +221,5 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-// Add this event listener to the user input field
-userInput.addEventListener("keyup", function (event) {
-    if (event.key === "Enter") {
-        sendMessage();
-    }
     
 });
