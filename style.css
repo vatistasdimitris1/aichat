@@ -139,3 +139,29 @@ button:hover {
 #reset-button:hover {
     background-color: #D0ADA7; /* Lighter red on hover */
 }
+
+/* Add this CSS for the chat background color animation */
+.chat-box.party-mode {
+    animation: party-background 1s infinite;
+}
+
+@keyframes party-background {
+    0% {
+        background-color: #FF5733; /* Red */
+    }
+    20% {
+        background-color: #E8AEB7; /* Pink */
+    }
+    40% {
+        background-color: #B8E1FF; /* Light Blue */
+    }
+    60% {
+        background-color: #ffc107; /* Yellow */
+    }
+    80% {
+        background-color: #9AFB85; /* Light Green */
+    }
+    100% {
+        background-color: #FF5733; /* Red */
+    }
+}
