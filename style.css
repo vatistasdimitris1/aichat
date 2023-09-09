@@ -124,3 +124,17 @@ button:hover {
     }
 }
 
+/* Style for the reset button */
+#reset-button {
+    background-color: #f44336; /* Red background color */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 12px;
+    border-radius: 50%; /* Make it round */
+    cursor: pointer;
+    margin: 5px; /* Add some spacing around the button */
+}
+
+#reset-button:hover {
+    background-color: #ff5733; /* Lighter red on hover */
+}
