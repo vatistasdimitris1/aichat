@@ -16,29 +16,8 @@
         <h1>Welcome to AI Chatbot</h1>
         <div class="buttons">
             <a href="main.html" class="guest-button">Guest</a>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-<button class="google-button">
-  <i class="fab fa-google"></i> Sign in with Google
-</button>
         </div>
     </div>
       <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script>
-  function onSignIn(googleUser) {
-    // Handle the signed-in user's information here
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // User ID
-    console.log('Name: ' + profile.getName()); // User's name
-    console.log('Email: ' + profile.getEmail()); // User's email
-    // Add your own logic for handling the signed-in user
-  }
-</script>
-<script>
-  gapi.load('auth2', function() {
-    gapi.auth2.init({
-      client_id: '279266479625-65u6pmgm4ujo90p344idtkd8pcn1lm4d.apps.googleusercontent.com',
-    });
-  });
-</script>
 </body>
 </html>
