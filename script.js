@@ -67,15 +67,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Add this function to start party mode
-    function startPartyMode() {
-        chatBox.style.backgroundColor = generateRandomColor();
-    }
+function startPartyMode() {
+    chatBox.classList.add("party-mode"); // Add the party-mode class
+}
 
-    // Add this function to stop party mode
-    function stopPartyMode() {
-        chatBox.style.backgroundColor = "#fff"; // Reset to white background
-    }
+function stopPartyMode() {
+    chatBox.classList.remove("party-mode"); // Remove the party-mode class
+}
 
     
 
