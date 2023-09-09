@@ -8,8 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const generateImageButton = document.getElementById("generate-image-button");
     const generateImageFromPromptButton = document.getElementById("generate-image-from-prompt-button");
 
-    // Function to generate an image from a user prompt
-function generateImageFromPrompt() {
+   function generateImageFromPrompt() {
     // Clear the chat box
     chatBox.innerHTML = '';
 
@@ -17,8 +16,8 @@ function generateImageFromPrompt() {
     const userPrompt = userInput.value.trim();
 
     if (userPrompt !== '') {
-        // Use Lorem Picsum API to generate an image from the prompt
-        const apiUrl = `https://picsum.photos/400/300/?random=${Math.random()}&txt=${encodeURIComponent(userPrompt)}`;
+        // Replace this with the correct API endpoint and parameters
+        const apiUrl = `https://your-image-generation-api.com/generate?prompt=${encodeURIComponent(userPrompt)}`;
 
         // Create an image element and set its attributes
         const imageElement = document.createElement('img');
