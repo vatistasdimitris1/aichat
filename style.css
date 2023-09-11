@@ -207,7 +207,7 @@ button:hover {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #007bff;
+    background-color: #f7f7f7;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -218,6 +218,6 @@ button:hover {
 }
 
 #secret-button:hover {
-    background-color: #0056b3;
+    background-color: #f7f7f7;
     transform: scale(1.05);
 }
