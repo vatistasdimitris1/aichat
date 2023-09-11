@@ -103,11 +103,11 @@ button {
 }
 
 .google-button:hover {
-    background-color: #3572DB; /* Darker blue on hover */
+    background-color: #88b0f5; /* Darker blue on hover */
 }
 
 .google-button.active {
-    background-color: #2A56C6; /* Even darker blue on active */
+    background-color: #2ab1c6; /* Even darker blue on active */
 }
 
 /* GPT-3 Mode Button */
@@ -117,16 +117,16 @@ button {
 }
 
 .gpt3-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #00b3aa; /* Darker blue on hover */
 }
 
 .gpt3-button.active {
-    background-color: #004599; /* Even darker blue on active */
+    background-color: #009982; /* Even darker blue on active */
 }
 
 /* Voice Button */
 .voice-button {
-    background-color: #ffc107; /* Yellow color */
+    background-color: #076eff; /* Yellow color */
     transition: background-color 0.3s; /* Add transition for color change */
 }
 
@@ -135,7 +135,7 @@ button {
 }
 
 .voice-button.active {
-    background-color: #d28c07; /* Even darker yellow on active */
+    background-color: #eeff00; /* Even darker yellow on active */
 }
 
 .circular-cursor {
