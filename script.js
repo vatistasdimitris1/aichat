@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
     const chatBox = document.getElementById("chat-box");
     const userInput = document.getElementById("user-input");
@@ -6,9 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const googleModeButton = document.getElementById("google-mode-button");
     const gpt3ModeButton = document.getElementById("gpt3-mode-button");
     const voiceButton = document.getElementById("voice-button");
-    const resetButton = document.getElementById("reset-button");
-    const commandList = document.getElementById("command-list");
-    
+
+    let isGoogleModeActive = false;
+    let isGpt3ModeActive = false;
+    let isListening = false;
+
     // Get references to the circular cursor and buttons
     const circularCursor = document.querySelector(".circular-cursor");
     const buttons = document.querySelectorAll("button");
@@ -40,21 +41,13 @@ document.addEventListener("DOMContentLoaded", function () {
         location.reload();
     });
 
+    // Add this to your existing JavaScript code
+const resetButton = document.getElementById("reset-button");
 
-
-        // Get a reference to the logo element
-        const logo = document.getElementById("logo");
-
-        // Add a click event listener to the logo
-        logo.addEventListener("click", function () {
-            // Reload the page
-            location.reload();
-        });
-        
-    resetButton.addEventListener("click", function () {
-        // Clear the chat box when the reset button is clicked
-        chatBox.innerHTML = '';
-    });
+resetButton.addEventListener("click", function () {
+    // Clear the chat box when the reset button is clicked
+    chatBox.innerHTML = '';
+});
 
     // Check if the screen width is greater than 600px (typical phone width)
     const isMouseTrackingEnabled = window.innerWidth > 600;
@@ -88,13 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     sendButton.addEventListener("click", sendMessage);
 
-    // Add an event listener to the user input for Enter key press
-    userInput.addEventListener("keyup", function (event) {
-        if (event.key === "Enter") {
-            sendMessage();
-        }
-    });
-
     function toggleVoiceRecognition() {
         if (isListening) {
             isListening = false;
@@ -107,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     voiceButton.addEventListener("click", toggleVoiceRecognition);
+
     let recognition;
 
     function startListening() {
@@ -225,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         axios.post('https://api.openai.com/v1/engines/davinci/completions', {
             prompt: userMessage,
-            max_tokens: 1000,
+            max_tokens: 50,
         }, {
             headers: {
                 'Content-Type': 'application/json',
@@ -242,21 +229,5 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Command to show/hide the command list
-    document.addEventListener("keydown", function (e) {
-        if (e.key.toLowerCase() === "h" && e.ctrlKey) {
-            toggleCommandList();
-        }
-    });
 
-    function toggleCommandList() {
-        if (commandList.style.display === "none" || commandList.style.display === "") {
-            commandList.style.display = "block";
-            setTimeout(() => {
-                commandList.style.display = "none";
-            }, 10000); // Hide after 10 seconds
-        } else {
-            commandList.style.display = "none";
-        }
-    }
 });
