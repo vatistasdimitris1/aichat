@@ -69,15 +69,7 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
-}
-
-button.active {
-    background-color: #ff5733;
-}
-
-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
+ransform: scale(1.05);
 }
 
 /* Add other styles for buttons here */
@@ -117,76 +109,86 @@ button:hover {
 
 /* ... (Your existing CSS) */
 
-/* Add color animations and hover effects for buttons */
-#google-mode-button {
-    background-color: #007bff;
-    color: #fff;
-    transition: background-color 0.3s, transform 0.3s, color 0.3s;
+/* Style for the button container */
+.google-button,
+.gpt3-button,
+.voice-button,
+.reset-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px; /* Adjust padding for smaller buttons */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px; /* Adjust font size for smaller buttons */
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-#google-mode-button:hover {
-    background-color: #0056b3;
+/* Google Mode Button */
+.google-button {
+    background-color: #4285F4; /* Blue color */
+    color: #ffffff; /* White text color */
+}
+
+.google-button:hover {
+    background-color: #3572DB; /* Darker blue on hover */
     transform: scale(1.05);
 }
 
-#google-mode-button:active {
-    background-color: #004599; /* Darker blue on active */
-    transform: scale(0.95); /* Slightly scale down on active */
+.google-button:active {
+    background-color: #2A56C6; /* Even darker blue on active */
+    transform: scale(0.95);
 }
 
-#gpt3-mode-button {
-    background-color: #007bff;
-    color: #fff;
-    transition: background-color 0.3s, transform 0.3s, color 0.3s;
+/* GPT-3 Mode Button */
+.gpt3-button {
+    background-color: #007bff; /* Blue color */
+    color: #fff; /* White text color */
 }
 
-#gpt3-mode-button:hover {
-    background-color: #0056b3;
+.gpt3-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
     transform: scale(1.05);
 }
 
-#gpt3-mode-button:active {
-    background-color: #004599; /* Darker blue on active */
-    transform: scale(0.95); /* Slightly scale down on active */
+.gpt3-button:active {
+    background-color: #004599; /* Even darker blue on active */
+    transform: scale(0.95);
 }
 
-#voice-button {
-    background-color: #007bff;
-    color: #fff;
-    transition: background-color 0.3s, transform 0.3s, color 0.3s;
+/* Voice Button */
+.voice-button {
+    background-color: #ffc107; /* Yellow color */
+    color: #000; /* Black text color */
 }
 
-#voice-button:hover {
-    background-color: #ffc107;
+.voice-button:hover {
+    background-color: #e69806; /* Darker yellow on hover */
     transform: scale(1.05);
 }
 
-#voice-button:active {
-    background-color: #e69806; /* Darker yellow on active */
-    transform: scale(0.95); /* Slightly scale down on active */
+.voice-button:active {
+    background-color: #d28c07; /* Even darker yellow on active */
+    transform: scale(0.95);
 }
 
-#reset-button {
+/* Reset Button */
+.reset-button {
     background-color: #E8D6CB; /* Red background color */
     color: #fff; /* White text color */
-    border: none;
-    padding: 10px 12px;
     border-radius: 10%; /* Make it round */
-    cursor: pointer;
-    margin: 5px; /* Add some spacing around the button */
-    transition: background-color 0.3s, transform 0.3s, color 0.3s;
+    padding: 8px 12px; /* Adjust padding for smaller buttons */
 }
 
-#reset-button:hover {
+.reset-button:hover {
     background-color: #D0ADA7; /* Lighter red on hover */
     transform: scale(1.05);
-    color: #fff; /* Change text color on hover */
 }
 
-#reset-button:active {
+.reset-button:active {
     background-color: #c58d81; /* Darker red on active */
-    transform: scale(0.95); /* Slightly scale down on active */
-    color: #fff; /* Change text color on active */
+    transform: scale(0.95);
 }
 
 /* ... (Rest of your CSS) */
