@@ -24,30 +24,49 @@ body {
     100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Add animation for the logo */
+
+/* Animation for showing the logo */
 .chat-header:hover::after {
     content: ""; /* Add an empty content pseudo-element */
-    background-image: url("logo.png"); /* Replace "your_logo.png" with the actual path to your logo image */
-    background-size: cover;
+    background-image: url("your_logo.png"); /* Replace "your_logo.png" with the actual path to your logo image */
+    background-size: contain; /* Adjust the background size as needed */
     width: 100px; /* Adjust the width of the logo */
     height: 100px; /* Adjust the height of the logo */
     position: absolute;
-    top: 10px; /* Adjust the top position as needed */
-    right: 10px; /* Adjust the right position as needed */
+    top: 50%; /* Center the logo vertically */
+    left: 50%; /* Center the logo horizontally */
+    transform: translate(-50%, -50%) scale(0); /* Initial position and scale */
     opacity: 0;
-    animation: showLogo 10s linear forwards; /* 10 seconds animation duration */
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; /* Transition for smooth animation */
 }
 
-@keyframes showLogo {
-    0% {
-        opacity: 0;
-        transform: scale(0);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+/* On hover, scale and fade in the logo */
+.chat-header:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
 }
+
+/* Animation for showing the logo */
+.chat-header:hover::after {
+    content: ""; /* Add an empty content pseudo-element */
+    background-image: url("your_logo.png"); /* Replace "your_logo.png" with the actual path to your logo image */
+    background-size: contain; /* Adjust the background size as needed */
+    width: 100px; /* Adjust the width of the logo */
+    height: 100px; /* Adjust the height of the logo */
+    position: absolute;
+    top: 50%; /* Center the logo vertically */
+    left: 50%; /* Center the logo horizontally */
+    transform: translate(-50%, -50%) scale(0); /* Initial position and scale */
+    opacity: 0;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; /* Transition for smooth animation */
+}
+
+/* On hover, scale and fade in the logo */
+.chat-header:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
 
 
 .chat-box {
