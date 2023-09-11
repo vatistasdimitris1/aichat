@@ -34,34 +34,35 @@ document.addEventListener("DOMContentLoaded", function () {
     sendButton.addEventListener("click", sendMessage);
     voiceButton.addEventListener("click", toggleVoiceRecognition);
 
-    const recognition = new webkitSpeechRecognition();
     let isListening = false;
+    let recognition;
 
-    recognition.continuous = true;
-    recognition.interimResults = true;
-    recognition.lang = "en-US";
+    function initSpeechRecognition() {
+        if ("webkitSpeechRecognition" in window) {
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = "en-US";
 
-    recognition.onstart = function () {
-        isListening = true;
-        voiceButton.textContent = "🔴"; // Change button text to indicate listening
-    };
+            recognition.onstart = function () {
+                isListening = true;
+                voiceButton.textContent = "🔴"; // Change button text to indicate listening
+            };
 
-    recognition.onend = function () {
-        isListening = false;
-        voiceButton.textContent = "🎙️"; // Change button text back to microphone icon
-    };
+            recognition.onend = function () {
+                isListening = false;
+                voiceButton.textContent = "🎙️"; // Change button text back to microphone icon
+            };
 
-    recognition.onresult = function (event) {
-        const result = event.results[event.results.length - 1][0].transcript;
-        userInput.value = result;
-        sendMessage();
-    };
-
-    userInput.addEventListener("keydown", function (e) {
-        if (e.key === "Enter") {
-            sendMessage();
+            recognition.onresult = function (event) {
+                const result = event.results[event.results.length - 1][0].transcript;
+                userInput.value = result;
+                sendMessage();
+            };
+        } else {
+            console.error("Speech recognition not supported in this browser.");
         }
-    });
+    }
 
     function toggleGoogleMode() {
         isGoogleModeActive = !isGoogleModeActive;
@@ -74,11 +75,38 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function toggleVoiceRecognition() {
-        if (isListening) {
-            recognition.stop();
+        if (!isListening) {
+            if (!recognition) {
+                initSpeechRecognition();
+            }
+            requestMicrophonePermission()
+                .then(function (permissionGranted) {
+                    if (permissionGranted) {
+                        recognition.start();
+                    } else {
+                        console.error("Microphone permission denied.");
+                    }
+                })
+                .catch(function (error) {
+                    console.error("Error requesting microphone permission:", error);
+                });
         } else {
-            recognition.start();
+            recognition.stop();
         }
+    }
+
+    function requestMicrophonePermission() {
+        return new Promise(function (resolve, reject) {
+            navigator.mediaDevices
+                .getUserMedia({ audio: true })
+                .then(function (stream) {
+                    stream.getTracks().forEach((track) => track.stop());
+                    resolve(true);
+                })
+                .catch(function (error) {
+                    resolve(false);
+                });
+        });
     }
 
     function sendMessage() {
@@ -201,4 +229,6 @@ document.addEventListener("DOMContentLoaded", function () {
             appendMessage("AI Chatbot", command);
         });
     }
+
+    initSpeechRecognition();
 });
