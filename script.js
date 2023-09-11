@@ -13,6 +13,15 @@ document.addEventListener("DOMContentLoaded", function () {
     let isGpt3ModeActive = false;
     let isListening = false;
     
+        // Get a reference to the logo element
+        const logo = document.getElementById("logo");
+
+        // Add a click event listener to the logo
+        logo.addEventListener("click", function () {
+            // Reload the page
+            location.reload();
+        });
+        
     resetButton.addEventListener("click", function () {
         // Clear the chat box when the reset button is clicked
         chatBox.innerHTML = '';
