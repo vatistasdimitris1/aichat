@@ -24,13 +24,31 @@ body {
     100% { opacity: 1; transform: translateY(0); }
 }
 
-.chat-header {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-    border-radius: 20px 20px 0 0; /* Rounded top corners */
+/* Add animation for the logo */
+.chat-header:hover::after {
+    content: ""; /* Add an empty content pseudo-element */
+    background-image: url("logo.png"); /* Replace "your_logo.png" with the actual path to your logo image */
+    background-size: cover;
+    width: 100px; /* Adjust the width of the logo */
+    height: 100px; /* Adjust the height of the logo */
+    position: absolute;
+    top: 10px; /* Adjust the top position as needed */
+    right: 10px; /* Adjust the right position as needed */
+    opacity: 0;
+    animation: showLogo 10s linear forwards; /* 10 seconds animation duration */
 }
+
+@keyframes showLogo {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 
 .chat-box {
     height: 300px;
@@ -165,27 +183,3 @@ button:hover {
     }
 }
 
-/* Add animation for the logo */
-.chat-header:hover::after {
-    content: ""; /* Add an empty content pseudo-element */
-    background-image: url("logo.png"); /* Replace "your_logo.png" with the actual path to your logo image */
-    background-size: cover;
-    width: 100px; /* Adjust the width of the logo */
-    height: 100px; /* Adjust the height of the logo */
-    position: absolute;
-    top: 10px; /* Adjust the top position as needed */
-    right: 10px; /* Adjust the right position as needed */
-    opacity: 0;
-    animation: showLogo 10s linear forwards; /* 10 seconds animation duration */
-}
-
-@keyframes showLogo {
-    0% {
-        opacity: 0;
-        transform: scale(0);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
