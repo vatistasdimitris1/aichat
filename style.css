@@ -94,10 +94,7 @@ button {
     font-size: 14px; /* Smaller font size */
 }
 
-/* Active button styles */
-button.active {
-    background-color: #ff5733;
-}
+
 
 /* Google Mode Button */
 .google-button {
