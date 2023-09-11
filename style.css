@@ -1,5 +1,3 @@
-/* CSS for Improved AI-themed Chatbot Design */
-
 /* Reset default margins and padding */
 * {
     margin: 0;
@@ -9,7 +7,7 @@
 
 /* Body styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #f7f7f7;
     margin: 0;
     display: flex;
@@ -31,15 +29,22 @@ body {
 }
 
 @keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(-20px); }
-    100% { opacity: 1; transform: translateY(0); }
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* Chat header styles with AI theme */
+/* Chat header styles */
 .chat-header {
-    background-color: #1e6eff; /* Deep blue color for AI theme */
+    background-color: #007bff;
     color: #fff;
-    padding: 15px;
+    padding: 10px;
     text-align: center;
     border-radius: 20px 20px 0 0;
 }
@@ -48,7 +53,7 @@ body {
 .chat-box {
     height: 300px;
     overflow-y: scroll;
-    padding: 15px; /* Increased padding for better readability */
+    padding: 10px;
 }
 
 /* Chat input styles */
@@ -57,56 +62,62 @@ body {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    padding: 15px; /* Increased padding for better spacing */
+    padding: 10px;
     border-top: 1px solid #ccc;
 }
 
 /* Input text styles */
 input[type="text"] {
     flex: 1;
-    padding: 12px; /* Increased padding for better user experience */
+    padding: 8px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 3px;
     margin: 5px;
     transition: border-color 0.3s;
-    font-size: 16px; /* Increased font size for better readability */
 }
 
 input[type="text"]:focus {
     outline: none;
-    border-color: #1e6eff; /* Matching the header color */
+    border-color: #007bff;
 }
 
-/* Button styles with AI theme */
+/* Button styles */
 button {
-    background-color: #1e6eff; /* Deep blue color for AI theme */
+    background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 12px 20px; /* Increased padding for better aesthetics */
-    border-radius: 5px;
+    padding: 10px 12px;
+    border-radius: 3px;
     cursor: pointer;
     margin: 5px;
     transition: background-color 0.3s, transform 0.3s;
-    font-size: 16px; /* Increased font size for better readability */
 }
 
-/* Button hover styles */
-button:hover {
-    background-color: #0052cc; /* Darker blue on hover */
-    transform: scale(1.05);
+/* Active button styles */
+button.active {
+    background-color: #ff5733;
 }
 
-/* Button active styles */
-button:active {
-    background-color: #003eaa; /* Even darker blue on active */
-    transform: scale(0.95);
+/* Button hover and active animations */
+#google-mode-button:hover,
+#google-mode-button.active {
+    background-color: #DDD78D;
 }
 
-/* Circular cursor for AI theme */
+#gpt3-mode-button:hover,
+#gpt3-mode-button.active {
+    background-color: #E8AEB7;
+}
+
+#voice-button:hover,
+#voice-button.active {
+    background-color: #ffc107;
+}
+
 .circular-cursor {
     width: 20px;
     height: 20px;
-    background-color: #1e6eff; /* Deep blue color for AI theme */
+    background-color: #007bff;
     border-radius: 50%;
     position: absolute;
     pointer-events: none;
@@ -121,20 +132,19 @@ button:active {
     }
 }
 
-/* Style for the reset button */
+/* Reset button styles */
 #reset-button {
-    background-color: #ff4d4d; /* Red background color for AI theme */
+    background-color: #E8D6CB;
     color: #fff;
     border: none;
-    padding: 12px 20px; /* Increased padding for better aesthetics */
+    padding: 10px 12px;
     border-radius: 10%;
     cursor: pointer;
     margin: 5px;
-    font-size: 16px; /* Increased font size for better readability */
 }
 
 /* Reset button hover styles */
 #reset-button:hover {
-    background-color: #ff0000; /* Darker red on hover */
+    background-color: #D0ADA7;
     transform: scale(1.05);
 }
