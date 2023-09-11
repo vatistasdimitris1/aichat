@@ -90,9 +90,16 @@ button {
     border-radius: 3px;
     cursor: pointer;
     margin: 5px;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s, transform 0.3s, width 0.3s, height 0.3s; /* Add transition for color, transform, width, and height */
     font-size: 14px; /* Smaller font size */
 }
+
+/* Button hover styles */
+button:hover {
+    background-color: #0077cc; /* Slightly darker blue on hover */
+    transform: scale(1.05); /* Make the button 5% larger on hover */
+}
+
 
 
 
