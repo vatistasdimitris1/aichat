@@ -34,28 +34,5 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // ... (your existing code)
-
-            let secretButtonClickCount = 0;
-
-            const secretButton = document.getElementById("secret-button");
-
-            secretButton.addEventListener("click", function () {
-                secretButtonClickCount++;
-
-                if (secretButtonClickCount === 3) {
-                    alert("You found it! The secret button");
-                    secretButtonClickCount = 0; // Reset the count
-                }
-            });
-
-            // Show the secret button only for PC users
-            if (window.innerWidth >= 768) {
-                secretButton.style.display = "block";
-            }
-        });
-    </script>
 </body>
 </html>
