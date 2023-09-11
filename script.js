@@ -29,18 +29,13 @@ document.addEventListener("DOMContentLoaded", function () {
         circularCursor.classList.add("circular-cursor");
     }
 
-    googleModeButton.addEventListener("click", function () {
-        isGoogleModeActive = !isGoogleModeActive;
-        toggleGoogleMode(isGoogleModeActive);
-    });
-
-    gpt3ModeButton.addEventListener("click", function () {
-        isGpt3ModeActive = !isGpt3ModeActive;
-        toggleGpt3Mode(isGpt3ModeActive);
-    });
-
+    googleModeButton.addEventListener("click", toggleGoogleMode);
+    gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
     sendButton.addEventListener("click", sendMessage);
     voiceButton.addEventListener("click", toggleVoiceRecognition);
+
+    const recognition = new webkitSpeechRecognition();
+    let isListening = false;
 
     recognition.continuous = true;
     recognition.interimResults = true;
@@ -56,14 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
         voiceButton.textContent = "🎙️"; // Change button text back to microphone icon
     };
 
-    function toggleVoiceRecognition() {
-        if (isListening) {
-            recognition.stop();
-        } else {
-            recognition.start();
-        }
-    }
-
     recognition.onresult = function (event) {
         const result = event.results[event.results.length - 1][0].transcript;
         userInput.value = result;
@@ -76,7 +63,25 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-   function sendMessage() {
+    function toggleGoogleMode() {
+        isGoogleModeActive = !isGoogleModeActive;
+        updateButtonState(googleModeButton, isGoogleModeActive);
+    }
+
+    function toggleGpt3Mode() {
+        isGpt3ModeActive = !isGpt3ModeActive;
+        updateButtonState(gpt3ModeButton, isGpt3ModeActive);
+    }
+
+    function toggleVoiceRecognition() {
+        if (isListening) {
+            recognition.stop();
+        } else {
+            recognition.start();
+        }
+    }
+
+    function sendMessage() {
         const userMessage = userInput.value.trim();
 
         if (userMessage !== "") {
@@ -97,32 +102,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    function updateButtonState(button, isActive) {
+        if (isActive) {
+            button.textContent = `${button.textContent.split(" ")[0]} (Active)`;
+            button.classList.add("active");
+        } else {
+            button.textContent = button.textContent.split(" ")[0];
+            button.classList.remove("active");
+        }
+    }
+
     function appendMessage(sender, message) {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("chat-message");
         messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
         chatBox.appendChild(messageDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    function toggleGoogleMode(isActive) {
-        if (isActive) {
-            googleModeButton.textContent = "Google Mode (Active)";
-            googleModeButton.classList.add("active");
-        } else {
-            googleModeButton.textContent = "Google";
-            googleModeButton.classList.remove("active");
-        }
-    }
-
-    function toggleGpt3Mode(isActive) {
-        if (isActive) {
-            gpt3ModeButton.textContent = "GPT-3 Mode (Active)";
-            gpt3ModeButton.classList.add("active");
-        } else {
-            gpt3ModeButton.textContent = "GPT-3";
-            gpt3ModeButton.classList.remove("active");
-        }
     }
 
     function chatbotResponse(userMessage) {
@@ -206,5 +201,4 @@ document.addEventListener("DOMContentLoaded", function () {
             appendMessage("AI Chatbot", command);
         });
     }
-
 });
