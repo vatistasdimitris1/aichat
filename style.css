@@ -1,12 +1,19 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f2f2f2;
-    margin: 0;
-    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 .chat-container {
@@ -62,68 +69,13 @@ input[type="text"]:focus {
 }
 
 button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
-ransform: scale(1.05);
 }
 
-/* Add other styles for buttons here */
-
-.command-list {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 15px;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: none;
-    z-index: 1;
-}
-
-.command-list h3 {
-    margin-top: 0;
-}
-
-.command-list ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.command-list ul li {
-    margin-bottom: 5px;
-}
-
-/* Media query for smaller screens */
-@media (max-width: 600px) {
-    .chat-container {
-        width: 100%;
-        max-width: none;
-    }
-}
-
-/* ... (Your existing CSS) */
-
-/* Style for the button container */
-.google-button,
-.gpt3-button,
-.voice-button,
-.reset-button {
-    display: inline-flex;
-    align-items: center;
-    padding: 8px 12px; /* Adjust padding for smaller buttons */
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 14px; /* Adjust font size for smaller buttons */
-    transition: background-color 0.3s, transform 0.2s;
-}
+/* Button Styles */
 
 /* Google Mode Button */
 .google-button {
