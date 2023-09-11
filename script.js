@@ -8,46 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
-    let isListening = false;
-
-    // Get references to the circular cursor and buttons
-    const circularCursor = document.querySelector(".circular-cursor");
-    const buttons = document.querySelectorAll("button");
-
-    // Add a mouseover event listener to the circular cursor
-    circularCursor.addEventListener("mouseover", () => {
-        // Loop through the buttons and apply the hover effect
-        buttons.forEach((button) => {
-            button.style.backgroundColor = "#0077cc"; // Slightly darker blue
-            button.style.transform = "scale(1.05)"; // Make the button 5% larger
-        });
-    });
-
-    // Add a mouseout event listener to the circular cursor
-    circularCursor.addEventListener("mouseout", () => {
-        // Loop through the buttons and remove the hover effect
-        buttons.forEach((button) => {
-            button.style.backgroundColor = "#007bff"; // Restore the original color
-            button.style.transform = "scale(1)"; // Reset the size to normal
-        });
-    });
-
-    // Get a reference to the logo element
-    const logo = document.getElementById("logo");
-
-    // Add a click event listener to the logo
-    logo.addEventListener("click", function () {
-        // Reload the page
-        location.reload();
-    });
-
-    // Add this to your existing JavaScript code
-const resetButton = document.getElementById("reset-button");
-
-resetButton.addEventListener("click", function () {
-    // Clear the chat box when the reset button is clicked
-    chatBox.innerHTML = '';
-});
 
     // Check if the screen width is greater than 600px (typical phone width)
     const isMouseTrackingEnabled = window.innerWidth > 600;
@@ -80,39 +40,69 @@ resetButton.addEventListener("click", function () {
     });
 
     sendButton.addEventListener("click", sendMessage);
+    voiceButton.addEventListener("click", toggleVoiceRecognition);
+
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = "en-US";
+
+    recognition.onstart = function () {
+        isListening = true;
+        voiceButton.textContent = "🔴"; // Change button text to indicate listening
+    };
+
+    recognition.onend = function () {
+        isListening = false;
+        voiceButton.textContent = "🎙️"; // Change button text back to microphone icon
+    };
 
     function toggleVoiceRecognition() {
         if (isListening) {
-            isListening = false;
-            voiceButton.textContent = "🎙️"; // Change button text back to microphone icon
+            recognition.stop();
         } else {
-            isListening = true;
-            voiceButton.textContent = "🔴"; // Change button text to indicate listening
-            startListening();
+            recognition.start();
         }
     }
 
-    voiceButton.addEventListener("click", toggleVoiceRecognition);
+    recognition.onresult = function (event) {
+        const result = event.results[event.results.length - 1][0].transcript;
+        userInput.value = result;
+        sendMessage();
+    };
 
-    let recognition;
-
-    function startListening() {
-        if (!("webkitSpeechRecognition" in window)) {
-            console.error("Speech recognition is not supported in this browser.");
-            return;
+    userInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            sendMessage();
         }
+    });
 
-        recognition = new webkitSpeechRecognition();
-        recognition.continuous = true;
-        recognition.interimResults = true;
-        recognition.lang = "en-US";
+   function sendMessage() {
+        const userMessage = userInput.value.trim();
 
-        recognition.onresult = function (event) {
-            const result = event.results[event.results.length - 1][0].transcript;
-            userInput.value = result;
-        };
+        if (userMessage !== "") {
+            appendMessage("You", userMessage);
 
-        recognition.start();
+            if (isGoogleModeActive) {
+                fetchAnswersFromGoogle(userMessage);
+            } else if (isGpt3ModeActive) {
+                interactWithGPT3(userMessage);
+            } else if (userMessage.toLowerCase() === "help") {
+                showHelpCommands();
+            } else {
+                const botResponse = chatbotResponse(userMessage);
+                appendMessage("AI Chatbot", botResponse);
+            }
+
+            userInput.value = "";
+        }
+    }
+
+    function appendMessage(sender, message) {
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("chat-message");
+        messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        chatBox.appendChild(messageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
     }
 
     function toggleGoogleMode(isActive) {
@@ -133,33 +123,6 @@ resetButton.addEventListener("click", function () {
             gpt3ModeButton.textContent = "GPT-3";
             gpt3ModeButton.classList.remove("active");
         }
-    }
-
-    function sendMessage() {
-        const userMessage = userInput.value.trim();
-
-        if (userMessage !== "") {
-            appendMessage("You", userMessage);
-
-            if (isGoogleModeActive) {
-                fetchAnswersFromGoogle(userMessage);
-            } else if (isGpt3ModeActive) {
-                interactWithGPT3(userMessage);
-            } else {
-                const botResponse = chatbotResponse(userMessage);
-                appendMessage("AI Chatbot", botResponse);
-            }
-
-            userInput.value = "";
-        }
-    }
-
-    function appendMessage(sender, message) {
-        const messageDiv = document.createElement("div");
-        messageDiv.classList.add("chat-message");
-        messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
-        chatBox.appendChild(messageDiv);
-        chatBox.scrollTop = chatBox.scrollHeight;
     }
 
     function chatbotResponse(userMessage) {
@@ -229,5 +192,19 @@ resetButton.addEventListener("click", function () {
         });
     }
 
+    function showHelpCommands() {
+        const helpCommands = [
+            "Available commands:",
+            "- Type 'help' to display this list of commands.",
+            "- Click 'Google Mode' to enable Google search mode.",
+            "- Click 'GPT-3 Mode' to enable GPT-3 chat mode.",
+            "- Click the microphone button to start/stop voice recognition.",
+            "- Type your questions or messages in the input box and press Enter to send.",
+        ];
+
+        helpCommands.forEach((command) => {
+            appendMessage("AI Chatbot", command);
+        });
+    }
 
 });
