@@ -102,6 +102,7 @@ button.active {
 /* Google Mode Button */
 .google-button {
     background-color: #4285F4; /* Blue color */
+    transition: background-color 0.3s; /* Add transition for color change */
 }
 
 .google-button:hover {
@@ -115,6 +116,7 @@ button.active {
 /* GPT-3 Mode Button */
 .gpt3-button {
     background-color: #007bff; /* Blue color */
+    transition: background-color 0.3s; /* Add transition for color change */
 }
 
 .gpt3-button:hover {
@@ -128,6 +130,7 @@ button.active {
 /* Voice Button */
 .voice-button {
     background-color: #ffc107; /* Yellow color */
+    transition: background-color 0.3s; /* Add transition for color change */
 }
 
 .voice-button:hover {
