@@ -1,21 +1,24 @@
-/* Reset some default styles */
+/* CSS for Improved Chatbot Design */
+
+/* Reset default margins and padding */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Body styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: #f5f5f5;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    padding: 0;
 }
 
+/* Chat container styles */
 .chat-container {
     width: 100%;
     max-width: 500px;
@@ -25,6 +28,7 @@ body {
     overflow: hidden;
 }
 
+/* Chat header styles */
 .chat-header {
     background-color: #007bff;
     color: #fff;
@@ -34,18 +38,21 @@ body {
     border-radius: 10px 10px 0 0;
 }
 
+/* Logo styles */
 .logo {
     width: 30px;
     height: 30px;
     margin-right: 10px;
 }
 
+/* Chat box styles */
 .chat-box {
     height: 300px;
     overflow-y: scroll;
     padding: 15px;
 }
 
+/* Chat input styles */
 .chat-input {
     display: flex;
     justify-content: space-between;
@@ -54,6 +61,7 @@ body {
     border-top: 1px solid #ccc;
 }
 
+/* Input text styles */
 input[type="text"] {
     flex: 1;
     padding: 10px;
@@ -61,6 +69,7 @@ input[type="text"] {
     border-radius: 5px;
     margin-right: 10px;
     transition: border-color 0.3s;
+    font-size: 14px;
 }
 
 input[type="text"]:focus {
@@ -68,79 +77,60 @@ input[type="text"]:focus {
     border-color: #007bff;
 }
 
+/* Button styles (Google, GPT-3, Voice, Reset) */
 button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
+    font-size: 14px;
 }
 
-/* Button Styles */
-
-/* Google Mode Button */
-.google-button {
-    background-color: #4285F4; /* Blue color */
-    color: #ffffff; /* White text color */
-}
-
-.google-button:hover {
-    background-color: #3572DB; /* Darker blue on hover */
+/* Button hover styles */
+button:hover {
+    background-color: #0056b3;
     transform: scale(1.05);
 }
 
-.google-button:active {
-    background-color: #2A56C6; /* Even darker blue on active */
+/* Button active styles */
+button:active {
+    background-color: #004599;
     transform: scale(0.95);
 }
 
-/* GPT-3 Mode Button */
-.gpt3-button {
-    background-color: #007bff; /* Blue color */
-    color: #fff; /* White text color */
+/* Command list styles */
+.command-list {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: none;
+    z-index: 1;
 }
 
-.gpt3-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: scale(1.05);
+.command-list h3 {
+    margin-top: 0;
 }
 
-.gpt3-button:active {
-    background-color: #004599; /* Even darker blue on active */
-    transform: scale(0.95);
+.command-list ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-/* Voice Button */
-.voice-button {
-    background-color: #ffc107; /* Yellow color */
-    color: #000; /* Black text color */
+.command-list ul li {
+    margin-bottom: 5px;
 }
 
-.voice-button:hover {
-    background-color: #e69806; /* Darker yellow on hover */
-    transform: scale(1.05);
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+    .chat-container {
+        width: 100%;
+        max-width: none;
+    }
 }
-
-.voice-button:active {
-    background-color: #d28c07; /* Even darker yellow on active */
-    transform: scale(0.95);
-}
-
-/* Reset Button */
-.reset-button {
-    background-color: #E8D6CB; /* Red background color */
-    color: #fff; /* White text color */
-    border-radius: 10%; /* Make it round */
-    padding: 8px 12px; /* Adjust padding for smaller buttons */
-}
-
-.reset-button:hover {
-    background-color: #D0ADA7; /* Lighter red on hover */
-    transform: scale(1.05);
-}
-
-.reset-button:active {
-    background-color: #c58d81; /* Darker red on active */
-    transform: scale(0.95);
-}
-
-/* ... (Rest of your CSS) */
