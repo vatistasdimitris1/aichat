@@ -1,5 +1,5 @@
 
-document.addEventListener("DOMContentLoaded", function () 
+document.addEventListener("DOMContentLoaded", function () {
     const chatBox = document.getElementById("chat-box");
     const userInput = document.getElementById("user-input");
     const sendButton = document.getElementById("send-button");
@@ -8,31 +8,38 @@ document.addEventListener("DOMContentLoaded", function ()
     const voiceButton = document.getElementById("voice-button");
     const resetButton = document.getElementById("reset-button");
     const commandList = document.getElementById("command-list");
-
-    let isGoogleModeActive = false;
-    let isGpt3ModeActive = false;
-    let isListening = false;
     
     // Get references to the circular cursor and buttons
-const circularCursor = document.querySelector(".circular-cursor");
-const buttons = document.querySelectorAll("button");
+    const circularCursor = document.querySelector(".circular-cursor");
+    const buttons = document.querySelectorAll("button");
 
-// Add a mouseover event listener to the circular cursor
-circularCursor.addEventListener("mouseover", () => {
-    // Loop through the buttons and apply the hover effect
-    buttons.forEach((button) => {
-        button.style.backgroundColor = "#0077cc"; // Slightly darker blue
-        button.style.transform = "scale(1.05)"; // Make the button 5% larger
+    // Add a mouseover event listener to the circular cursor
+    circularCursor.addEventListener("mouseover", () => {
+        // Loop through the buttons and apply the hover effect
+        buttons.forEach((button) => {
+            button.style.backgroundColor = "#0077cc"; // Slightly darker blue
+            button.style.transform = "scale(1.05)"; // Make the button 5% larger
+        });
     });
-});
 
-// Add a mouseout event listener to the circular cursor
-circularCursor.addEventListener("mouseout", () => {
-    // Loop through the buttons and remove the hover effect
-    buttons.forEach((button) => {
-        button.style.backgroundColor = "#007bff"; // Restore the original color
-        button.style.transform = "scale(1)"; // Reset the size to normal
+    // Add a mouseout event listener to the circular cursor
+    circularCursor.addEventListener("mouseout", () => {
+        // Loop through the buttons and remove the hover effect
+        buttons.forEach((button) => {
+            button.style.backgroundColor = "#007bff"; // Restore the original color
+            button.style.transform = "scale(1)"; // Reset the size to normal
+        });
     });
+
+    // Get a reference to the logo element
+    const logo = document.getElementById("logo");
+
+    // Add a click event listener to the logo
+    logo.addEventListener("click", function () {
+        // Reload the page
+        location.reload();
+    });
+
 
 
         // Get a reference to the logo element
