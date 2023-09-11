@@ -28,7 +28,7 @@ body {
 /* Animation for showing the logo */
 .chat-header:hover::after {
     content: ""; /* Add an empty content pseudo-element */
-    background-image: url("your_logo.png"); /* Replace "your_logo.png" with the actual path to your logo image */
+    background-image: url("logo.png"); /* Replace "your_logo.png" with the actual path to your logo image */
     background-size: contain; /* Adjust the background size as needed */
     width: 100px; /* Adjust the width of the logo */
     height: 100px; /* Adjust the height of the logo */
