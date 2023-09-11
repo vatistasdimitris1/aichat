@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="C:\Users\famil\Downloads\mp4-unscreen.gif">
-    <link rel="icon" type="image/x-icon" href="logo.png"> <!-- Add this line for the favicon -->
+    <link rel="icon" type="image/x-icon" href="logo.png">
     <title>Chatbot</title>
 </head>
 <body>
@@ -20,6 +19,7 @@
                 <button id="gpt3-mode-button">GPT-3</button>
                 <button id="voice-button">🎙️</button>
                 <button id="reset-button">Reset</button>
+                <button id="secret-button" style="display: none;"></button> <!-- Add this secret button -->
             </div>
         </div>
         <!-- Command list hidden by default -->
@@ -34,5 +34,28 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // ... (your existing code)
+
+            let secretButtonClickCount = 0;
+
+            const secretButton = document.getElementById("secret-button");
+
+            secretButton.addEventListener("click", function () {
+                secretButtonClickCount++;
+
+                if (secretButtonClickCount === 3) {
+                    alert("You found it! The secret button");
+                    secretButtonClickCount = 0; // Reset the count
+                }
+            });
+
+            // Show the secret button only for PC users
+            if (window.innerWidth >= 768) {
+                secretButton.style.display = "block";
+            }
+        });
+    </script>
 </body>
 </html>
