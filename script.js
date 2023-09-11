@@ -13,6 +13,28 @@ document.addEventListener("DOMContentLoaded", function () {
     let isGpt3ModeActive = false;
     let isListening = false;
     
+    // Get references to the circular cursor and buttons
+const circularCursor = document.querySelector(".circular-cursor");
+const buttons = document.querySelectorAll("button");
+
+// Add a mouseover event listener to the circular cursor
+circularCursor.addEventListener("mouseover", () => {
+    // Loop through the buttons and apply the hover effect
+    buttons.forEach((button) => {
+        button.style.backgroundColor = "#0077cc"; // Slightly darker blue
+        button.style.transform = "scale(1.05)"; // Make the button 5% larger
+    });
+});
+
+// Add a mouseout event listener to the circular cursor
+circularCursor.addEventListener("mouseout", () => {
+    // Loop through the buttons and remove the hover effect
+    buttons.forEach((button) => {
+        button.style.backgroundColor = "#007bff"; // Restore the original color
+        button.style.transform = "scale(1)"; // Reset the size to normal
+    });
+
+
         // Get a reference to the logo element
         const logo = document.getElementById("logo");
 
