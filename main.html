@@ -1,50 +1,28 @@
-<!DOCTYPE html> 
-<html lang="en"> 
-<head> 
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <title>Chatbot</title>
     <link rel="icon" type="image/x-icon" href="logo.png">
-    <title>Chatbot</title> 
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .chat-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Style for your logo image */
-        .logo {
-            width: 200px;
-            height: 100px;
-        }
-    </style>
 </head>
-<body>
-    <div class="chat-container">
-        <img src="logo.png" alt="Your Logo" class="logo" id="logo">
-        <div class="chat-sections">
-            <div class="chat-box" id="chat-box"></div>
-            <div class="chat-input">
-                <input type="text" id="user-input" placeholder="Type a message...">
-                <button id="send-button">Send</button>
-                <button id="google-mode-button">Google</button>
-                <button id="gpt3-mode-button">GPT-3</button>
-                <button id="voice-button">🎙️</button>
-                <button id="reset-button">Reset</button>
-            </div>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="script.js"></script>
-</body>
+<body> 
+     <div class="chat-container"> 
+         <img src="logo.png" alt="Your Logo" class="logo" id="logo"> 
+         <div class="chat-sections"> 
+             <div class="chat-box" id="chat-box"></div> 
+             <div class="chat-input"> 
+                 <input type="text" id="user-input" placeholder="Type a message..."> 
+                 <button id="send-button">Send</button> 
+                 <button id="google-mode-button">Google</button> 
+                 <button id="gpt3-mode-button">GPT-3</button> 
+                 <button id="voice-button">🎙️</button> 
+                 <button id="reset-button">Reset</button> 
+             </div> 
+         </div> 
+     </div> 
+     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
+     <script src="script.js"></script> 
+ </body>
 </html>
