@@ -86,11 +86,12 @@ button {
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 10px 12px;
+    padding: 8px 12px; /* Smaller padding */
     border-radius: 3px;
     cursor: pointer;
     margin: 5px;
     transition: background-color 0.3s, transform 0.3s;
+    font-size: 14px; /* Smaller font size */
 }
 
 /* Active button styles */
@@ -98,20 +99,43 @@ button.active {
     background-color: #ff5733;
 }
 
-/* Button hover and active animations */
-#google-mode-button:hover,
-#google-mode-button.active {
-    background-color: #DDD78D;
+/* Google Mode Button */
+.google-button {
+    background-color: #4285F4; /* Blue color */
 }
 
-#gpt3-mode-button:hover,
-#gpt3-mode-button.active {
-    background-color: #E8AEB7;
+.google-button:hover {
+    background-color: #3572DB; /* Darker blue on hover */
 }
 
-#voice-button:hover,
-#voice-button.active {
-    background-color: #ffc107;
+.google-button.active {
+    background-color: #2A56C6; /* Even darker blue on active */
+}
+
+/* GPT-3 Mode Button */
+.gpt3-button {
+    background-color: #007bff; /* Blue color */
+}
+
+.gpt3-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.gpt3-button.active {
+    background-color: #004599; /* Even darker blue on active */
+}
+
+/* Voice Button */
+.voice-button {
+    background-color: #ffc107; /* Yellow color */
+}
+
+.voice-button:hover {
+    background-color: #e69806; /* Darker yellow on hover */
+}
+
+.voice-button.active {
+    background-color: #d28c07; /* Even darker yellow on active */
 }
 
 .circular-cursor {
@@ -137,8 +161,8 @@ button.active {
     background-color: #E8D6CB;
     color: #fff;
     border: none;
-    padding: 10px 12px;
-    border-radius: 10%;
+    padding: 8px 12px; /* Smaller padding */
+    border-radius: 10%; /* Make it round */
     cursor: pointer;
     margin: 5px;
 }
@@ -146,5 +170,4 @@ button.active {
 /* Reset button hover styles */
 #reset-button:hover {
     background-color: #D0ADA7;
-    transform: scale(1.05);
 }
