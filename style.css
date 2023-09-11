@@ -1,4 +1,4 @@
-/* CSS for Improved Chatbot Design */
+/* CSS for Improved AI-themed Chatbot Design */
 
 /* Reset default margins and padding */
 * {
@@ -9,122 +9,108 @@
 
 /* Body styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
+    height: 100vh;
 }
 
 /* Chat container styles */
 .chat-container {
-    width: 100%;
+    width: 80%;
     max-width: 500px;
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     overflow: hidden;
+    padding: 15px;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Chat header styles */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Chat header styles with AI theme */
 .chat-header {
-    background-color: #007bff;
+    background-color: #1e6eff; /* Deep blue color for AI theme */
     color: #fff;
     padding: 15px;
-    display: flex;
-    align-items: center;
-    border-radius: 10px 10px 0 0;
-}
-
-/* Logo styles */
-.logo {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
+    text-align: center;
+    border-radius: 20px 20px 0 0;
 }
 
 /* Chat box styles */
 .chat-box {
     height: 300px;
     overflow-y: scroll;
-    padding: 15px;
+    padding: 15px; /* Increased padding for better readability */
 }
 
 /* Chat input styles */
 .chat-input {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
+    padding: 15px; /* Increased padding for better spacing */
     border-top: 1px solid #ccc;
 }
 
 /* Input text styles */
 input[type="text"] {
     flex: 1;
-    padding: 10px;
+    padding: 12px; /* Increased padding for better user experience */
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-right: 10px;
+    margin: 5px;
     transition: border-color 0.3s;
-    font-size: 14px;
+    font-size: 16px; /* Increased font size for better readability */
 }
 
 input[type="text"]:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: #1e6eff; /* Matching the header color */
 }
 
-/* Button styles (Google, GPT-3, Voice, Reset) */
+/* Button styles with AI theme */
 button {
-    background-color: #007bff;
+    background-color: #1e6eff; /* Deep blue color for AI theme */
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 20px; /* Increased padding for better aesthetics */
     border-radius: 5px;
     cursor: pointer;
+    margin: 5px;
     transition: background-color 0.3s, transform 0.3s;
-    font-size: 14px;
+    font-size: 16px; /* Increased font size for better readability */
 }
 
 /* Button hover styles */
 button:hover {
-    background-color: #0056b3;
+    background-color: #0052cc; /* Darker blue on hover */
     transform: scale(1.05);
 }
 
 /* Button active styles */
 button:active {
-    background-color: #004599;
+    background-color: #003eaa; /* Even darker blue on active */
     transform: scale(0.95);
 }
 
-/* Command list styles */
-.command-list {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 15px;
+/* Circular cursor for AI theme */
+.circular-cursor {
+    width: 20px;
+    height: 20px;
+    background-color: #1e6eff; /* Deep blue color for AI theme */
+    border-radius: 50%;
     position: absolute;
-    top: 20px;
-    right: 20px;
-    display: none;
-    z-index: 1;
-}
-
-.command-list h3 {
-    margin-top: 0;
-}
-
-.command-list ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.command-list ul li {
-    margin-bottom: 5px;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
 }
 
 /* Media query for smaller screens */
@@ -133,4 +119,22 @@ button:active {
         width: 100%;
         max-width: none;
     }
+}
+
+/* Style for the reset button */
+#reset-button {
+    background-color: #ff4d4d; /* Red background color for AI theme */
+    color: #fff;
+    border: none;
+    padding: 12px 20px; /* Increased padding for better aesthetics */
+    border-radius: 10%;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 16px; /* Increased font size for better readability */
+}
+
+/* Reset button hover styles */
+#reset-button:hover {
+    background-color: #ff0000; /* Darker red on hover */
+    transform: scale(1.05);
 }
