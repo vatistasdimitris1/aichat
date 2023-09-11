@@ -12,24 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
     let isListening = false;
-    let secretButtonClickCount = 0;
-
-    const secretButton = document.getElementById("secret-button");
-
-    secretButton.addEventListener("click", function () {
-        secretButtonClickCount++;
-
-        if (secretButtonClickCount === 3) {
-            alert("You found it! The secret button");
-            secretButtonClickCount = 0; // Reset the count
-        }
-    });
-
-    // Show the secret button only for PC users
-    if (window.innerWidth >= 768) {
-        secretButton.style.display = "block";
-    }
-});
+    
     resetButton.addEventListener("click", function () {
         // Clear the chat box when the reset button is clicked
         chatBox.innerHTML = '';
