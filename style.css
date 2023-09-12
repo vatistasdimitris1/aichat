@@ -107,7 +107,7 @@ button:hover {
 /* Adjust the logo size for all screens */
 
 .logo {
-    width: 90px; /* Adjust the width to your preference for all screens */
+    width: 110px; /* Adjust the width to your preference for all screens */
     position: absolute;
     top: 10px;
     left: 50%;
@@ -126,6 +126,6 @@ button:hover {
     }
 
     .logo {
-        width: 70px; /* Adjust the width to your preference for smaller screens */
+        width: 90px; /* Adjust the width to your preference for smaller screens */
     }
 }
