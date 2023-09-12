@@ -1,3 +1,5 @@
+/* Base styles for all screens */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f7f7f7;
@@ -16,6 +18,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     padding: 15px;
+    margin: 10px; /* Add some spacing around the chat container */
 }
 
 .chat-header {
@@ -26,7 +29,7 @@ body {
 }
 
 .chat-box {
-    height: 300px;
+    height: 200px; /* Reduce the chat box height for smaller screens */
     overflow-y: scroll;
     padding: 10px;
 }
@@ -101,42 +104,28 @@ button:hover {
     transform: scale(1.1);
 }
 
-.circular-cursor {
-    width: 20px;
-    height: 20px;
-    background-color: #007bff;
-    border-radius: 50%;
+/* Adjust the logo size for all screens */
+
+.logo {
+    width: 70px; /* Adjust the width to your preference for all screens */
     position: absolute;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-}
-
-
-
-   .logo {
-    width: 50px; /* Adjust the width to your preference for larger screens */
-    position: absolute;
-    top: 0;
-    left: 50%; /* Center horizontally */
+    top: 10px;
+    left: 50%;
     transform: translateX(-50%);
 }
 
+/* Media query for screens narrower than 600px (typical phone width) */
+
 @media (max-width: 600px) {
-    /* Apply styles for screens narrower than 600px (typical phone width) */
     .chat-container {
-        width: 100%;
-        max-width: none;
+        width: 95%; /* Further reduce the chat container width */
     }
 
-    .chat-input {
-        flex-direction: column; /* Stack buttons vertically on smaller screens */
-    }
-
-    input[type="text"] {
-        margin: 5px 0; /* Adjust margin for smaller screens */
+    .chat-box {
+        height: 150px; /* Further reduce the chat box height */
     }
 
     .logo {
-        width: 40px; /* Adjust the width to your preference for smaller screens */
+        width: 50px; /* Adjust the width to your preference for smaller screens */
     }
 }
