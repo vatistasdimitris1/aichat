@@ -111,20 +111,7 @@ button:hover {
     transform: translate(-50%, -50%);
 }
 
-@media (max-width: 600px) {
-    /* Apply styles for screens narrower than 600px (typical phone width) */
-    .chat-container {
-        width: 100%;
-        max-width: none;
-    }
 
-    .chat-input {
-        flex-direction: column; /* Stack buttons vertically on smaller screens */
-    }
-
-    input[type="text"] {
-        margin: 5px 0; /* Adjust margin for smaller screens */
-    }
 
    .logo {
     width: 100px; /* Adjust the width to your preference for larger screens */
