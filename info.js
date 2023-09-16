@@ -19,6 +19,9 @@ function updatePaymentStatus(email, hasPaid) {
     }
 }
 
+// After a successful payment
+updatePaymentStatus(email, true); // Mark the user as paid
+ 
 module.exports = {
     checkPaymentStatus,
     updatePaymentStatus
