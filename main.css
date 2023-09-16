@@ -84,3 +84,11 @@ form button:hover {
 .hidden {
     display: none;
 }
+
+/* Add this style for the message */
+.message {
+    color: green; /* Change the color as desired */
+    font-weight: bold;
+    margin-top: 10px;
+}
+
