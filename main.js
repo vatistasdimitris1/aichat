@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     nextButton.addEventListener("click", function () {
         const email = emailInput.value.trim();
-        
+
         if (email === adminEmail) {
             // Redirect to index.html for the admin
             window.location.href = "index.html";
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     checkPaymentButton.addEventListener("click", function () {
         const email = emailInput.value.trim();
         const user = getUserData(email);
-        
+
         if (email === adminEmail) {
             // Redirect to index.html for the admin
             window.location.href = "index.html";
