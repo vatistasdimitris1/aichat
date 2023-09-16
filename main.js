@@ -15,17 +15,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    checkPaymentButton.addEventListener("click", function () {
-        const email = emailInput.value.trim();
-        const isPaid = checkPaymentStatus(email);
-        if (isPaid) {
-            alert("You have already paid. You can enter the chat.");
-            // Redirect to the chat.html page or any other action you want
-        } else {
-            alert("You have not paid yet. Please make a payment.");
-            // Redirect to the payment page or any other action you want
-        }
-    });
+checkPaymentButton.addEventListener("click", function () {
+    const email = emailInput.value.trim();
+    const isPaid = checkPaymentStatus(email);
+    if (isPaid) {
+        alert("You have already paid. You can enter the chat.");
+        // Redirect to the chat.html page or any other action you want
+        window.location.href = "index.html"; // Redirect to index.html
+    } else {
+        alert("You have not paid yet. Please make a payment.");
+        // Redirect to the payment page or any other action you want
+        window.location.href = "pay.html"; // Redirect to pay.html
+    }
+});
+
 
     // Function to validate an email address (you can use a more robust validation method)
     function isValidEmail(email) {
