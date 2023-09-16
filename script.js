@@ -5,48 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const googleModeButton = document.getElementById("google-mode-button");
     const gpt3ModeButton = document.getElementById("gpt3-mode-button");
     const voiceButton = document.getElementById("voice-button");
-    const androidButton = document.getElementById("android-button");
-    
+    const androidButton = document.getElementById("android-button"); // Added Android button
+
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
 
     // Check if the screen width is greater than 600px (typical phone width)
     const isMouseTrackingEnabled = window.innerWidth > 600;
-
- // Add a click event listener to the Android button
-    androidButton.addEventListener("click", function () {
-        // Specify the path to your APK file
-        const apkFilePath = "AI-Chatbot.apk";
-
-        // Create a temporary anchor element to trigger the download
-        const downloadLink = document.createElement("a");
-        downloadLink.href = apkFilePath;
-        downloadLink.download = "AI-Chatbot.apk"; // Set the desired file name
-        downloadLink.style.display = "none"; // Hide the anchor element
-
-        // Append the anchor element to the body and trigger the download
-        document.body.appendChild(downloadLink);
-
-        // Add the progress bar and text elements
-        const progressContainer = document.createElement("div");
-        progressContainer.classList.add("progress-container");
-        const progressText = document.createElement("div");
-        progressText.classList.add("progress-text");
-        progressText.textContent = "Downloading...";
-
-        androidButton.appendChild(progressContainer);
-        androidButton.appendChild(progressText);
-
-        // Start the download
-        downloadLink.click();
-
-        // Remove the anchor element and progress elements after a delay
-        setTimeout(function () {
-            document.body.removeChild(downloadLink);
-            androidButton.removeChild(progressContainer);
-            androidButton.removeChild(progressText);
-        }, 3000); // Adjust the delay (in milliseconds) based on the download duration
-    });
 
     if (isMouseTrackingEnabled) {
         const circularCursor = document.createElement("div");
@@ -69,6 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
     gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
     sendButton.addEventListener("click", sendMessage);
     voiceButton.addEventListener("click", toggleVoiceRecognition);
+    
+    // Added event listener for Android button click
+    androidButton.addEventListener("click", downloadApk);
 
     let isListening = false;
     let recognition;
@@ -131,6 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // Function to request microphone permission
     function requestMicrophonePermission() {
         return new Promise(function (resolve, reject) {
             navigator.mediaDevices
@@ -264,6 +233,25 @@ document.addEventListener("DOMContentLoaded", function () {
         helpCommands.forEach((command) => {
             appendMessage("AI Chatbot", command);
         });
+    }
+
+    // Function to simulate downloading the APK file
+    function downloadApk() {
+        // Replace 'your-apk-file.apk' with the actual file path
+        const apkFilePath = 'AI-Chatbot.apk';
+
+        // Create a temporary anchor element to trigger the download
+        const downloadLink = document.createElement('a');
+        downloadLink.href = apkFilePath;
+        downloadLink.download = 'AI-Chatbot.apk'; // Specify the desired file name
+        downloadLink.style.display = 'none';
+        document.body.appendChild(downloadLink);
+
+        // Trigger the click event to start the download
+        downloadLink.click();
+
+        // Clean up
+        document.body.removeChild(downloadLink);
     }
 
     initSpeechRecognition();
