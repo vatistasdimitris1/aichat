@@ -1,5 +1,4 @@
 /* Base styles for all screens */
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f7f7f7;
@@ -11,14 +10,14 @@ body {
 }
 
 .chat-container {
-    width: 80%; /* Adjust the width for smaller screens */
-    max-width: 500px; /* Limit the maximum width */
+    width: 80%;
+    max-width: 500px;
     background-color: #fff;
-    border-radius: 20px; /* Add rounded corners */
+    border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     padding: 15px;
-    margin: 10px; /* Add some spacing around the chat container */
+    margin: 10px;
 }
 
 .chat-header {
@@ -29,14 +28,14 @@ body {
 }
 
 .chat-box {
-    height: 200px; /* Reduce the chat box height for smaller screens */
+    height: 200px;
     overflow-y: scroll;
     padding: 10px;
 }
 
 .chat-input {
     display: flex;
-    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     padding: 10px;
@@ -48,7 +47,7 @@ input[type="text"] {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 3px;
-    margin: 5px; /* Add some spacing around the input */
+    margin: 5px;
 }
 
 button {
@@ -58,7 +57,7 @@ button {
     padding: 10px 12px;
     border-radius: 3px;
     cursor: pointer;
-    margin: 5px; /* Add some spacing around the buttons */
+    margin: 5px;
 }
 
 button.active {
@@ -68,8 +67,6 @@ button.active {
 button:hover {
     background-color: #0056b3;
 }
-
-/* Button hover and active animations */
 
 #google-mode-button:hover {
     background-color: #f44336;
@@ -105,9 +102,8 @@ button:hover {
 }
 
 /* Adjust the logo size for all screens */
-
 .logo {
-    width: 110px; /* Adjust the width to your preference for all screens */
+    width: 110px;
     position: absolute;
     top: 10px;
     left: 50%;
@@ -115,25 +111,24 @@ button:hover {
 }
 
 /* Media query for screens narrower than 600px (typical phone width) */
-
 @media (max-width: 600px) {
     .chat-container {
-        width: 95%; /* Further reduce the chat container width */
+        width: 95%;
     }
 
     .chat-box {
-        height: 150px; /* Further reduce the chat box height */
+        height: 150px;
     }
 
     .logo {
-        width: 90px; /* Adjust the width to your preference for smaller screens */
+        width: 90px;
     }
 }
 
-/* Add a new style for the Android button */
+/* Style for the Android button */
 #android-button {
     position: fixed;
-    bottom: 20px; /* Adjust the distance from the bottom as needed */
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     background-color: #007bff;
@@ -142,24 +137,23 @@ button:hover {
     padding: 10px 12px;
     border-radius: 3px;
     cursor: pointer;
-    overflow: hidden; /* Hide overflow for the progress bar */
-    padding-right: 0; /* Remove padding-right for the progress bar */
-    transition: background-color 0.3s, transform 0.3s; /* Add transition properties */
-    position: relative; /* Add relative positioning for the progress bar */
+    transition: background-color 0.3s, transform 0.3s;
+    overflow: hidden;
+    padding-right: 0;
+    position: relative;
 }
 
-/* Style the progress bar container */
+/* Style for the progress bar container */
 #android-button .progress-container {
     position: absolute;
     top: 0;
     left: 0;
-    width: 0; /* Start with a width of 0 */
+    width: 0;
     height: 100%;
-    background-color: #0056b3; /* Progress bar color */
-    animation: progressAnimation 3s linear; /* Add color animation */
+    animation: progressAnimation 3s linear;
 }
 
-/* Keyframes for color animation */
+/* Keyframes for the progress bar color animation */
 @keyframes progressAnimation {
     0% {
         background-color: #0056b3; /* Initial color */
@@ -169,27 +163,28 @@ button:hover {
     }
 }
 
-/* Style the progress bar text */
+/* Style for the progress bar text */
 #android-button .progress-text {
     position: absolute;
     top: 0;
     right: 0;
     padding: 10px;
     color: #fff;
-    background-color: #0056b3; /* Progress bar color */
-    transform: translateX(100%); /* Initially hidden on the right */
-    transition: transform 0.3s; /* Add transition for transform property */
+    background-color: #0056b3;
+    transform: translateX(100%);
+    transition: transform 0.3s;
 }
 
+/* Hover effect for the Android button */
 #android-button:hover {
     background-color: #0056b3;
 }
 
-/* Adjust the hover effect for the progress text */
+/* Adjust the hover effect for the progress container and text */
 #android-button:hover .progress-container {
-    animation: none; /* Disable color animation on hover */
+    animation: none;
 }
 
 #android-button:hover .progress-text {
-    transform: translateX(0); /* Show the progress text on hover */
+    transform: translateX(0);
 }
