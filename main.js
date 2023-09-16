@@ -1,47 +1,70 @@
-// Function to save user information to localStorage
-function saveUserInfo(email, password) {
-    localStorage.setItem("email", email);
-    localStorage.setItem("password", password);
-}
+document.addEventListener("DOMContentLoaded", function () {
+    const payButton = document.getElementById("pay-button");
 
-// Function to get user information from localStorage
-function getUserInfo() {
-    const email = localStorage.getItem("email");
-    const password = localStorage.getItem("password");
-    return { email, password };
-}
+    // Event listener for the "Pay" button
+    payButton.addEventListener("click", function () {
+        // Create an email input and "Next" button
+        const emailInput = document.createElement("input");
+        emailInput.type = "email";
+        emailInput.placeholder = "Enter your email";
+        emailInput.id = "email-input";
 
-// Function to handle sign-up
-document.querySelector("#signup-form form").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const signupEmail = document.getElementById("signup-email").value;
-    const signupPassword = document.getElementById("signup-password").value;
+        const nextButton = document.createElement("button");
+        nextButton.textContent = "Next";
+        nextButton.id = "next-button";
 
-    // Save user information to localStorage
-    saveUserInfo(signupEmail, signupPassword);
+        // Replace the "Pay" button with the email input and "Next" button
+        payButton.parentElement.replaceChild(emailInput, payButton);
+        emailInput.insertAdjacentElement("afterend", nextButton);
 
-    // Clear the sign-up form
-    document.getElementById("signup-email").value = "";
-    document.getElementById("signup-password").value = "";
+        // Event listener for the "Next" button
+        nextButton.addEventListener("click", function () {
+            const userEmail = emailInput.value;
+            // You can perform validation on the email here if needed
+            if (isValidEmail(userEmail)) {
+                // Initialize the PayPal API
+                paypal.Buttons({
+                    createOrder: function(data, actions) {
+                        // This function sets up the details of the transaction, including the amount and currency.
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: '50.00' // One-time payment amount (adjust as needed)
+                                }
+                            }],
+                            application_context: {
+                                shipping_preference: "NO_SHIPPING" // Specify no shipping for digital goods
+                            }
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        // This function captures the funds from the transaction.
+                        return actions.order.capture().then(function(details) {
+                            // After a successful payment, you can store the email and payment details in info.js
+                            const paymentInfo = {
+                                email: userEmail,
+                                // Add other payment details as needed
+                                transactionId: details.id,
+                                // Add more details if necessary
+                            };
+                            // Store paymentInfo in info.js
+                            // Example: info.storePaymentInfo(paymentInfo);
 
-    // Show a message to prompt the user to log in
-    const messageDiv = document.createElement("div");
-    messageDiv.classList.add("message");
-    messageDiv.textContent = "Account created! Please log in.";
-    document.querySelector(".buttons").appendChild(messageDiv);
+                            // Redirect the user to the index page upon successful payment
+                            window.location.href = `main.html`;
+                        });
+                    }
+                }).render('#paypal-button-container');
+            } else {
+                // Handle invalid email input
+                alert("Invalid email address. Please enter a valid email.");
+            }
+        });
+    });
 
-    // Hide the sign-up form
-    document.getElementById("signup-form").classList.add("hidden");
-});
-
-// Function to display the login form when the "Login" button is clicked
-document.getElementById("login-button").addEventListener("click", function () {
-    // Hide the message
-    const messageDiv = document.querySelector(".message");
-    if (messageDiv) {
-        messageDiv.style.display = "none";
+    // Function to validate an email address (you can use a more robust validation method)
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
     }
-
-    // Show the login form
-    document.getElementById("login-form").classList.remove("hidden");
 });
