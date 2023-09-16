@@ -1,16 +1,31 @@
 // Sample user information (replace with your actual user data)
 const users = [
-    { email: 'user@example.com', password: 'password', paid: true },
-    { email: 'user2@example.com', password: 'password2', paid: false },
+    { email: 'user@example.com', paid: true },
+    { email: 'user2@example.com', paid: false },
     // Add more user data as needed
 ];
 
-// Function to check user credentials and return user data
-function getUserData(email, password) {
-    return users.find(user => user.email === email && user.password === password);
+// Sample payment information (to store payment details)
+const payments = [];
+
+// Function to check if a user has made a payment
+function hasPaid(email) {
+    return users.find(user => user.email === email)?.paid || false;
 }
 
-// Export the getUserData function (you can add more functions as needed)
+// Function to store payment information
+function storePaymentInfo(paymentInfo) {
+    payments.push(paymentInfo);
+}
+
+// Function to retrieve payment information for a user
+function getUserPayments(email) {
+    return payments.filter(payment => payment.email === email);
+}
+
+// Export the hasPaid, storePaymentInfo, and getUserPayments functions
 module.exports = {
-    getUserData
+    hasPaid,
+    storePaymentInfo,
+    getUserPayments
 };
