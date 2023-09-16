@@ -1,26 +1,22 @@
-import { saveEmailAndPaymentStatus } from './info.js';
-
 document.addEventListener("DOMContentLoaded", function () {
-    const userEmailInput = document.getElementById("user-email");
-    const payButton = document.getElementById("pay-button");
-
     paypal.Buttons({
         createOrder: function (data, actions) {
             return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: '50.00'
+                        value: '50.00' // Adjust the payment amount as needed
                     }
                 }]
             });
         },
         onApprove: function (data, actions) {
+            // Capture the funds from the transaction
             return actions.order.capture().then(function (details) {
-                const userEmail = userEmailInput.value.trim();
-                saveEmailAndPaymentStatus(userEmail, true);
-
+                // Payment successful
+                console.log('Transaction completed by ' + details.payer.name.given_name);
+                // Redirect to a success page or perform other actions
                 window.location.href = "main.html";
             });
         }
-    }).render('#paypal-button-container');
+    }).render('#paypal-button');
 });
