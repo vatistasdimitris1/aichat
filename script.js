@@ -5,12 +5,32 @@ document.addEventListener("DOMContentLoaded", function () {
     const googleModeButton = document.getElementById("google-mode-button");
     const gpt3ModeButton = document.getElementById("gpt3-mode-button");
     const voiceButton = document.getElementById("voice-button");
-
+    const androidButton = document.getElementById("android-button");
+    
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
 
     // Check if the screen width is greater than 600px (typical phone width)
     const isMouseTrackingEnabled = window.innerWidth > 600;
+
+ // Add a click event listener to the Android button
+    androidButton.addEventListener("click", function () {
+        // Specify the path to your APK file
+        const apkFilePath = "path/to/your-android-app.apk";
+
+        // Create a temporary anchor element to trigger the download
+        const downloadLink = document.createElement("a");
+        downloadLink.href = apkFilePath;
+        downloadLink.download = "your-android-app.apk"; // Set the desired file name
+        downloadLink.style.display = "none"; // Hide the anchor element
+
+        // Append the anchor element to the body and trigger the download
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+
+        // Remove the anchor element from the body
+        document.body.removeChild(downloadLink);
+    });
 
     if (isMouseTrackingEnabled) {
         const circularCursor = document.createElement("div");
