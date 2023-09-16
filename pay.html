@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <script src="https://www.paypal.com/sdk/js?client-id=AU_rP43t9nXsK1lrVxTpdoadLM19m4TodwP3O1A2586msFhIMF-bCMYkV2IlE5lXzomty6gWW_v29pNv"></script>
+    <style>
+        /* CSS styles go here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        #selected-plan {
+            font-weight: bold;
+        }
+
+        #pay-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        #pay-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        #paypal-button-container {
+            margin-top: 20px;
+        }
+    </style>
+    <script src="pay.js"></script>
+</head>
+<body>
+    <h1>One-Time Payment Plan</h1>
+    <p>Access Forever</p>
+    <p>Price: $50.00</p>
+    <button id="pay-button">Pay with PayPal</button>
+
+    <!-- PayPal button container -->
+    <div id="paypal-button-container"></div>
+</body>
+</html>
