@@ -191,7 +191,15 @@ button:hover {
     transition: background-color 0.3s, transform 0.3s;
 }
 
-
+.circular-cursor {
+    width: 20px;
+    height: 20px;
+    background-color: #007bff;
+    border-radius: 50%;
+    position: absolute;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+}
 
 
 
