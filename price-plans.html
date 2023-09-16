@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment</title>
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
+    <title>Price Plans</title>
     <style>
         /* CSS styles go here */
         body {
@@ -48,33 +47,7 @@
         #pay-button:hover {
             background-color: #0056b3; /* Darker blue on hover */
         }
-
-        #paypal-button-container {
-            margin-top: 20px;
-        }
     </style>
-    <script>
-        paypal.Buttons({
-            createOrder: function(data, actions) {
-                // This function sets up the details of the transaction, including the amount and currency.
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: '50.00' // One-time payment amount (adjust as needed)
-                        }
-                    }]
-                });
-            },
-            onApprove: function(data, actions) {
-                // This function captures the funds from the transaction.
-                return actions.order.capture().then(function(details) {
-                    // After a successful payment, you can redirect the user to another page.
-                    alert('Transaction completed by ' + details.payer.name.given_name);
-                    window.location.href = "index.html"; // Redirect to the index page
-                });
-            }
-        }).render('#paypal-button-container');
-    </script>
 </head>
 <body>
     <h1>One-Time Payment Plan</h1>
@@ -82,7 +55,19 @@
     <p>Price: $50.00</p>
     <button id="pay-button">Pay with PayPal</button>
 
-    <!-- PayPal button container -->
-    <div id="paypal-button-container"></div>
+    <!-- Include the PayPal JavaScript SDK (client-id should be your actual client ID) -->
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
+    <script>
+        // Function to handle the payment process
+        function handlePayment() {
+            // You can add payment processing logic here using the PayPal SDK
+            // After a successful payment, you can redirect the user to another page
+            alert('Payment completed. Redirecting to the index page.');
+            window.location.href = "index.html"; // Redirect to the index page
+        }
+
+        // Add a click event listener to the payment button
+        document.getElementById('pay-button').addEventListener('click', handlePayment);
+    </script>
 </body>
 </html>
