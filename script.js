@@ -16,12 +16,12 @@ document.addEventListener("DOMContentLoaded", function () {
  // Add a click event listener to the Android button
     androidButton.addEventListener("click", function () {
         // Specify the path to your APK file
-        const apkFilePath = "path/to/your-android-app.apk";
+        const apkFilePath = "AI-Chatbot.apk";
 
         // Create a temporary anchor element to trigger the download
         const downloadLink = document.createElement("a");
         downloadLink.href = apkFilePath;
-        downloadLink.download = "your-android-app.apk"; // Set the desired file name
+        downloadLink.download = "AI-Chatbot.apk"; // Set the desired file name
         downloadLink.style.display = "none"; // Hide the anchor element
 
         // Append the anchor element to the body and trigger the download
