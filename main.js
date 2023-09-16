@@ -1,13 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const saveEmailButton = document.getElementById("save-email-button");
+    const nextButton = document.getElementById("next-button");
     const emailInput = document.getElementById("email-input");
 
-    saveEmailButton.addEventListener("click", function () {
+    nextButton.addEventListener("click", function () {
         const email = emailInput.value.trim();
         if (isValidEmail(email)) {
-            // Save the email to info.js
+            // Save the email to info.js (you need to implement this)
             saveEmailToInfo(email);
-            alert("Email saved successfully.");
+            // Redirect to the pay.html page
+            window.location.href = "pay.html";
         } else {
             alert("Invalid email address. Please enter a valid email.");
         }
@@ -18,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
-    // Function to save email to info.js (you need to implement this function)
+    // Function to save email to info.js (you need to implement this)
     function saveEmailToInfo(email) {
         // Implement the logic to save the email to info.js
         // For example:
