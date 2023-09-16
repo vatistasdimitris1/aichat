@@ -1,10 +1,11 @@
-<!-- main.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ... (other head content) ... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <link rel="icon" type="image/x-icon" href="logo.png">
     <title>AI Chatbot</title>
-    <!-- Add the PayPal API script with your CLIENT ID -->
     <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
 </head>
 <body>
@@ -17,8 +18,13 @@
             <input type="text" id="email-input" placeholder="Enter your email">
             <button id="next-button">Next</button>
         </div>
+        <div id="payment-container" style="display: none;">
+            <h1>Payment Page</h1>
+            <p>Email: <span id="user-email"></span></p>
+            <p>Amount: $50.00</p>
+            <div id="paypal-button-container"></div>
+        </div>
     </div>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="main.js"></script>
 </body>
 </html>
