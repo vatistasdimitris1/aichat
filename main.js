@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const user = getUserData(email);
             
             if (user) {
-                if (user.isAdmin) {
+                if (user.email === 'familyvatistas90@gmail.com') {
                     // Redirect to main.html if the email is the admin's email
                     window.location.href = "main.html";
                 } else if (user.hasPaid) {
