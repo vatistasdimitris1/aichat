@@ -129,3 +129,23 @@ button:hover {
         width: 90px; /* Adjust the width to your preference for smaller screens */
     }
 }
+
+/* Add a new style for the Android button */
+#android-button {
+    position: fixed;
+    bottom: 20px; /* Adjust the distance from the bottom as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Add transition properties */
+}
+
+#android-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.1); /* Scale up the button on hover */
+}
