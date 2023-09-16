@@ -1,12 +1,9 @@
-// Function to save user information to localStorage
-function saveUserInfo(email, password) {
-    localStorage.setItem("email", email);
-    localStorage.setItem("password", password);
-}
+// Sample user information (replace with your actual user data)
+const users = [
+    { email: 'user1@example.com', password: 'password1', paid: true },
+    { email: 'user2@example.com', password: 'password2', paid: false },
+    // Add more user data as needed
+];
 
-// Function to get user information from localStorage
-function getUserInfo() {
-    const email = localStorage.getItem("email");
-    const password = localStorage.getItem("password");
-    return { email, password };
-}
+// Export the user data
+export { users };
