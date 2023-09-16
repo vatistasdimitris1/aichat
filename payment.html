@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... (previous code) ... -->
+    <script src="info.js"></script>
+    <script>
+        // Function to check if a user is logged in
+        function checkLoginStatus() {
+            // Simulate user authentication (replace with your authentication logic)
+            // For this example, we'll use a query parameter to simulate a logged-in user.
+            const urlParams = new URLSearchParams(window.location.search);
+            const userEmail = urlParams.get("user");
+            
+            if (userEmail) {
+                // Check if the user exists in the user data
+                const user = users.find(u => u.email === userEmail);
+                if (user) {
+                    // User is logged in
+                    if (user.paid) {
+                        // User has already paid
+                        alert('Welcome back! You have access to the content.');
+                        window.location.href = "index.html"; // Redirect to the index page
+                    } else {
+                        // User has not paid yet
+                        alert('Welcome back! Please complete your payment to access the content.');
+                    }
+                } else {
+                    // User not found
+                    alert('User not found. Please log in.');
+                    window.location.href = "login.html"; // Redirect to the login page
+                }
+            } else {
+                // User is not logged in
+                alert('Please log in to access the content.');
+                window.location.href = "login.html"; // Redirect to the login page
+            }
+        }
+
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                // This function sets up the details of the transaction, including the amount and currency.
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '50.00' // One-time payment amount (adjust as needed)
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                // This function captures the funds from the transaction.
+                return actions.order.capture().then(function(details) {
+                    // After a successful payment, you can redirect the user to another page.
+                    alert('Transaction completed by ' + details.payer.name.given_name);
+                    // Update the user's paid status (simulated in this example)
+                    const user = users.find(u => u.email === userEmail);
+                    if (user) {
+                        user.paid = true;
+                    }
+                    window.location.href = "index.html"; // Redirect to the index page
+                });
+            }
+        }).render('#paypal-button-container');
+
+        // Check login status when the page loads
+        window.addEventListener('load', checkLoginStatus);
+    </script>
+</head>
+<body>
+    <!-- ... (previous code) ... -->
+</body>
+</html>
