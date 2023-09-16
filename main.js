@@ -7,31 +7,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     nextButton.addEventListener("click", function () {
         const email = emailInput.value.trim();
-
-        if (email === adminEmail) {
-            // Redirect to index.html for the admin
-            window.location.href = "index.html";
-        } else {
-            // Redirect to pay.html for non-admin users
-            window.location.href = "pay.html";
-        }
+        // Redirect to pay.html and pass the email as a query parameter
+        window.location.href = `pay.html?email=${email}`;
     });
 
     checkPaymentButton.addEventListener("click", function () {
         const email = emailInput.value.trim();
         const user = getUserData(email);
-
-        if (email === adminEmail) {
-            // Redirect to index.html for the admin
-            window.location.href = "index.html";
-        } else if (user && user.paid) {
-            // Redirect to chat.html if the user is paid
-            window.location.href = "chat.html";
+        if (user && user.paid) {
+            // Redirect back to main.html
+            window.location.href = "main.html";
         } else {
-            // Redirect to pay.html if the user is not paid
+            alert("You have not paid yet. Please make a payment.");
+            // Redirect to the payment page or any other action you want
             window.location.href = "pay.html";
         }
     });
 });
-
-const adminEmail = "familyvatistas90@gmail.com";
