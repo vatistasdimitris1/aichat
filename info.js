@@ -1,6 +1,7 @@
 // Sample user information (replace with your actual user data)
 const users = [
-    { email: 'user@example.com', isAdmin: true, hasPaid: true },
+    { email: 'familyvatistas90@gmail.com', isAdmin: true, hasPaid: false }, // Admin user
+    { email: 'user@example.com', isAdmin: false, hasPaid: true },
     { email: 'user2@example.com', isAdmin: false, hasPaid: false },
     // Add more user data as needed
 ];
