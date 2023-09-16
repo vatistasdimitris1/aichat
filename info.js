@@ -1,6 +1,6 @@
 // Sample user information (replace with your actual user data)
 const users = [
-    { email: 'familyvatistas90@gmail.com', hasPaid: true },
+    { email: 'user@example.com', hasPaid: true },
     { email: 'user2@example.com', hasPaid: false },
     // Add more user data as needed
 ];
@@ -18,6 +18,12 @@ function updatePaymentStatus(email, hasPaid) {
         users[userIndex].hasPaid = hasPaid;
     }
 }
+
+const info = require('./info.js'); // Import your info.js module
+
+// Update the payment status for a specific email
+info.updatePaymentStatus('familyvatistas90@gmail.com', true); // Set 'user@example.com' as paid
+
 
 // After a successful payment
 updatePaymentStatus(email, true); // Mark the user as paid
