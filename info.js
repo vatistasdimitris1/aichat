@@ -1,31 +1,25 @@
 // Sample user information (replace with your actual user data)
 const users = [
-    { email: 'user@example.com', paid: true },
-    { email: 'user2@example.com', paid: false },
+    { email: 'user@example.com', hasPaid: true },
+    { email: 'user2@example.com', hasPaid: false },
     // Add more user data as needed
 ];
 
-// Sample payment information (to store payment details)
-const payments = [];
-
-// Function to check if a user has made a payment
-function hasPaid(email) {
-    return users.find(user => user.email === email)?.paid || false;
+// Function to check user payment status and return a boolean
+function checkPaymentStatus(email) {
+    const user = users.find(user => user.email === email);
+    return user ? user.hasPaid : false;
 }
 
-// Function to store payment information
-function storePaymentInfo(paymentInfo) {
-    payments.push(paymentInfo);
+// Function to update user payment status
+function updatePaymentStatus(email, hasPaid) {
+    const userIndex = users.findIndex(user => user.email === email);
+    if (userIndex !== -1) {
+        users[userIndex].hasPaid = hasPaid;
+    }
 }
 
-// Function to retrieve payment information for a user
-function getUserPayments(email) {
-    return payments.filter(payment => payment.email === email);
-}
-
-// Export the hasPaid, storePaymentInfo, and getUserPayments functions
 module.exports = {
-    hasPaid,
-    storePaymentInfo,
-    getUserPayments
+    checkPaymentStatus,
+    updatePaymentStatus
 };
