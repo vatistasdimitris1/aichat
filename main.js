@@ -4,36 +4,35 @@ import { getUserData } from './info.js';
 document.addEventListener("DOMContentLoaded", function () {
     const nextButton = document.getElementById("next-button");
     const emailInput = document.getElementById("email-input");
+    const checkPaymentButton = document.getElementById("check-payment-button");
 
     nextButton.addEventListener("click", function () {
         const email = emailInput.value.trim();
         
-        if (isValidEmail(email)) {
-            const user = getUserData(email);
-            
-            if (user) {
-                if (user.email === 'familyvatistas90@gmail.com') {
-                    // Redirect to main.html if the email is the admin's email
-                    window.location.href = "main.html";
-                } else if (user.hasPaid) {
-                    // Redirect to chat.html or any other page for paid users
-                    alert("Welcome paid user.");
-                    // Perform other actions for paid users
-                } else {
-                    // Redirect to payment.html for users who haven't paid
-                    window.location.href = "pay.html";
-                }
-            } else {
-                // Redirect to payment.html for non-existing users
-                window.location.href = "pay.html";
-            }
+        if (email === adminEmail) {
+            // Redirect to index.html for the admin
+            window.location.href = "index.html";
         } else {
-            alert("Invalid email address. Please enter a valid email.");
+            // Redirect to pay.html for non-admin users
+            window.location.href = "pay.html";
         }
     });
 
-    // Function to validate an email address (you can use a more robust validation method)
-    function isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
+    checkPaymentButton.addEventListener("click", function () {
+        const email = emailInput.value.trim();
+        const user = getUserData(email);
+        
+        if (email === adminEmail) {
+            // Redirect to index.html for the admin
+            window.location.href = "index.html";
+        } else if (user && user.paid) {
+            // Redirect to index.html if the user is paid
+            window.location.href = "index.html";
+        } else {
+            // Redirect to pay.html if the user is not paid
+            window.location.href = "pay.html";
+        }
+    });
 });
+
+const adminEmail = "familyvatistas90@gmail.com";
