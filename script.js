@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
         downloadLink.download = "AI-Chatbot.apk"; // Set the desired file name
         downloadLink.style.display = "none"; // Hide the anchor element
 
-
         // Append the anchor element to the body and trigger the download
         document.body.appendChild(downloadLink);
 
