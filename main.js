@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (email === adminEmail) {
             // Redirect to index.html for the admin
-            window.location.href = "index.html";
+            window.location.href = "main.html";
         } else {
             // Redirect to pay.html for non-admin users
             window.location.href = "pay.html";
@@ -24,10 +24,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (email === adminEmail) {
             // Redirect to index.html for the admin
-            window.location.href = "index.html";
+            window.location.href = "main.html";
         } else if (user && user.paid) {
             // Redirect to index.html if the user is paid
-            window.location.href = "index.html";
+            window.location.href = "main.html";
         } else {
             // Redirect to pay.html if the user is not paid
             window.location.href = "pay.html";
