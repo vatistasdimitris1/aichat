@@ -1,0 +1,20 @@
+<!-- payment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... (other head content) ... -->
+    <title>Payment</title>
+    <!-- Add the PayPal API script with your CLIENT ID -->
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
+</head>
+<body>
+    <!-- Add a container to display payment information and PayPal button -->
+    <div class="container">
+        <h1>Payment Page</h1>
+        <p>Email: <span id="user-email"></span></p>
+        <p>Amount: $50.00</p>
+        <div id="paypal-button-container"></div>
+    </div>
+    <script src="payment.js"></script>
+</body>
+</html>
