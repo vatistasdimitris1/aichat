@@ -1,17 +1,50 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const paypalButton = document.getElementById("paypal-button");
+    // Replace 'YOUR_CLIENT_ID' with your actual PayPal client ID
+    paypal.Buttons({
+        createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [
+                    {
+                        amount: {
+                            value: '50.00', // Adjust the payment amount as needed
+                        },
+                    },
+                ],
+            });
+        },
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(function (details) {
+                // Payment was successful
+                alert("Payment completed successfully!");
+                // Save email and payment status to info.js
+                saveEmailAndPaymentToInfo(details.payer.email_address, true);
+                // Save email and payment status to info.txt
+                saveEmailAndPaymentToTxt(details.payer.email_address, true);
+                // Redirect to main.html
+                window.location.href = "main.html";
+            });
+        },
+        onCancel: function (data) {
+            // Payment was canceled by the user
+            alert("Payment was canceled by the user.");
+            // Save email and payment status to info.js
+            saveEmailAndPaymentToInfo(data.order.payer.email_address, false);
+            // Save email and payment status to info.txt
+            saveEmailAndPaymentToTxt(data.order.payer.email_address, false);
+            // Redirect to index.html
+            window.location.href = "index.html";
+        },
+    }).render("#paypal-button-container");
 
-    paypalButton.addEventListener("click", function () {
-        // Replace 'YOUR_CLIENT_ID' with your actual PayPal client ID
-        const clientId = 'AU_rP43t9nXsK1lrVxTpdoadLM19m4TodwP3O1A2586msFhIMF-bCMYkV2IlE5lXzomty6gWW_v29pNv';
-        const amount = '50.00'; // Adjust the payment amount as needed
-        const returnUrl = 'https://dimvat1.github.io/aichat/main.html'; // Replace with your success page URL
-        const cancelUrl = 'https://dimvat1.github.io/aichat/'; // Replace with your cancel page URL
+    function saveEmailAndPaymentToInfo(email, isPaid) {
+        // Add your code to save email and payment status to info.js
+        // For example:
+        // info.email = email;
+        // info.paid = isPaid;
+    }
 
-        // Construct the PayPal payment link
-        const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=${clientId}&item_name=Payment&amount=${amount}&return=${returnUrl}&cancel_return=${cancelUrl}`;
-
-        // Open a new window or modal dialog with the PayPal link
-        window.open(paypalLink, 'PayPal Payment', 'width=600,height=400');
-    });
+    function saveEmailAndPaymentToTxt(email, isPaid) {
+        // Add your code to save email and payment status to info.txt
+        // For example, you can use JavaScript to write to a text file on the server-side.
+    }
 });
