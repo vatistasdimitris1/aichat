@@ -24,12 +24,29 @@ document.addEventListener("DOMContentLoaded", function () {
         downloadLink.download = "AI-Chatbot.apk"; // Set the desired file name
         downloadLink.style.display = "none"; // Hide the anchor element
 
+
         // Append the anchor element to the body and trigger the download
         document.body.appendChild(downloadLink);
+
+        // Add the progress bar and text elements
+        const progressContainer = document.createElement("div");
+        progressContainer.classList.add("progress-container");
+        const progressText = document.createElement("div");
+        progressText.classList.add("progress-text");
+        progressText.textContent = "Downloading...";
+
+        androidButton.appendChild(progressContainer);
+        androidButton.appendChild(progressText);
+
+        // Start the download
         downloadLink.click();
 
-        // Remove the anchor element from the body
-        document.body.removeChild(downloadLink);
+        // Remove the anchor element and progress elements after a delay
+        setTimeout(function () {
+            document.body.removeChild(downloadLink);
+            androidButton.removeChild(progressContainer);
+            androidButton.removeChild(progressText);
+        }, 3000); // Adjust the delay (in milliseconds) based on the download duration
     });
 
     if (isMouseTrackingEnabled) {
