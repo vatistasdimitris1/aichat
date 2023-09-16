@@ -1,8 +1,7 @@
 // Sample user information (replace with your actual user data)
 const users = [
-    { email: 'familyvatistas90@gmail.com', hasPaid: true, isAdmin: true }, // Add your email as an admin
-    { email: 'user@example.com', hasPaid: true },
-    { email: 'user2@example.com', hasPaid: false },
+    { email: 'familyvatistas90@gmail.com', isAdmin: true, hasPaid: true },
+    { email: 'user2@example.com', isAdmin: false, hasPaid: true },
     // Add more user data as needed
 ];
 
@@ -11,18 +10,7 @@ function getUserData(email) {
     return users.find(user => user.email === email);
 }
 
-// Function to update the payment status of a user
-function updatePaymentStatus(email, hasPaid) {
-    const user = getUserData(email);
-    if (user) {
-        user.hasPaid = hasPaid;
-        return true; // Successfully updated payment status
-    }
-    return false; // User not found
-}
-
-// Export the getUserData and updatePaymentStatus functions
+// Export the getUserData function (you can add more functions as needed)
 module.exports = {
-    getUserData,
-    updatePaymentStatus,
+    getUserData
 };
