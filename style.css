@@ -67,8 +67,8 @@ input[type="text"] {
     margin: 5px;
 }
 
+/* Common button styles */
 button {
-    background-color: #007bff;
     color: #fff;
     border: none;
     padding: 10px 12px;
@@ -78,41 +78,63 @@ button {
     transition: background-color 0.3s, transform 0.3s, color 0.3s;
 }
 
-button:hover {
+/* Google Mode button styles */
+#google-mode-button {
+    background-color: #007bff;
+}
+
+#google-mode-button:hover {
     background-color: #0056b3;
     transform: scale(1.1);
 }
 
-.button.active {
+#google-mode-button.active {
     background-color: #ff5733;
+}
+
+/* GPT-3 Mode button styles */
+#gpt3-mode-button {
+    background-color: #4CAF50;
+}
+
+#gpt3-mode-button:hover {
+    background-color: #6dbd63;
     transform: scale(1.1);
-    color: #fff;
 }
 
-/* Style for the Android button container */
-.android-button-container {
-    text-align: center;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
+#gpt3-mode-button.active {
+    background-color: #4CAF50;
 }
 
+/* Voice button styles */
+#voice-button {
+    background-color: #ffc107;
+}
+
+#voice-button:hover {
+    background-color: #ffdb58;
+    transform: scale(1.1);
+}
+
+#voice-button.active {
+    background-color: #ffc107;
+}
+
+/* Android button styles */
 #android-button {
     background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 3px;
-    cursor: pointer;
-    margin: 5px;
 }
 
 #android-button:hover {
     background-color: #0056b3;
     transform: scale(1.1);
 }
+
+#android-button.active {
+    background-color: #ff5733;
+}
+
+/* Footer styles */
 .footer {
     text-align: center;
     margin-top: 10px;
