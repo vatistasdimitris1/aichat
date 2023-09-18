@@ -8,8 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const androidButton = document.getElementById("android-button"); // Added Android button
 
     const imageButton = document.getElementById("image-button");
-    const downloadButton = document.getElementById("download-button");
-
+   
     // Handle "Image" button click event
     imageButton.addEventListener("click", generateImage);
 
@@ -25,10 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const imageElement = document.createElement("img");
             imageElement.src = generatedImageUrl;
             chatBox.appendChild(imageElement);
-
-            // Show the download button
-            downloadButton.href = generatedImageUrl;
-            downloadButton.style.display = "inline"; // Show the download button
         }
     }
 
