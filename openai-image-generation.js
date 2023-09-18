@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function generateImage() {
         const userPrompt = userInput.value.trim();
         if (userPrompt !== "") {
-            axios.post('https://api.openai.com/v1/images/generate', {
+            axios.post('https://api.openai.com/v1/davinci/images/generate', {
                 prompt: userPrompt,
             }, {
                 headers: {
@@ -22,11 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
             })
             .then(function (response) {
-                const generatedImageUrl = response.data.images[0].url;
-                // Display the generated image on your website as needed
-                const imageElement = document.createElement("img");
-                imageElement.src = generatedImageUrl;
-                chatBox.appendChild(imageElement);
+                const generatedImageData = response.data; // This will contain the generated image data
+                // You can display the image or manipulate it as needed
+                // For example, you can create an <img> element and set its 'src' attribute with the image data
 
                 // Show the "Download Image" button
                 downloadButton.style.display = "inline";
@@ -39,21 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function downloadImage() {
-        // Retrieve the generated image URL
-        const generatedImage = document.querySelector("img");
-        const imageUrl = generatedImage.src;
-
-        // Create a temporary anchor element to trigger the download
-        const downloadLink = document.createElement('a');
-        downloadLink.href = imageUrl;
-        downloadLink.download = 'generated-image.png'; // Specify the desired file name
-        downloadLink.style.display = 'none';
-        document.body.appendChild(downloadLink);
-
-        // Trigger the click event to start the download
-        downloadLink.click();
-
-        // Clean up
-        document.body.removeChild(downloadLink);
+        // You can implement the image download logic here if needed
+        // Retrieve the generated image data and save it as a file
     }
 });
