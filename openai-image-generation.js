@@ -1,37 +1,58 @@
-// Import OpenAI library
 import OpenAI from "openai";
 
 // Replace 'your-api-key' with your actual OpenAI API key
 const apiKey = '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';
 
-// Initialize OpenAI instance
 const openai = new OpenAI({ apiKey });
 
-// Function to generate an image
 async function generateImage(prompt) {
-    try {
-        const response = await openai.images.generate({ prompt });
-        const imageUrls = response.data.map((imageData) => imageData.url);
-        if (imageUrls.length > 0) {
-            // Display the generated image by setting the 'src' attribute of the <img> element
-            const generatedImageUrl = imageUrls[0];
-            const generatedImage = document.getElementById("generated-image");
-            generatedImage.src = generatedImageUrl; // Set the 'src' attribute
-        } else {
-            console.error("No image URL received from OpenAI.");
-            appendMessage("AI Chatbot", "An error occurred while generating the image.");
-        }
-    } catch (error) {
-        console.error(error);
-        appendMessage("AI Chatbot", "An error occurred while generating the image.");
+  try {
+    const response = await openai.images.generate({
+      prompt: prompt,
+    });
+
+    if (response.data && response.data.length > 0) {
+      const imageUrl = response.data[0].url;
+      // Display the generated image on your website as needed
+      // For example, you can create an <img> element and set its 'src' attribute to the generated image URL
+      const imageElement = document.createElement("img");
+      imageElement.src = imageUrl;
+      document.getElementById("chat-box").appendChild(imageElement);
+
+      // Show the download button when the image is ready
+      document.getElementById("download-button").style.display = "inline";
+    } else {
+      console.error("No image URL found in the response.");
     }
+  } catch (error) {
+    console.error("Error generating image:", error);
+  }
 }
 
-// Event listener for the "Image" button
-const imageButton = document.getElementById("image-button");
-imageButton.addEventListener("click", function () {
-    const userInput = document.getElementById("user-input").value.trim();
-    if (userInput !== "") {
-        generateImage(userInput);
-    }
+// Add an event listener to the image button
+document.getElementById("image-button").addEventListener("click", function () {
+  const userInput = document.getElementById("user-input").value;
+  generateImage(userInput);
+});
+
+// Function to handle the download button click
+document.getElementById("download-button").addEventListener("click", function () {
+  const generatedImage = document.querySelector("#chat-box img");
+  if (generatedImage) {
+    const imageURL = generatedImage.src;
+    // Create a temporary anchor element to trigger the download
+    const downloadLink = document.createElement("a");
+    downloadLink.href = imageURL;
+    downloadLink.download = "generated-image.png"; // Specify the desired file name
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+
+    // Trigger the click event to start the download
+    downloadLink.click();
+
+    // Clean up
+    document.body.removeChild(downloadLink);
+  } else {
+    console.error("Generated image not found.");
+  }
 });
