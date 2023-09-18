@@ -123,7 +123,7 @@ button:hover {
     .logo {
         width: 60px; /* Smaller logo size for narrow screens */
     }
-    
+
     /* Center the "Dimitris Vatistas" text and Android button below the chatbot */
     .chat-input {
         flex-direction: column;
