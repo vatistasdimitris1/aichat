@@ -199,11 +199,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function interactWithGPT3(userMessage) {
-        const apiKey = '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';
+        const apiKey = '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';
 
         axios.post('https://api.openai.com/v1/engines/davinci/completions', {
             prompt: userMessage,
-            max_tokens: 50,
+            max_tokens: 100,
         }, {
             headers: {
                 'Content-Type': 'application/json',
