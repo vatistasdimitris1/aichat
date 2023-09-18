@@ -144,31 +144,13 @@ button:hover {
   display: inline-block;
 }
 
-/* Hide the tooltip text by default */
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-
-  /* Position the tooltip above the button */
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-
-  /* Fade-in animation */
-  opacity: 0;
-  transition: opacity 0.3s;
+/* Add hover effect to the button */
+#generate-image-button:hover {
+  background-color: #f44336; /* Change background color on hover (optional) */
+  color: #fff; /* Change text color on hover (optional) */
 }
 
-/* Show the tooltip text when hovering over the button */
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
+/* Change the text on hover */
+#generate-image-button:hover::before {
+  content: "Coming Soon"; /* Change the button text on hover */
 }
-
