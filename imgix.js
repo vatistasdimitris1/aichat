@@ -64,6 +64,6 @@ function handleImageGeneration() {
     });
 }
 
-// Add an event listener to the button with id "generate-button"
+// Add an event listener to the "Edit Image" button
 const generateButton = document.getElementById("generate-button");
 generateButton.addEventListener("click", handleImageGeneration);
