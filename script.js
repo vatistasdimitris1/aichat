@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     const title = topResult.title;
                     const snippet = topResult.snippet;
 
-                    const googleResponse = `Google says: ${title}. Here's a snippet: ${snippet}`;
+                    const googleResponse = `AI Chatbot: ${title}. Here's a snippet: ${snippet}`;
                     appendMessage("AI Chatbot", googleResponse);
                 } else {
                     appendMessage("AI Chatbot", "Sorry, I couldn't find an answer to your question.");
