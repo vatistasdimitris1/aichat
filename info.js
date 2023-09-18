@@ -1,6 +1,7 @@
 // Sample user data (replace with your data)
 const users = [
     { email: 'user@example.com', paid: false },
+    { email: 'familyvatistas90@gmail.com', paid: true }
     // Add more user data as needed
 ];
 
