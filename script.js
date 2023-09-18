@@ -187,9 +187,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     const snippet = topResult.snippet;
 
                     const googleResponse = `Google says: ${title}. Here's a snippet: ${snippet}`;
-                    appendMessage("Google", googleResponse);
+                    appendMessage("AI Chatbot", googleResponse);
                 } else {
-                    appendMessage("Google", "Sorry, I couldn't find an answer to your question.");
+                    appendMessage("AI Chatbot", "Sorry, I couldn't find an answer to your question.");
                 }
             })
             .catch(function (error) {
