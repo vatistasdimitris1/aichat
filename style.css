@@ -138,22 +138,3 @@ button:hover {
     }
 }
  
-/* Style for the "Download Image" button */
-#download-button {
-    display: none; /* Initially hidden */
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 12px;
-    border-radius: 3px;
-    cursor: pointer;
-    margin: 5px;
-    text-decoration: none; /* Remove underline for links */
-}
-
-/* Add hover effect for the "Download Image" button */
-#download-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.1);
-    transition: background-color 0.3s, transform 0.3s;
-}
