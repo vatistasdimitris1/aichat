@@ -148,9 +148,11 @@ button:hover {
 #generate-image-button:hover {
   background-color: #f44336; /* Change background color on hover (optional) */
   color: #fff; /* Change text color on hover (optional) */
+  transform: scale(0.9); /* Scale down the button on hover */
+  transition: transform 0.3s; /* Add a smooth transition effect */
 }
 
 /* Change the text on hover */
-#generate-image-button:hover::before {
+.coming-soon-button:hover::before {
   content: "Coming Soon"; /* Change the button text on hover */
 }
