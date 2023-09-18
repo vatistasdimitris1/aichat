@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Chatbot</title>
-    <link rel="icon" type="image/x-icon" href="logo.png">
+    <!-- ... (head content remains the same) ... -->
 </head>
 <body>
     <div class="chat-container">
@@ -13,6 +9,7 @@
         <div class="chat-box" id="chat-box"></div>
         <div class="chat-input">
             <input type="text" id="user-input" placeholder="Type a message...">
+            <!-- Move the "Send" button here -->
             <button id="send-button">Send</button>
             <!-- Add this input element for image upload -->
             <input type="file" id="image-upload">
@@ -23,17 +20,14 @@
             <button id="google-mode-button">Google</button>
             <button id="gpt3-mode-button">GPT-3</button>
             <button id="voice-button">🎙️</button>
-            <div><p>Made by Dimitris Vatistas</p></div>
+        </div>
+        <!-- Move the "Dimitris Vatistas" text and Android button here -->
+        <div><p>Made by Dimitris Vatistas</p></div>
+        <div class="android-button-container">
+            <button id="android-button">Android</button>
         </div>
     </div>
 
-    <!-- Android button container -->
-    <div class="android-button-container">
-        <button id="android-button">Android</button>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="script.js"></script>
-    <script src="imgix.js"></script>
+    <!-- ... (scripts remain the same) ... -->
 </body>
 </html>
