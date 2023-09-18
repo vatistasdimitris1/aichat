@@ -7,26 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const voiceButton = document.getElementById("voice-button");
     const androidButton = document.getElementById("android-button"); // Added Android button
 
-    const imageButton = document.getElementById("image-button");
-   
-    // Handle "Image" button click event
-    imageButton.addEventListener("click", generateImage);
-
-    async function generateImage() {
-        const userMessage = userInput.value.trim();
-
-        if (userMessage !== "") {
-            // Replace the following lines with your image generation logic
-            // This is just a placeholder for generating an image
-            const generatedImageUrl = "your_generated_image_url.png";
-
-            // Display the generated image on your website
-            const imageElement = document.createElement("img");
-            imageElement.src = generatedImageUrl;
-            chatBox.appendChild(imageElement);
-        }
-    }
-
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
 
