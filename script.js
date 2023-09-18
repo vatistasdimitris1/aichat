@@ -228,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         axios.post('https://api.openai.com/v1/engines/davinci/completions', {
             prompt: userMessage,
-            max_tokens: 100,
+            max_tokens: 50,
         }, {
             headers: {
                 'Content-Type': 'application/json',
