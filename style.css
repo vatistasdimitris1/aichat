@@ -7,11 +7,12 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
 }
 
 .chat-container {
     width: 80%;
-    max-width: 800px; /* Increase the maximum width */
+    max-width: 800px;
     background-color: #fff;
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -19,7 +20,6 @@ body {
     padding: 15px;
     margin: 10px;
 }
-
 
 .chat-header {
     background-color: #007bff;
@@ -69,40 +69,18 @@ button:hover {
     background-color: #0056b3;
 }
 
-#google-mode-button:hover {
-    background-color: #f44336;
-    transform: scale(1.0);
-    transition: background-color 0.3s, transform 0.3s;
+/* Add custom button styles for specific buttons */
+#generate-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
 }
 
-#google-mode-button.active {
+#generate-button.active {
     background-color: #ff5733;
-    transform: scale(1.0);
-}
-
-#gpt3-mode-button:hover {
-    background-color: #4CAF50;
-    transform: scale(1.1);
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-#gpt3-mode-button.active {
-    background-color: #6dbd63;
-    transform: scale(1.0);
-}
-
-#voice-button:hover {
-    background-color: #ffc107;
-    transform: scale(1.1);
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-#voice-button.active {
-    background-color: #ffdb58;
     transform: scale(1.1);
 }
 
-/* Adjust the logo size for all screens */
+/* Logo styling */
 .logo {
     width: 110px;
     position: absolute;
@@ -111,7 +89,7 @@ button:hover {
     transform: translateX(-50%);
 }
 
-/* Media query for screens narrower than 600px (typical phone width) */
+/* Media query for screens narrower than 600px */
 @media (max-width: 600px) {
     .chat-container {
         width: 95%;
@@ -126,104 +104,27 @@ button:hover {
     }
 }
 
-/* Style for the Android button */
-#android-button {
+/* Android button styling */
+.android-button-container {
+    text-align: center;
     position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 12px;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    overflow: hidden;
-    padding-right: 0;
-    position: relative;
+    z-index: 1;
 }
 
-/* Style for the progress bar container */
-#android-button .progress-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    animation: progressAnimation 3s linear;
-}
-
-/* Keyframes for the progress bar color animation */
-@keyframes progressAnimation {
-    0% {
-        background-color: #0056b3; /* Initial color */
-    }
-    100% {
-        background-color: #00cc66; /* Final color (adjust as needed) */
-    }
-}
-
-/* Style for the Android button container */
-.android-button-container {
-    text-align: center;
-    position: fixed;
-    bottom: 20px; /* Adjust the distance from the bottom as needed */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1; /* Ensure it appears above other content */
-}
-
-/* Style for the Android button */
 #android-button {
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 10px 20px; /* Adjust the padding as needed */
+    padding: 10px 20px;
     border-radius: 3px;
     cursor: pointer;
     margin: 5px;
 }
 
-/* Add hover effect for the Android button */
 #android-button:hover {
     background-color: #0056b3;
     transform: scale(1.1);
-    transition: background-color 0.3s, transform 0.3s;
 }
-
-.circular-cursor {
-    width: 20px;
-    height: 20px;
-    background-color: #007bff;
-    border-radius: 50%;
-    position: absolute;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-}
-
-#image-editor-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 12px;
-    border-radius: 3px;
-    cursor: pointer;
-    margin: 5px;
-    transition: background-color 0.3s, transform 0.3s, color 0.3s; /* Added color transition */
-}
-
-#image-editor-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.1);
-    color: #fff; /* Change text color on hover */
-}
-
-#image-editor-button.active {
-    background-color: #ff5733;
-    transform: scale(1.1);
-    color: #fff; /* Change text color when active */
-}
-
-
-
