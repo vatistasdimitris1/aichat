@@ -9,29 +9,29 @@
 </head>
 <body>
     <div class="chat-container">
-        <header class="chat-header">
-            <img src="logo.png" alt="Your Logo" class="logo">
-        </header>
-        <div class="chat-content">
-            <div class="chat-box" id="chat-box"></div>
-            <div class="chat-input">
-                <input type="text" id="user-input" placeholder="Type a message...">
-                <button id="send-button">Send</button>
-                <input type="file" id="image-upload">
-                <button id="generate-button">Edit Image</button>
-                <img id="edited-image" src="" alt="Edited Image">
-                <button id="google-mode-button">Google</button>
-                <button id="gpt3-mode-button">GPT-3</button>
-                <button id="voice-button">🎙️</button>
-            </div>
+        <img src="logo.png" alt="Your Logo" class="logo" id="logo"> 
+        <div class="chat-box" id="chat-box"></div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button id="send-button">Send</button>
+            <!-- Add this input element for image upload -->
+            <input type="file" id="image-upload">
+            <!-- Add this button to your HTML -->
+            <button id="generate-button">Edit Image</button>
+            <!-- Add this image element to display the edited image -->
+            <img id="edited-image" src="" alt="Edited Image">
+            <button id="google-mode-button">Google</button>
+            <button id="gpt3-mode-button">GPT-3</button>
+            <button id="voice-button">🎙️</button>
+            <div><p>Made by Dimitris Vatistas</p></div>
         </div>
     </div>
+
+    <!-- Android button container -->
     <div class="android-button-container">
         <button id="android-button">Android</button>
     </div>
-    <div class="footer">
-        <p>Made by Dimitris Vatistas</p>
-    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
     <script src="imgix.js"></script>
