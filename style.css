@@ -1,12 +1,17 @@
+/* Reset some default styles */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
 /* Base styles for all screens */
 body {
-    font-family: Arial, sans-serif;
     background-color: #f7f7f7;
-    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
 }
 
@@ -23,21 +28,32 @@ body {
 
 .chat-header {
     background-color: #007bff;
-    color: #fff;
-    padding: 10px;
     text-align: center;
+    padding: 10px;
+}
+
+.chat-header .logo {
+    width: 110px;
+    display: block;
+    margin: 0 auto;
+}
+
+.chat-content {
+    padding: 15px;
 }
 
 .chat-box {
     height: 200px;
     overflow-y: scroll;
     padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
 .chat-input {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
     padding: 10px;
     border-top: 1px solid #ccc;
@@ -59,52 +75,21 @@ button {
     border-radius: 3px;
     cursor: pointer;
     margin: 5px;
-}
-
-button.active {
-    background-color: #ff5733;
+    transition: background-color 0.3s, transform 0.3s, color 0.3s;
 }
 
 button:hover {
     background-color: #0056b3;
-}
-
-/* Add custom button styles for specific buttons */
-#generate-button:hover {
-    background-color: #0056b3;
     transform: scale(1.1);
 }
 
-#generate-button.active {
+.button.active {
     background-color: #ff5733;
     transform: scale(1.1);
+    color: #fff;
 }
 
-/* Logo styling */
-.logo {
-    width: 110px;
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-/* Media query for screens narrower than 600px */
-@media (max-width: 600px) {
-    .chat-container {
-        width: 95%;
-    }
-
-    .chat-box {
-        height: 150px;
-    }
-
-    .logo {
-        width: 90px;
-    }
-}
-
-/* Android button styling */
+/* Style for the Android button container */
 .android-button-container {
     text-align: center;
     position: fixed;
@@ -127,4 +112,14 @@ button:hover {
 #android-button:hover {
     background-color: #0056b3;
     transform: scale(1.1);
+}
+.footer {
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+}
+
+.footer p {
+    margin: 0;
 }
