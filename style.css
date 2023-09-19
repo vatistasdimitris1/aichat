@@ -146,10 +146,10 @@ button:hover {
 
 /* Add hover effect to the button */
 #generate-image-button:hover {
-  background-color: #042A2B; /* Change background color on hover (optional) */
+  background-color: ; /* Change background color on hover (optional) */
   color: #fff; /* Change text color on hover (optional) */
   transform: scale(0.9); /* Scale down the button on hover */
-  transition: transform 0.3s; /* Add a smooth transition effect */
+  transition: transform 0.5s; /* Add a smooth transition effect */
 }
 
 /* Change the text on hover */
