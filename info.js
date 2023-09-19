@@ -20,4 +20,22 @@ function saveEmailAndPaymentStatus(email, isPaid) {
     }
 }
 
-export { getUserData, saveEmailAndPaymentStatus };
+// Function to get all users
+function getUsers() {
+    return users;
+}
+
+// Function to add a new user
+function addUser(newUser) {
+    users.push(newUser);
+}
+
+// Function to remove a user by email
+function removeUser(email) {
+    const index = users.findIndex(user => user.email === email);
+    if (index !== -1) {
+        users.splice(index, 1);
+    }
+}
+
+export { getUserData, saveEmailAndPaymentStatus, getUsers, addUser, removeUser };
