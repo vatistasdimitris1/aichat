@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="admin.css">
+    <script src="info.js" type="module"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Panel</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Paid</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="user-list">
+                <!-- User data will be displayed here -->
+            </tbody>
+        </table>
+        <div class="actions">
+            <input type="text" id="new-email" placeholder="New User Email">
+            <button id="add-user">Add User</button>
+        </div>
+    </div>
+    <script src="admin.js" type="module"></script>
+</body>
+</html>
