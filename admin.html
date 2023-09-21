@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
-    <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <h1>Admin Panel</h1>
-
-    <!-- Input field and button for adding a new user -->
-    <input type="text" id="newUserInput" placeholder="Email">
-    <button id="addUserButton">Add User</button>
-
-    <!-- Display user list -->
-    <ul id="userList"></ul>
-
-    <!-- Include your custom JavaScript -->
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Paid</th>
+                <th>Toggle Paid</th>
+            </tr>
+        </thead>
+        <tbody id="userTable">
+            <!-- User rows will be added here dynamically -->
+        </tbody>
+    </table>
     <script src="admin.js"></script>
 </body>
 </html>
