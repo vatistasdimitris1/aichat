@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const userList = document.getElementById("user-list");
     const newUserInput = document.getElementById("new-email");
     const addUserButton = document.getElementById("add-user");
+    const { saveEmailAndPaymentStatus, getUsers } = require('./info.js');
 
     // Load initial user data
     loadUsers();
@@ -48,4 +49,15 @@ document.addEventListener("DOMContentLoaded", function () {
             loadUsers(); // Reload the user list after addition
         }
     });
+
+// Add a new user
+addUserButton.addEventListener("click", () => {
+    const newEmail = newUserInput.value.trim();
+    if (newEmail) {
+        addUser({ email: newEmail, paid: false });
+        saveEmailAndPaymentStatus(newEmail, false); // Update user data in info.js
+        newUserInput.value = ""; // Clear the input
+        loadUsers(); // Reload the user list after addition
+        saveUsersToTxt(); // Save users to info.txt
+    }
 });
