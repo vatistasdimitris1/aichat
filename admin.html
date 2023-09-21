@@ -9,8 +9,9 @@
 <body>
     <div class="container">
         <h1>Admin Panel</h1>
-        <div class="actions">
-            <input type="text" id="new-email" placeholder="Enter Email">
+        <div>
+            <label for="new-email">New Email:</label>
+            <input type="text" id="new-email" required>
             <button id="add-user">Add User</button>
         </div>
         <table>
@@ -21,9 +22,12 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody id="userList"></tbody>
+            <tbody id="userList">
+                <!-- User data will be displayed here -->
+            </tbody>
         </table>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="admin.js"></script>
 </body>
