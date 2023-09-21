@@ -1,75 +1,27 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Function to render user data as rows in the table
-    const renderUser = (user) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${user.email}</td>
-            <td>${user.paid ? 'True' : 'False'}</td>
-            <td><button data-email="${user.email}">Toggle</button></td>
-        `;
-        return row;
-    };
-
-    // Function to fetch and display user data
-    const loadUsers = () => {
-        fetch('/get-users')
-            .then((response) => response.json())
-            .then((data) => {
-                const userTable = document.getElementById('userTable');
-                userTable.innerHTML = ''; // Clear existing rows
-
-                data.forEach((user) => {
-                    const row = renderUser(user);
-                    userTable.appendChild(row);
-
-                    // Add event listener to toggle button
-                    const toggleButton = row.querySelector('button');
-                    toggleButton.addEventListener('click', () => {
-                        togglePaidStatus(user.email);
-                    });
-                });
-            });
-    };
-
-    // Function to toggle the paid status
-    const togglePaidStatus = (email) => {
-        fetch('/toggle-paid', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email }),
-        })
-        .then((response) => {
-            if (response.ok) {
-                loadUsers(); // Reload the user data after the update
-            } else {
-                console.error('Error toggling paid status:', response.statusText);
-            }
-        })
-        .catch((error) => {
-            console.error('Error toggling paid status:', error);
-        });
-    };
-
-    // Initial load of user data
-    loadUsers();
-
-    // jQuery code for adding users
-    const addUserButton = $("#addUserButton");
-    const newUserInput = $("#newUserInput");
+$(document).ready(function () {
+    const addUserButton = $("#add-user");
+    const newUserInput = $("#new-email");
     const userList = $("#userList");
 
     // Function to load users from the server and display them
     function loadUsers() {
         $.ajax({
             type: "GET",
-            url: "/get-users", // This matches the server route
+            url: "/get-users",
             dataType: "json",
             success: function (data) {
-                userList.empty(); // Clear the user list
+                userList.empty();
                 data.forEach(function (user) {
-                    userList.append(`<li>${user.email} (Paid: ${user.paid ? "Yes" : "No"})</li>`);
+                    userList.append(`
+                        <tr>
+                            <td>${user.email}</td>
+                            <td>${user.paid ? "Yes" : "No"}</td>
+                            <td>
+                                <button class="toggle-payment" data-email="${user.email}">Toggle Payment</button>
+                                <button class="remove-user" data-email="${user.email}">Remove</button>
+                            </td>
+                        </tr>
+                    `);
                 });
             },
             error: function (err) {
@@ -84,17 +36,49 @@ document.addEventListener('DOMContentLoaded', () => {
         if (newEmail) {
             $.ajax({
                 type: "POST",
-                url: "/save-data", // This matches the server route
-                data: { email: newEmail, isPaid: false }, // Change isPaid as needed
+                url: "/add-user",
+                data: { email: newEmail, paid: false },
                 success: function () {
-                    newUserInput.val(""); // Clear the input
-                    loadUsers(); // Reload the user list after addition
+                    newUserInput.val("");
+                    loadUsers();
                 },
                 error: function (err) {
                     console.error("Error adding user:", err);
                 }
             });
         }
+    });
+
+    // Event listener to toggle payment status
+    userList.on("click", ".toggle-payment", function () {
+        const email = $(this).data("email");
+        $.ajax({
+            type: "POST",
+            url: "/toggle-payment",
+            data: { email: email },
+            success: function () {
+                loadUsers();
+            },
+            error: function (err) {
+                console.error("Error toggling payment status:", err);
+            }
+        });
+    });
+
+    // Event listener to remove a user
+    userList.on("click", ".remove-user", function () {
+        const email = $(this).data("email");
+        $.ajax({
+            type: "POST",
+            url: "/remove-user",
+            data: { email: email },
+            success: function () {
+                loadUsers();
+            },
+            error: function (err) {
+                console.error("Error removing user:", err);
+            }
+        });
     });
 
     // Load users when the page loads
