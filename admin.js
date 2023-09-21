@@ -1,63 +1,45 @@
-import { getUsers, addUser, removeUser } from './info.js';
+$(document).ready(function () {
+    const addUserButton = $("#addUserButton");
+    const newUserInput = $("#newUserInput");
+    const userList = $("#userList");
 
-document.addEventListener("DOMContentLoaded", function () {
-    const userList = document.getElementById("user-list");
-    const newUserInput = document.getElementById("new-email");
-    const addUserButton = document.getElementById("add-user");
-    const { saveEmailAndPaymentStatus, getUsers } = require('./info.js');
-
-    // Load initial user data
-    loadUsers();
-
-    // Load user data and populate the table
+    // Function to load users from the server and display them
     function loadUsers() {
-        userList.innerHTML = ""; // Clear the existing user list
-        const users = getUsers();
-
-        users.forEach(user => {
-            const row = document.createElement("tr");
-            const emailCell = document.createElement("td");
-            const paidCell = document.createElement("td");
-            const actionsCell = document.createElement("td");
-            const removeButton = document.createElement("button");
-
-            emailCell.textContent = user.email;
-            paidCell.textContent = user.paid ? "Yes" : "No";
-
-            removeButton.textContent = "Remove";
-            removeButton.addEventListener("click", () => {
-                removeUser(user.email);
-                loadUsers(); // Reload the user list after removal
-            });
-
-            actionsCell.appendChild(removeButton);
-
-            row.appendChild(emailCell);
-            row.appendChild(paidCell);
-            row.appendChild(actionsCell);
-
-            userList.appendChild(row);
+        $.ajax({
+            type: "GET",
+            url: "/get-users", // This matches the server route
+            dataType: "json",
+            success: function (data) {
+                userList.empty(); // Clear the user list
+                data.forEach(function (user) {
+                    userList.append(`<li>${user.email} (Paid: ${user.paid ? "Yes" : "No"})</li>`);
+                });
+            },
+            error: function (err) {
+                console.error("Error loading users:", err);
+            }
         });
     }
 
-    // Add a new user
-    addUserButton.addEventListener("click", () => {
-        const newEmail = newUserInput.value.trim();
+    // Event listener to add a new user
+    addUserButton.click(function () {
+        const newEmail = newUserInput.val().trim();
         if (newEmail) {
-            addUser({ email: newEmail, paid: false });
-            newUserInput.value = ""; // Clear the input
-            loadUsers(); // Reload the user list after addition
+            $.ajax({
+                type: "POST",
+                url: "/save-data", // This matches the server route
+                data: { email: newEmail, isPaid: false }, // Change isPaid as needed
+                success: function () {
+                    newUserInput.val(""); // Clear the input
+                    loadUsers(); // Reload the user list after addition
+                },
+                error: function (err) {
+                    console.error("Error adding user:", err);
+                }
+            });
         }
     });
 
-// Add a new user
-addUserButton.addEventListener("click", () => {
-    const newEmail = newUserInput.value.trim();
-    if (newEmail) {
-        addUser({ email: newEmail, paid: false });
-        saveEmailAndPaymentStatus(newEmail, false); // Update user data in info.js
-        newUserInput.value = ""; // Clear the input
-        loadUsers(); // Reload the user list after addition
-        saveUsersToTxt(); // Save users to info.txt
-    }
+    // Load users when the page loads
+    loadUsers();
 });
