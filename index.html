@@ -19,40 +19,9 @@
             <button id="next-button">Next</button>
         </div>
         <div class="check-payment-button">
-            <button id="check-payment-button">Already Paid</button>
+            <button id="check-payment-button">Already</button>
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="main.js" type="module"></script>
-
-    <script>
-        // Function to handle form submission
-        document.getElementById('next-button').addEventListener('click', function () {
-            const email = document.getElementById('email-input').value;
-            const isPaid = false; // Set this to true if the user has already paid
-
-            // Call the function to save email and payment status
-            saveEmailAndPaymentStatus(email, isPaid);
-
-            // Optionally, you can redirect the user to another page here
-        });
-
-        // Function to check if the user has already paid
-        document.getElementById('check-payment-button').addEventListener('click', function () {
-            const email = document.getElementById('email-input').value;
-
-            // Call the function to get user data by email
-            const user = getUserData(email);
-
-            if (user && user.paid) {
-                // User has already paid, perform the desired action
-                console.log('User has already paid.');
-            } else {
-                // User has not paid, perform the desired action
-                console.log('User has not paid.');
-            }
-        });
-    </script>
 </body>
 </html>
