@@ -1,31 +1,31 @@
-// Sample user data (replace with your data)
-const users = [
-    { email: 'user@example.com', paid: false },
-    { email: 'familyvatistas90@gmail.com', paid: true },
-    { email: 'DimVat', paid: true }
-    // Add more user data as needed
+// info.js
+
+// Simulated user data storage
+const userData = [
+    { email: "familyvatistas90@gmail.com", paid: true },
+    { email: "user2@example.com", paid: false },
+    { email: "user3@example.com", paid: true },
 ];
 
 // Function to get user data by email
-function getUserData(email) {
-    return users.find(user => user.email === email);
+export function getUserData(email) {
+    return userData.find(user => user.email === email);
 }
 
-// Function to save email and payment status to info.js
-function saveEmailAndPaymentStatus(email, isPaid) {
-    const user = getUserData(email);
+// Function to get all user data
+export function getAllUserData() {
+    return userData;
+}
 
-    if (user) {
-        user.email = email; // Update the user's email
-        user.paid = isPaid; // Update the payment status
-    }
+// Function to save email and payment status
+export function saveEmailAndPaymentStatus(email, paid) {
+    userData.push({ email, paid });
 }
 
 // Function to check if the user has already paid
-function checkPaymentAndEmail() {
-    const email = document.getElementById('email-input').value;
-
-    // Call the function to get user data by email
+export function checkPaymentAndEmail() {
+    const emailInput = document.getElementById('email-input');
+    const email = emailInput.value.trim();
     const user = getUserData(email);
 
     if (user && user.paid) {
@@ -39,7 +39,8 @@ function checkPaymentAndEmail() {
 
 // Event listener for the "Next" button
 document.getElementById('next-button').addEventListener('click', function () {
-    const email = document.getElementById('email-input').value;
+    const emailInput = document.getElementById('email-input');
+    const email = emailInput.value.trim();
     const isPaid = false; // Set this to true if the user has already paid
 
     // Call the function to save email and payment status
@@ -48,5 +49,5 @@ document.getElementById('next-button').addEventListener('click', function () {
     // Optionally, you can redirect the user to another page here
 });
 
-// Event listener for the "Already" button
+// Event listener for the "Already Paid" button
 document.getElementById('check-payment-button').addEventListener('click', checkPaymentAndEmail);
