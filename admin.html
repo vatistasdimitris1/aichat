@@ -1,33 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
-    <link rel="stylesheet" href="admin.css">
-    <script src="info.js" type="module"></script>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Admin Panel</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Email</th>
-                    <th>Paid</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="user-list">
-                <!-- User data will be displayed here -->
-            </tbody>
-        </table>
-        <div class="actions">
-            <input type="text" id="new-email" placeholder="New User Email">
-            <button id="add-user">Add User</button>
-        </div>
-    </div>
-    <script src="admin.js" type="module"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <h1>Admin Panel</h1>
+
+    <!-- Input field and button for adding a new user -->
+    <input type="text" id="newUserInput" placeholder="Email">
+    <button id="addUserButton">Add User</button>
+
+    <!-- Display user list -->
+    <ul id="userList"></ul>
+
+    <!-- Include your custom JavaScript -->
+    <script src="admin.js"></script>
 </body>
 </html>
