@@ -1,3 +1,5 @@
+import { getUserData } from './info.js';
+
 document.addEventListener("DOMContentLoaded", function () {
     const nextButton = document.getElementById("next-button");
     const emailInput = document.getElementById("email-input");
@@ -18,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
             data: { email: email },
             success: function (response) {
                 if (response.paid) {
-                    // Redirect back to main.html
+                    // User has already paid, redirect to main.html
                     window.location.href = "main.html";
                 } else {
                     alert("You have not paid yet. Please make a payment.");
