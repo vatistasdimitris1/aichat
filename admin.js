@@ -1,21 +1,38 @@
+// admin.js
+
 import { getAllUserData } from './info.js';
 
-document.addEventListener("DOMContentLoaded", function () {
-    const userInfoContainer = document.getElementById("user-info");
+// Function to display updates
+function displayUpdates(updateText) {
+    const updateList = document.getElementById('update-list');
+    const updateItem = document.createElement('li');
+    updateItem.textContent = updateText;
+    updateList.appendChild(updateItem);
+}
 
-    const users = getAllUserData();
+// Function to display user data in the table
+function displayUserData() {
+    const userList = document.getElementById('user-list');
+    const userData = getAllUserData();
 
-    if (users.length === 0) {
-        userInfoContainer.textContent = "No user data available.";
-    } else {
-        const userList = document.createElement("ul");
+    userData.forEach(user => {
+        const row = userList.insertRow();
+        const emailCell = row.insertCell(0);
+        const paymentCell = row.insertCell(1);
 
-        users.forEach(user => {
-            const listItem = document.createElement("li");
-            listItem.textContent = `Email: ${user.email}, Paid: ${user.paid ? "Yes" : "No"}`;
-            userList.appendChild(listItem);
-        });
+        emailCell.textContent = user.email;
+        paymentCell.textContent = user.paid ? 'Paid' : 'Not Paid';
+    });
+}
 
-        userInfoContainer.appendChild(userList);
-    }
-});
+// Function to initialize the admin panel
+function initializeAdminPanel() {
+    // Add sample update text
+    displayUpdates('Welcome to the Admin Panel.');
+
+    // Display user data
+    displayUserData();
+}
+
+// Initialize the admin panel when the page loads
+window.addEventListener('load', initializeAdminPanel);
