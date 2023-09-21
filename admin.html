@@ -2,24 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="admin.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-    <h1>Admin Panel</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Email</th>
-                <th>Paid</th>
-                <th>Toggle Paid</th>
-            </tr>
-        </thead>
-        <tbody id="userTable">
-            <!-- User rows will be added here dynamically -->
-        </tbody>
-    </table>
+    <div class="container">
+        <h1>Admin Panel</h1>
+        <div class="actions">
+            <input type="text" id="new-email" placeholder="Enter Email">
+            <button id="add-user">Add User</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Paid</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="userList"></tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="admin.js"></script>
 </body>
 </html>
