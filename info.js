@@ -37,5 +37,3 @@ function removeUser(email) {
         users.splice(index, 1);
     }
 }
-
-module.exports = { getUserData, saveEmailAndPaymentStatus, getUsers, addUser, removeUser };
