@@ -1,77 +1,59 @@
-const http = require('http');
+const express = require('express');
 const fs = require('fs');
-const url = require('url');
-const querystring = require('querystring');
-const { getUsers } = require('./info.js'); // Import getUsers function
+const bodyParser = require('body-parser');
+const app = express();
+const port = 3000;
 
-const server = http.createServer((req, res) => {
-    if (req.method === 'POST' && req.url === '/save-data') {
-        // ... (existing code)
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-        // Save to a text file (e.g., info.txt)
-        fs.appendFile('info.txt', `${email},${isPaid}\n`, (err) => {
-            if (err) {
-                console.error(err);
-                res.writeHead(500, { 'Content-Type': 'text/plain' });
-                res.end('Internal Server Error');
-            } else {
-                res.writeHead(200, { 'Content-Type': 'text/plain' });
-                res.end('Data saved successfully');
-            }
-        });
-    } else if (req.url === '/get-users') {
-        // Serve the user data from info.js as JSON
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(getUsers()));
-    } else if (req.url === '/info.txt') {
-        // Serve the info.txt file
-        fs.readFile('info.txt', (err, data) => {
-            if (err) {
-                console.error(err);
-                res.writeHead(500, { 'Content-Type': 'text/plain' });
-                res.end('Internal Server Error');
-            } else {
-                res.writeHead(200, { 'Content-Type': 'text/plain' });
-                res.end(data);
-            }
-        });
-    } else {
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
-        res.end('Not Found');
-    }
+// Serve admin.html at the root URL
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/admin.html');
 });
 
+// Serve admin.js at the /admin.js URL
+app.get('/admin.js', (req, res) => {
+    res.sendFile(__dirname + '/admin.js');
+});
 
-const server = http.createServer((req, res) => {
-  if (req.method === 'POST' && req.url === '/save-data') {
-    let body = '';
-    req.on('data', (chunk) => {
-      body += chunk;
-    });
-    req.on('end', () => {
-      const data = querystring.parse(body);
-      const email = data.email;
-      const isPaid = data.isPaid === 'true'; // Convert to a boolean
-
-      // Save to a text file (e.g., info.txt)
-      fs.appendFile('info.txt', `${email},${isPaid}\n`, (err) => {
+// Load user data from info.txt and send it as JSON
+app.get('/get-users', (req, res) => {
+    fs.readFile('info.txt', 'utf8', (err, data) => {
         if (err) {
-          console.error(err);
-          res.writeHead(500, { 'Content-Type': 'text/plain' });
-          res.end('Internal Server Error');
-        } else {
-          res.writeHead(200, { 'Content-Type': 'text/plain' });
-          res.end('Data saved successfully');
+            console.error('Error reading info.txt:', err);
+            res.status(500).send({ error: 'Internal server error' });
+            return;
         }
-      });
+        // Parse the data from info.txt into a JSON array
+        const users = data.split('\n').map(line => {
+            const [email, paid] = line.split(',');
+            return { email, paid: paid === 'true' };
+        });
+        res.json(users);
     });
-  } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Not Found');
-  }
 });
 
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+// Add a new user to info.txt
+app.post('/save-data', (req, res) => {
+    const { email, isPaid } = req.body;
+    if (!email) {
+        res.status(400).send({ error: 'Email is required' });
+        return;
+    }
+
+    // Append the new user to info.txt
+    const newUserLine = `${email},${isPaid || false}\n`;
+    fs.appendFile('info.txt', newUserLine, (err) => {
+        if (err) {
+            console.error('Error writing to info.txt:', err);
+            res.status(500).send({ error: 'Internal server error' });
+            return;
+        }
+        res.sendStatus(200);
+    });
+});
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
