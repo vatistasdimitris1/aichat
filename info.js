@@ -2,6 +2,7 @@
 const users = [
     { email: 'user@example.com', paid: false },
     { email: 'familyvatistas90@gmail.com', paid: true },
+    { email: 'DimVat', paid: true }
     // Add more user data as needed
 ];
 
@@ -20,20 +21,32 @@ function saveEmailAndPaymentStatus(email, isPaid) {
     }
 }
 
-// Function to get all users
-function getUsers() {
-    return users;
-}
+// Function to check if the user has already paid
+function checkPaymentAndEmail() {
+    const email = document.getElementById('email-input').value;
 
-// Function to add a new user
-function addUser(newUser) {
-    users.push(newUser);
-}
+    // Call the function to get user data by email
+    const user = getUserData(email);
 
-// Function to remove a user by email
-function removeUser(email) {
-    const index = users.findIndex(user => user.email === email);
-    if (index !== -1) {
-        users.splice(index, 1);
+    if (user && user.paid) {
+        // User has already paid, perform the desired action
+        console.log('User has already paid.');
+    } else {
+        // User has not paid, perform the desired action
+        console.log('User has not paid.');
     }
 }
+
+// Event listener for the "Next" button
+document.getElementById('next-button').addEventListener('click', function () {
+    const email = document.getElementById('email-input').value;
+    const isPaid = false; // Set this to true if the user has already paid
+
+    // Call the function to save email and payment status
+    saveEmailAndPaymentStatus(email, isPaid);
+
+    // Optionally, you can redirect the user to another page here
+});
+
+// Event listener for the "Already" button
+document.getElementById('check-payment-button').addEventListener('click', checkPaymentAndEmail);
