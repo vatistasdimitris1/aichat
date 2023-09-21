@@ -9,26 +9,19 @@
 <body>
     <div class="container">
         <h1>Admin Panel</h1>
-        <div>
-            <label for="new-email">New Email:</label>
-            <input type="text" id="new-email" required>
-            <button id="add-user">Add User</button>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Email</th>
-                    <th>Paid</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="userList">
-                <!-- User data will be displayed here -->
-            </tbody>
-        </table>
+        
+        <!-- Form to add users -->
+        <form id="addUserForm">
+            <input type="text" id="newUserEmail" placeholder="Email">
+            <input type="checkbox" id="newUserPaid" checked> Paid
+            <button type="submit">Add User</button>
+        </form>
+
+        <!-- List to display users -->
+        <ul id="userList"></ul>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="admin.js"></script>
+    <script src="info.js" type="module"></script>
+    <script src="admin.js" type="module"></script>
 </body>
 </html>
