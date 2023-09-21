@@ -1,57 +1,47 @@
 const express = require('express');
-const fs = require('fs');
 const bodyParser = require('body-parser');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
+
+// Import functions from info.js
+const { getUserData, saveEmailAndPaymentStatus, getUsers, addUser, removeUser } = require('./info');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Serve admin.html at the root URL
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/admin.html');
+// Serve static files
+app.use(express.static('public'));
+
+// Route to get all users
+app.get("/get-users", (req, res) => {
+    const usersData = getUsers();
+    res.json(usersData);
 });
 
-// Serve admin.js at the /admin.js URL
-app.get('/admin.js', (req, res) => {
-    res.sendFile(__dirname + '/admin.js');
+// Route to add a new user
+app.post("/add-user", (req, res) => {
+    const { email, paid } = req.body;
+    addUser({ email, paid });
+    res.send("User added successfully");
 });
 
-// Load user data from info.txt and send it as JSON
-app.get('/get-users', (req, res) => {
-    fs.readFile('info.txt', 'utf8', (err, data) => {
-        if (err) {
-            console.error('Error reading info.txt:', err);
-            res.status(500).send({ error: 'Internal server error' });
-            return;
-        }
-        // Parse the data from info.txt into a JSON array
-        const users = data.split('\n').map(line => {
-            const [email, paid] = line.split(',');
-            return { email, paid: paid === 'true' };
-        });
-        res.json(users);
-    });
-});
-
-// Add a new user to info.txt
-app.post('/save-data', (req, res) => {
-    const { email, isPaid } = req.body;
-    if (!email) {
-        res.status(400).send({ error: 'Email is required' });
-        return;
+// Route to toggle payment status
+app.post("/toggle-payment", (req, res) => {
+    const email = req.body.email;
+    const user = getUserData(email);
+    if (user) {
+        saveEmailAndPaymentStatus(email, !user.paid);
+        res.send("Payment status toggled successfully");
+    } else {
+        res.status(404).send("User not found");
     }
+});
 
-    // Append the new user to info.txt
-    const newUserLine = `${email},${isPaid || false}\n`;
-    fs.appendFile('info.txt', newUserLine, (err) => {
-        if (err) {
-            console.error('Error writing to info.txt:', err);
-            res.status(500).send({ error: 'Internal server error' });
-            return;
-        }
-        res.sendStatus(200);
-    });
+// Route to remove a user
+app.post("/remove-user", (req, res) => {
+    const email = req.body.email;
+    removeUser(email);
+    res.send("User removed successfully");
 });
 
 app.listen(port, () => {
