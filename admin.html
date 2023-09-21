@@ -1,14 +1,42 @@
+<!-- admin.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-    <h1>Welcome to the Admin Panel</h1>
-    <h2>User Information</h2>
-    <div id="user-info"></div>
-    <script src="admin.js" type="module"></script>
+    <h1>Admin Panel</h1>
+
+    <div class="container">
+        <!-- Box for updates -->
+        <div id="update-box">
+            <h2>Updates</h2>
+            <ul id="update-list">
+                <!-- Updates will be displayed here -->
+            </ul>
+        </div>
+
+        <!-- Box for user emails and payment status -->
+        <div id="user-list-box">
+            <h2>User List</h2>
+            <table id="user-list">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Payment Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- User data will be displayed here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
 </body>
 </html>
