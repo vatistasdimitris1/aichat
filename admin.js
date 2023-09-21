@@ -1,4 +1,61 @@
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', () => {
+    // Function to render user data as rows in the table
+    const renderUser = (user) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${user.email}</td>
+            <td>${user.paid ? 'True' : 'False'}</td>
+            <td><button data-email="${user.email}">Toggle</button></td>
+        `;
+        return row;
+    };
+
+    // Function to fetch and display user data
+    const loadUsers = () => {
+        fetch('/get-users')
+            .then((response) => response.json())
+            .then((data) => {
+                const userTable = document.getElementById('userTable');
+                userTable.innerHTML = ''; // Clear existing rows
+
+                data.forEach((user) => {
+                    const row = renderUser(user);
+                    userTable.appendChild(row);
+
+                    // Add event listener to toggle button
+                    const toggleButton = row.querySelector('button');
+                    toggleButton.addEventListener('click', () => {
+                        togglePaidStatus(user.email);
+                    });
+                });
+            });
+    };
+
+    // Function to toggle the paid status
+    const togglePaidStatus = (email) => {
+        fetch('/toggle-paid', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email }),
+        })
+        .then((response) => {
+            if (response.ok) {
+                loadUsers(); // Reload the user data after the update
+            } else {
+                console.error('Error toggling paid status:', response.statusText);
+            }
+        })
+        .catch((error) => {
+            console.error('Error toggling paid status:', error);
+        });
+    };
+
+    // Initial load of user data
+    loadUsers();
+
+    // jQuery code for adding users
     const addUserButton = $("#addUserButton");
     const newUserInput = $("#newUserInput");
     const userList = $("#userList");
