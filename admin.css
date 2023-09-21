@@ -2,24 +2,63 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    background-color: #f2f2f2;
 }
 
 h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    margin: 0;
 }
 
-h2 {
-    font-size: 20px;
-    margin-top: 20px;
-}
-
-#user-info {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
+.container {
+    max-width: 800px;
+    margin: 20px auto;
     background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+#update-box {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+
+#update-list {
+    list-style: none;
+    padding: 0;
+}
+
+#update-list li {
+    margin-bottom: 5px;
+}
+
+#user-list-box {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+#user-list {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#user-list th,
+#user-list td {
+    padding: 8px;
+    text-align: left;
+}
+
+#user-list th {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Add more styles as needed */
