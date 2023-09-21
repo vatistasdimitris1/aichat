@@ -1,7 +1,11 @@
+// info.js
+
+const fs = require('fs');
+
 // Sample user data (replace with your data)
-const users = [
+let users = [
     { email: 'user@example.com', paid: false },
-    { email: 'familyvatistas90@gmail.com', paid: true }
+    { email: 'familyvatistas90@gmail.com', paid: true },
     { email: 'DimVat', paid: true }
     // Add more user data as needed
 ];
@@ -39,4 +43,17 @@ function removeUser(email) {
     }
 }
 
-export { getUserData, saveEmailAndPaymentStatus, getUsers, addUser, removeUser };
+// Function to save users to info.txt
+function saveUsersToTxt() {
+    const data = users.map(user => `${user.email},${user.paid}`).join('\n');
+    fs.writeFileSync('info.txt', data);
+}
+
+module.exports = {
+    getUserData,
+    saveEmailAndPaymentStatus,
+    getUsers,
+    addUser,
+    removeUser,
+    saveUsersToTxt
+};
