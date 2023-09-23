@@ -109,7 +109,7 @@ button:hover {
 
 .logo {
     width: 80px; /* Logo size */
-    position: absolute;
+    position: fixed;
     top: 10px;
     left: 10px;
     transition: transform 0.3s;
