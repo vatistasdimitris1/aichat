@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to interact with GPT-3
     function interactWithGPT3(prompt) {
-        const apiKey = 'YOUR_GPT3_API_KEY';
+        const apiKey = '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';
         const apiUrl = 'https://api.openai.com/v1/engines/davinci/completions';
 
         axios.post(apiUrl, {
