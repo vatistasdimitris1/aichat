@@ -51,21 +51,7 @@ input[type="text"] {
     margin: 5px;
 }
 
-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 12px;
-    border-radius: 3px;
-    cursor: pointer;
-    margin: 5px;
-}
-
-button.active {
-    background-color: #ff5733;
-}
-
-/* Remove hover effect on the "Generate Image" button */
+/* Apply styles to the "Generate Image" button */
 #generate-image-button {
     background-color: #007bff;
     color: #fff;
@@ -74,45 +60,19 @@ button.active {
     border-radius: 3px;
     cursor: pointer;
     margin: 5px;
-}
+    transition: background-color 0.3s, transform 0.3s; /* Add a smooth transition effect */
 
-#generate-image-button:hover {
-    background-color: #007bff; /* Maintain the same color on hover */
-    transform: scale(1.0); /* Remove the transform animation on hover */
-    transition: none; /* Remove the transition effect on hover */
-}
+    /* Hover state */
+    &:hover {
+        background-color: #0056b3;
+        transform: scale(1.1);
+    }
 
-#google-mode-button:hover {
-    background-color: #f44336;
-    transform: scale(1.0);
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-#google-mode-button.active {
-    background-color: #ff5733;
-    transform: scale(1.0);
-}
-
-#gpt3-mode-button:hover {
-    background-color: #4CAF50;
-    transform: scale(1.1);
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-#gpt3-mode-button.active {
-    background-color: #6dbd63;
-    transform: scale(1.0);
-}
-
-#voice-button:hover {
-    background-color: #ffc107;
-    transform: scale(1.1);
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-#voice-button.active {
-    background-color: #ffdb58;
-    transform: scale(1.1);
+    /* Active state */
+    &.active {
+        background-color: #ff5733;
+        transform: scale(1.0);
+    }
 }
 
 /* Adjust the logo size for all screens */
