@@ -11,14 +11,14 @@ body {
 }
 
 .logo-container {
-    width: 100%;
+    width: 500%;
     text-align: center; /* Center the logo */
     padding: 10px; /* Adjust padding as needed */
     background-color: #f0f0f0; /* Background color for the logo container */
 }
 
 .logo {
-    width: 50px; /* Adjust the logo size as needed */
+    width: 20px; /* Adjust the logo size as needed */
 }
 
 .chat-container {
