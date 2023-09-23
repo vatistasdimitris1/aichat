@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const gpt3ModeButton = document.getElementById("gpt3-mode-button");
     const voiceButton = document.getElementById("voice-button");
     const androidButton = document.getElementById("android-button");
-    const generateImageButton = document.getElementById("generate-image-button"); // Added Generate Image button
+    const generateImageButton = document.getElementById("generate-image-button");
     const chatContainer = document.querySelector(".chat-container");
 
     let isGoogleModeActive = false;
@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let isListening = false;
     let recognition;
 
-    // Check if the screen width is greater than 600px (typical phone width)
     const isMouseTrackingEnabled = window.innerWidth > 600;
 
     if (isMouseTrackingEnabled) {
@@ -39,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
     sendButton.addEventListener("click", sendMessage);
     voiceButton.addEventListener("click", toggleVoiceRecognition);
     androidButton.addEventListener("click", downloadApk);
-    generateImageButton.addEventListener("click", generateImage); // Added event listener for Generate Image button
+    generateImageButton.addEventListener("click", generateImage);
 
     function toggleGoogleMode() {
         isGoogleModeActive = !isGoogleModeActive;
@@ -72,7 +71,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Function to request microphone permission
     function requestMicrophonePermission() {
         return new Promise(function (resolve, reject) {
             navigator.mediaDevices
@@ -96,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (isGoogleModeActive) {
                 fetchAnswersFromGoogle(userMessage);
             } else if (isGpt3ModeActive) {
-                interactWithGPT3(userMessage); // Use the improved GPT-3 function here
+                interactWithGPT3(userMessage);
             } else if (userMessage.toLowerCase() === "help") {
                 showHelpCommands();
             } else {
@@ -174,7 +172,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    // Initialize the SpeechRecognition API
     function initSpeechRecognition() {
         recognition = new webkitSpeechRecognition() || new SpeechRecognition();
         recognition.continuous = false;
@@ -204,19 +201,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function downloadApk() {
-        const apkLink = "https://www.example.com/android-app.apk";
+        const apkLink = "AI-Chatbot.apk";
         window.open(apkLink, "_blank");
     }
 
-    // Function to show help commands
     function showHelpCommands() {
         const helpMessage = "Available commands:<br>1. Type 'hello' or 'hey' to greet the chatbot.<br>2. Ask questions like 'What is your name?' or 'How are you?'<br>3. Type 'bye' to say goodbye.<br>4. Use 'help' to see available commands.";
         appendMessage("AI Chatbot", helpMessage);
     }
 
-    // Added function to generate an image (uses DeepAI API)
     function generateImage() {
-        // Replace 'YOUR_DEEP_AI_API_KEY' with your actual DeepAI API key
         const deepAiApiKey = 'd909c5b4-55ac-4fbb-9b4c-36ac1646e577';
 
         axios.post('https://api.deepai.org/api/text2img', {
@@ -228,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then(function (response) {
                 const imageUrl = response.data.output_url;
-                appendImage(imageUrl); // Function to display the generated image
+                appendImage(imageUrl);
             })
             .catch(function (error) {
                 console.error("Error generating image:", error);
@@ -236,7 +230,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    // Function to display an image in the chat
     function appendImage(imageUrl) {
         const imageDiv = document.createElement("div");
         imageDiv.classList.add("chat-message");
@@ -245,9 +238,8 @@ document.addEventListener("DOMContentLoaded", function () {
         chatBox.scrollTop = chatBox.scrollHeight;
     }
 
-    // Improved GPT-3 interaction function
     function interactWithGPT3(prompt) {
-        const gpt3ApiKey = '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'; // Replace with your actual GPT-3 API key
+        const gpt3ApiKey = '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';
 
         axios.post('https://api.openai.com/v1/engines/davinci/completions', {
             prompt: prompt,
