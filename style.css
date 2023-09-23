@@ -141,16 +141,16 @@ button:hover {
     width: 20px;
     height: 20px;
     background-color: #007bff;
-    border-radius: 50%;
+    border-radius: 0%;
     position: absolute;
     pointer-events: none;
-    transform: translate(-50%, -50%);
+    transform: translate(-10%, -10%);
     transition: transform 0.2s, background-color 0.2s;
 }
 
 /* Add animation to the cursor */
 .cursor.active {
-    transform: scale(1.5) translate(-50%, -50%);
+    transform: scale(1.5) translate(-10%, -10%);
     background-color: #0056b3;
 }
 
