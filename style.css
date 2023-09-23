@@ -4,21 +4,10 @@ body {
     background-color: #f7f7f7;
     margin: 0;
     display: flex;
-    flex-direction: column; /* Adjust to column layout */
+    flex-direction: column;
     align-items: center;
     height: 100vh;
     position: relative;
-}
-
-.logo-container {
-    width: 500%;
-    text-align: center; /* Center the logo */
-    padding: 10px; /* Adjust padding as needed */
-    background-color: #f0f0f0; /* Background color for the logo container */
-}
-
-.logo {
-    width: 20px; /* Adjust the logo size as needed */
 }
 
 .chat-container {
