@@ -1,4 +1,4 @@
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const chatBox = document.getElementById("chat-box");
     const userInput = document.getElementById("user-input");
     const sendButton = document.getElementById("send-button");
@@ -17,12 +17,12 @@
     // Emoji icons for the "Voice" button
     const voiceButtonIcons = ["🎙️", "🔴"];
 
-      const isMouseTrackingEnabled = window.innerWidth > 600;
+    const isMouseTrackingEnabled = window.innerWidth > 600;
 
     if (isMouseTrackingEnabled) {
         const cursor = document.createElement("div");
-        let mouseX = 0;
-        let mouseY = 0;
+        let mouseX = 20;
+        let mouseY = 20;
 
         document.addEventListener("mousemove", function (e) {
             mouseX = e.clientX;
@@ -215,7 +215,7 @@
         appendMessage("AI Chatbot", helpMessage);
     }
 
-function generateImage() {
+    function generateImage() {
         const deepAiApiKey = 'd909c5b4-55ac-4fbb-9b4c-36ac1646e577';
 
         axios.post('https://api.deepai.org/api/text2img', {
@@ -242,6 +242,7 @@ function generateImage() {
         chatBox.appendChild(imageDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
     }
+
     function interactWithGPT3(prompt) {
         const gpt3ApiKey = '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';
 
