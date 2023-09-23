@@ -35,22 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const isMouseTrackingEnabled = window.innerWidth > 600;
 
-    if (isMouseTrackingEnabled) {
-        const circularCursor = document.createElement("div");
-        let mouseX = 0;
-        let mouseY = 0;
-
-        document.addEventListener("mousemove", function (e) {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-
-            circularCursor.style.left = mouseX + "px";
-            circularCursor.style.top = mouseY + "px";
-        });
-
-        chatBox.appendChild(circularCursor);
-        circularCursor.classList.add("circular-cursor");
-    }
+  
 
     googleModeButton.addEventListener("click", toggleGoogleMode);
     gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
