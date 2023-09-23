@@ -1,27 +1,69 @@
+<!-- Updated HTML -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
-    <link rel="icon" type="image/x-icon" href="logo.png">
+    <link rel="stylesheet" href="style.css">
     <title>AI Chatbot</title>
-    <script src="info.js" type="module"></script>
+    <link rel="icon" type="image/x-icon" href="logo.png">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <img src="logo.png" alt="Logo" class="logo">
-            <h1>Welcome to AI Chatbot</h1>
-        </div>
-        <div class="email-input">
-            <input type="text" id="email-input" placeholder="Enter your email">
-            <button id="next-button">Next</button>
-        </div>
-        <div class="check-payment-button">
-            <button id="check-payment-button">Already Paid</button>
+    <div class="chat-container">
+        <img src="logo.png" alt="Your Logo" class="logo" id="logo"> 
+        <div class="chat-box" id="chat-box"></div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button id="send-button">Send</button>
+            <button id="generate-image-button">Generate Image</button>
+            <button id="google-mode-button">Google</button>
+            <button id="gpt3-mode-button">GPT-3</button>
+            <button id="voice-button">🎙️</button>
         </div>
     </div>
-    <script src="main.js" type="module"></script>
+
+    <!-- Android button container -->
+    <div class="android-button-container">
+        <button id="android-button">Android</button>
+    </div>
+
+    <!-- Updated script tags -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Updated script for text-to-image generation -->
+    <script>
+        // Function to generate an image based on text input
+        function generateImageFromText(text) {
+            const apiKey = 'd909c5b4-55ac-4fbb-9b4c-36ac1646e577'; // Replace with your DeepAI API key
+
+            axios.post('https://api.deepai.org/api/text2img', { text }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'api-key': apiKey,
+                },
+            })
+            .then(function (response) {
+                const imageUrl = response.data.output_url;
+
+                // Display the generated image on the webpage
+                const generatedImage = document.createElement("img");
+                generatedImage.src = imageUrl;
+                generatedImage.alt = "Generated Image";
+                chatBox.appendChild(generatedImage);
+            })
+            .catch(function (error) {
+                console.error(error);
+                appendMessage("AI Chatbot", "An error occurred while generating the image.");
+            });
+        }
+
+        // Add an event listener to the "Generate Image" button
+        const generateImageButton = document.getElementById("generate-image-button");
+        generateImageButton.addEventListener("click", function () {
+            const textPrompt = userInput.value.trim();
+            generateImageFromText(textPrompt);
+        });
+    </script>
 </body>
 </html>
