@@ -4,10 +4,21 @@ body {
     background-color: #f7f7f7;
     margin: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Adjust to column layout */
     align-items: center;
     height: 100vh;
     position: relative;
+}
+
+.logo-container {
+    width: 100%;
+    text-align: center; /* Center the logo */
+    padding: 10px; /* Adjust padding as needed */
+    background-color: #f0f0f0; /* Background color for the logo container */
+}
+
+.logo {
+    width: 50px; /* Adjust the logo size as needed */
 }
 
 .chat-container {
@@ -20,14 +31,6 @@ body {
     padding: 15px;
     margin: 10px;
     position: relative;
-}
-
-.logo {
-    width: 30px; /* Smaller logo size */
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 .chat-box {
