@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", function () {
     const chatBox = document.getElementById("chat-box");
     const userInput = document.getElementById("user-input");
@@ -9,23 +7,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const voiceButton = document.getElementById("voice-button");
     const androidButton = document.getElementById("android-button");
     const generateImageButton = document.getElementById("generate-image-button");
-    const cursor = document.getElementById("cursor");
 
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
     let isListening = false;
     let recognition;
+    let cursor;
 
     const voiceButtonIcons = ["🎙️", "🔴"];
 
     const isMouseTrackingEnabled = window.innerWidth > 600;
 
     if (isMouseTrackingEnabled) {
-        document.addEventListener("mousemove", function (e) {
-            const mouseX = e.clientX;
-            const mouseY = e.clientY;
+        cursor = document.createElement("div");
+        cursor.classList.add("cursor");
+        document.body.appendChild(cursor);
 
-            cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        document.addEventListener("mousemove", function (e) {
+            cursor.style.left = e.clientX + "px";
+            cursor.style.top = e.clientY + "px";
         });
     }
 
@@ -141,9 +141,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function fetchAnswersFromGoogle(query) {
-        // Replace with your Google API key and engine ID
-         const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
-        const googleEngineId = 'e66093057c55d4a1d';
+        const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE'; // Replace with your API key
+        const googleEngineId = 'e66093057c55d4a1d'; // Replace with your Engine ID
 
         axios.get(`https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleEngineId}&q=${query}`)
             .then(function (response) {
@@ -210,8 +209,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function interactWithGPT3(prompt) {
-        // Replace with your OpenAI GPT-3 API key
-        const gpt3ApiKey = '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';
+        const gpt3ApiKey = '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'; // Replace with your GPT-3 API key
 
         axios.post('https://api.openai.com/v1/engines/davinci/completions', {
             prompt: prompt,
@@ -236,8 +234,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function generateImage() {
-        // Replace with your Unsplash API key
-        const unsplashApiKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw';
+        const unsplashApiKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw'; // Replace with your Unsplash API key
 
         axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature`)
             .then(function (response) {
