@@ -19,22 +19,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const isMouseTrackingEnabled = window.innerWidth > 600;
 
-    if (isMouseTrackingEnabled) {
-        const cursor = document.createElement("div");
-        let mouseX = 0;
-        let mouseY = 0;
+  const cursor = document.createElement("div");
+    cursor.classList.add("cursor");
+    document.body.appendChild(cursor);
 
-        document.addEventListener("mousemove", function (e) {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+    document.addEventListener("mousemove", function (e) {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
 
-            cursor.style.left = mouseX + "px";
-            cursor.style.top = mouseY + "px";
-        });
-
-        chatBox.appendChild(cursor);
-        cursor.classList.add("cursor");
-    }
+        cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+    });
 
     googleModeButton.addEventListener("click", toggleGoogleMode);
     gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
