@@ -146,7 +146,7 @@ button:hover {
     width: 20px;
     height: 20px;
     background-color: #007BFF;
-    border-radius: 30%;
+    border-radius: 10%;
     position: fixed;
     pointer-events: none;
     z-index: 9999;
