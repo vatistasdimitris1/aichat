@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const chatBox = document.getElementById("chat-box");
     const userInput = document.getElementById("user-input");
@@ -7,25 +14,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const voiceButton = document.getElementById("voice-button");
     const androidButton = document.getElementById("android-button");
     const generateImageButton = document.getElementById("generate-image-button");
+    const cursor = document.getElementById("cursor");
 
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
     let isListening = false;
     let recognition;
-    let cursor;
 
     const voiceButtonIcons = ["🎙️", "🔴"];
 
     const isMouseTrackingEnabled = window.innerWidth > 600;
 
     if (isMouseTrackingEnabled) {
-        cursor = document.createElement("div");
-        cursor.classList.add("cursor");
-        document.body.appendChild(cursor);
-
         document.addEventListener("mousemove", function (e) {
-            cursor.style.left = e.clientX + "px";
-            cursor.style.top = e.clientY + "px";
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
         });
     }
 
@@ -88,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
             appendMessage("You", userMessage);
 
             if (isGoogleModeActive) {
+                // Perform a Google search and update chat with the results
                 fetchAnswersFromGoogle(userMessage);
             } else if (isGpt3ModeActive) {
                 interactWithGPT3(userMessage);
@@ -141,15 +147,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function fetchAnswersFromGoogle(query) {
+        // Replace with your Google API key and search engine ID
         const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE'; // Replace with your API key
         const googleEngineId = 'e66093057c55d4a1d'; // Replace with your Engine ID
 
-        axios.get(`https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleEngineId}&q=${query}`)
+        // Make a GET request to the Google Custom Search JSON API
+        fetch(`https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleEngineId}&q=${query}`)
             .then(function (response) {
-                const searchResults = response.data.items;
-
-                if (searchResults && searchResults.length > 0) {
-                    const topResult = searchResults[0];
+                return response.json();
+            })
+            .then(function (data) {
+                if (data.items && data.items.length > 0) {
+                    const topResult = data.items[0];
                     const title = topResult.title;
                     const snippet = topResult.snippet;
                     const link = topResult.link;
@@ -209,46 +218,58 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function interactWithGPT3(prompt) {
-        const gpt3ApiKey = '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'; // Replace with your GPT-3 API key
+        // Replace with your OpenAI GPT-3 API key
+        const gpt3ApiKey = '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';
 
-        axios.post('https://api.openai.com/v1/engines/davinci/completions', {
+        // Define the request data for GPT-3
+        const requestData = {
             prompt: prompt,
             max_tokens: 50
-        }, {
+        };
+
+        // Make a POST request to interact with GPT-3
+        fetch('https://api.openai.com/v1/engines/davinci/completions', {
+            method: 'POST',
             headers: {
-                'Authorization': `Bearer ${gpt3ApiKey}`,
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${gpt3ApiKey}`
             },
+            body: JSON.stringify(requestData)
         })
-            .then(function (response) {
-                if (response.data.choices && response.data.choices.length > 0) {
-                    const botResponse = response.data.choices[0].text;
-                    appendMessage("AI Chatbot", botResponse);
-                } else {
-                    appendMessage("AI Chatbot", "I couldn't generate a response. Please try again.");
-                }
-            })
-            .catch(function (error) {
-                console.error("Error interacting with GPT-3:", error);
-                appendMessage("AI Chatbot", "I encountered an error while interacting with GPT-3.");
-            });
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.choices && data.choices.length > 0) {
+                const botResponse = data.choices[0].text;
+                appendMessage("AI Chatbot", botResponse);
+            } else {
+                appendMessage("AI Chatbot", "I couldn't generate a response. Please try again.");
+            }
+        })
+        .catch((error) => {
+            console.error("Error interacting with GPT-3:", error);
+            appendMessage("AI Chatbot", "I encountered an error while interacting with GPT-3.");
+        });
     }
 
     function generateImage() {
-        const unsplashApiKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw'; // Replace with your Unsplash API key
+        // Replace with your Unsplash API key
+        const unsplashApiKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw';
 
-        axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature`)
-            .then(function (response) {
-                if (response.data && response.data.urls && response.data.urls.regular) {
-                    const imageUrl = response.data.urls.regular;
-                    appendImage(imageUrl);
-                } else {
-                    appendMessage("AI Chatbot", "I couldn't find any image at the moment.");
-                }
-            })
-            .catch(function (error) {
-                console.error("Error fetching image from Unsplash:", error);
-                appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
-            });
+        // Make a GET request to Unsplash to generate an image
+        fetch(`https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature`)
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.urls && data.urls.regular) {
+                const imageUrl = data.urls.regular;
+                appendImage(imageUrl);
+            } else {
+                appendMessage("AI Chatbot", "I couldn't find any image at the moment.");
+            }
+        })
+        .catch((error) => {
+            console.error("Error fetching image from Unsplash:", error);
+            appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
+        });
     }
 
     function appendImage(imageUrl) {
