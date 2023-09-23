@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const gpt3ModeButton = document.getElementById("gpt3-mode-button");
     const voiceButton = document.getElementById("voice-button");
     const androidButton = document.getElementById("android-button");
+    const generateImageButton = document.getElementById("generate-image-button");
     const cursor = document.getElementById("cursor");
 
     let isGoogleModeActive = false;
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     sendButton.addEventListener("click", sendMessage);
     voiceButton.addEventListener("click", toggleVoiceRecognition);
     androidButton.addEventListener("click", downloadApk);
+    generateImageButton.addEventListener("click", generateImage);
 
     function toggleGoogleMode() {
         isGoogleModeActive = !isGoogleModeActive;
@@ -77,26 +79,32 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function sendMessage() {
-        const userMessage = userInput.value.trim();
+function sendMessage() {
+    const userMessage = userInput.value.trim();
 
-        if (userMessage !== "") {
-            appendMessage("You", userMessage);
+    if (userMessage !== "") {
+        appendMessage("You", userMessage);
 
-            if (isGoogleModeActive) {
-                fetchAnswersFromGoogle(userMessage);
-            } else if (isGpt3ModeActive) {
-                interactWithGPT3(userMessage);
-            } else if (userMessage.toLowerCase() === "help") {
-                showHelpCommands();
-            } else {
-                const botResponse = chatbotResponse(userMessage);
-                appendMessage("AI Chatbot", botResponse);
-            }
-
-            userInput.value = "";
+        if (userMessage.toLowerCase().startsWith("image ")) {
+            // Extract the search query from the user's message
+            const searchQuery = userMessage.slice(6).trim();
+            
+            // Perform a Google image search and display the image in the chatbox
+            fetchImageFromGoogle(searchQuery);
+        } else if (isGoogleModeActive) {
+            fetchAnswersFromGoogle(userMessage);
+        } else if (isGpt3ModeActive) {
+            interactWithGPT3(userMessage);
+        } else if (userMessage.toLowerCase() === "help") {
+            showHelpCommands();
+        } else {
+            const botResponse = chatbotResponse(userMessage);
+            appendMessage("AI Chatbot", botResponse);
         }
+
+        userInput.value = "";
     }
+}
 
     function updateButtonState(button, isActive) {
         if (isActive) {
@@ -135,6 +143,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return responses["default"];
     }
+
+
+
+
+
+
+
+ function fetchImageFromGoogle(query) {
+    // Replace with your Google API key and engine ID
+    const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
+    const googleEngineId = '64e010fb495384c43';
+
+    axios.get(`https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleEngineId}&q=${query}&searchType=image`)
+        .then(function (response) {
+            const searchResults = response.data.items;
+
+            if (searchResults && searchResults.length > 0) {
+                const topResult = searchResults[0];
+                const imageUrl = topResult.link;
+
+                // Append a message indicating the image and its source
+                appendMessage("AI Chatbot", `Here's an image related to "${query}":`);
+                // Append the image to the chatbox
+                appendImage(imageUrl);
+            } else {
+                appendMessage("AI Chatbot", `I couldn't find any image related to "${query}".`);
+            }
+        })
+        .catch(function (error) {
+            console.error("Error fetching Google image results:", error);
+            appendMessage("AI Chatbot", "Sorry, I encountered an error while searching for an image.");
+        });
+}
+
 
     function initSpeechRecognition() {
         recognition = new webkitSpeechRecognition() || new SpeechRecognition();
@@ -183,7 +225,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Define the request data for GPT-3
         const requestData = {
             prompt: prompt,
-            max_tokens: 50  // You can adjust the `max_tokens` as needed
+            max_tokens: 50
         };
 
         // Make a POST request to interact with GPT-3
@@ -208,5 +250,34 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error interacting with GPT-3:", error);
             appendMessage("AI Chatbot", "I encountered an error while interacting with GPT-3.");
         });
+    }
+
+    function generateImage() {
+    // Replace with your Unsplash API key
+    const unsplashApiKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw';
+
+    axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature`)
+        .then(function (response) {
+            if (response.data && response.data.urls && response.data.urls.regular) {
+                const imageUrl = response.data.urls.regular;
+                // Append the image to the chatbox
+                appendImage(imageUrl);
+            } else {
+                appendMessage("AI Chatbot", "I couldn't find any image at the moment.");
+            }
+        })
+        .catch(function (error) {
+            console.error("Error fetching image from Unsplash:", error);
+            appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
+        });
+}
+
+
+    function appendImage(imageUrl) {
+        const imageDiv = document.createElement("div");
+        imageDiv.classList.add("chat-message");
+        imageDiv.innerHTML = `<img src="${imageUrl}" alt="Random Image">`;
+        chatBox.appendChild(imageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
     }
 });
