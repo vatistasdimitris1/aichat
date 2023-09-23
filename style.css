@@ -150,7 +150,7 @@ button:hover {
 
 /* Add animation to the cursor */
 .cursor.active {
-    transform: scale(1.5) translate(-10%, -10%);
+    transform: scale(1.5) translate(-0%, -0%);
     background-color: #0056b3;
 }
 
