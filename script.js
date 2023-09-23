@@ -147,10 +147,11 @@ function sendMessage() {
 
 
 
-      function fetchAnswersFromGoogle(query) {
-      // Replace with your Google API key and search engine ID
-      const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE'; // Replace with your API key
-      const googleEngineId = '64e010fb495384c43'; // Replace with your Engine ID
+
+ function fetchImageFromGoogle(query) {
+    // Replace with your Google API key and engine ID
+    const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
+    const googleEngineId = '64e010fb495384c43';
 
     axios.get(`https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleEngineId}&q=${query}&searchType=image`)
         .then(function (response) {
@@ -160,10 +161,12 @@ function sendMessage() {
                 const topResult = searchResults[0];
                 const imageUrl = topResult.link;
 
+                // Append a message indicating the image and its source
+                appendMessage("AI Chatbot", `Here's an image related to "${query}":`);
                 // Append the image to the chatbox
                 appendImage(imageUrl);
             } else {
-                appendMessage("AI Chatbot", "I couldn't find any image matching your search.");
+                appendMessage("AI Chatbot", `I couldn't find any image related to "${query}".`);
             }
         })
         .catch(function (error) {
@@ -171,7 +174,6 @@ function sendMessage() {
             appendMessage("AI Chatbot", "Sorry, I encountered an error while searching for an image.");
         });
 }
-
     function initSpeechRecognition() {
         recognition = new webkitSpeechRecognition() || new SpeechRecognition();
         recognition.continuous = false;
