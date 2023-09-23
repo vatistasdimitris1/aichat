@@ -7,6 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    position: relative;
 }
 
 .chat-container {
@@ -18,14 +19,15 @@ body {
     overflow: hidden;
     padding: 15px;
     margin: 10px;
-    position: relative; /* Position for cursor */
+    position: relative;
 }
 
-.chat-header {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
+.logo {
+    width: 80px; /* Smaller logo size */
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .chat-box {
@@ -59,7 +61,6 @@ button {
     border-radius: 3px;
     cursor: pointer;
     margin: 5px;
-    transition: background-color 0.3s, transform 0.3s, color 0.3s;
 }
 
 button.active {
@@ -68,7 +69,8 @@ button.active {
 
 button:hover {
     background-color: #0056b3;
-    transform: scale(1.05);
+    transform: scale(1.1);
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 #google-mode-button:hover {
@@ -81,7 +83,6 @@ button:hover {
 
 #gpt3-mode-button:hover {
     background-color: #4CAF50;
-    transform: scale(1.05);
 }
 
 #gpt3-mode-button.active {
@@ -90,7 +91,6 @@ button:hover {
 
 #voice-button:hover {
     background-color: #ffc107;
-    transform: scale(1.05);
 }
 
 #voice-button.active {
@@ -98,57 +98,19 @@ button:hover {
 }
 
 #android-button:hover {
-    background-color: #ff5733;
-    transform: scale(1.05);
+    background-color: #007bff;
 }
 
 #generate-image-button:hover {
-    background-color: #ff5733;
-    transform: scale(1.05);
+    background-color: #007bff;
 }
 
-.logo {
-    width: 80px; /* Logo size */
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    transition: transform 0.3s;
-}
-
-/* Media query for screens narrower than 600px (typical phone width) */
-@media (max-width: 600px) {
-    .chat-container {
-        width: 95%;
-    }
-
-    .chat-box {
-        height: 150px;
-    }
-
-    .logo {
-        width: 60px; /* Smaller logo size for narrow screens */
-    }
-
-    .chat-input {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .android-button-container {
-        position: static;
-        margin-top: 20px;
-    }
-}
-
-/* Cursor Styles */
-.cursor {
+.circular-cursor {
     width: 20px;
     height: 20px;
-    background-color: #007BFF;
-    border-radius: 10%;
-    position: fixed;
+    background-color: #007bff;
+    border-radius: 50%;
+    position: absolute;
     pointer-events: none;
-    z-index: 9999;
-    animation: circleExpand 0.5s ease-out, circleFadeOut 1s 0.5s ease-out;
+    transform: translate(-50%, -50%);
 }
