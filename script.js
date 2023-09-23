@@ -2,45 +2,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const chatBox = document.getElementById("chat-box");
     const userInput = document.getElementById("user-input");
     const sendButton = document.getElementById("send-button");
+    const generateImageButton = document.getElementById("generate-image-button");
     const googleModeButton = document.getElementById("google-mode-button");
     const gpt3ModeButton = document.getElementById("gpt3-mode-button");
     const voiceButton = document.getElementById("voice-button");
-    const androidButton = document.getElementById("android-button"); // Added Android button
+    const androidButton = document.getElementById("android-button");
 
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
-
-    // Check if the screen width is greater than 600px (typical phone width)
-    const isMouseTrackingEnabled = window.innerWidth > 600;
-
-    if (isMouseTrackingEnabled) {
-        const circularCursor = document.createElement("div");
-        let mouseX = 0;
-        let mouseY = 0;
-
-        document.addEventListener("mousemove", function (e) {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-
-            circularCursor.style.left = mouseX + "px";
-            circularCursor.style.top = mouseY + "px";
-        });
-
-        chatBox.appendChild(circularCursor);
-        circularCursor.classList.add("circular-cursor");
-    }
-
-    googleModeButton.addEventListener("click", toggleGoogleMode);
-    gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
-    sendButton.addEventListener("click", sendMessage);
-    voiceButton.addEventListener("click", toggleVoiceRecognition);
-
-    // Added event listener for Android button click
-    androidButton.addEventListener("click", downloadApk);
-
     let isListening = false;
     let recognition;
 
+    // Function to initialize Speech Recognition
     function initSpeechRecognition() {
         if ("webkitSpeechRecognition" in window) {
             recognition = new webkitSpeechRecognition();
@@ -68,16 +41,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // Function to toggle Google Mode
     function toggleGoogleMode() {
         isGoogleModeActive = !isGoogleModeActive;
         updateButtonState(googleModeButton, isGoogleModeActive);
     }
 
+    // Function to toggle GPT-3 Mode
     function toggleGpt3Mode() {
         isGpt3ModeActive = !isGpt3ModeActive;
         updateButtonState(gpt3ModeButton, isGpt3ModeActive);
     }
 
+    // Function to toggle Voice Recognition
     function toggleVoiceRecognition() {
         if (!isListening) {
             if (!recognition) {
@@ -114,6 +90,27 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // Function to update button state (active or inactive)
+    function updateButtonState(button, isActive) {
+        if (isActive) {
+            button.textContent = `${button.textContent.split(" ")[0]} (Active)`;
+            button.classList.add("active");
+        } else {
+            button.textContent = button.textContent.split(" ")[0];
+            button.classList.remove("active");
+        }
+    }
+
+    // Function to append a message to the chat box
+    function appendMessage(sender, message) {
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("chat-message");
+        messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        chatBox.appendChild(messageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Function to handle user messages and responses
     function sendMessage() {
         const userMessage = userInput.value.trim();
 
@@ -135,24 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function updateButtonState(button, isActive) {
-        if (isActive) {
-            button.textContent = `${button.textContent.split(" ")[0]} (Active)`;
-            button.classList.add("active");
-        } else {
-            button.textContent = button.textContent.split(" ")[0];
-            button.classList.remove("active");
-        }
-    }
-
-    function appendMessage(sender, message) {
-        const messageDiv = document.createElement("div");
-        messageDiv.classList.add("chat-message");
-        messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
-        chatBox.appendChild(messageDiv);
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
+    // Function to handle responses using a chatbot
     function chatbotResponse(userMessage) {
         const lowerCaseMessage = userMessage.toLowerCase();
         const responses = {
@@ -173,6 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return responses["default"];
     }
 
+    // Function to fetch answers from Google
     function fetchAnswersFromGoogle(query) {
         const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
         const googleEngineId = 'e66093057c55d4a1d';
@@ -182,95 +163,105 @@ document.addEventListener("DOMContentLoaded", function () {
                 const searchResults = response.data.items;
 
                 if (searchResults && searchResults.length > 0) {
-                    const resultsContainer = document.createElement("div");
+                    const topResult = searchResults[0];
+                    const title = topResult.title;
+                    const snippet = topResult.snippet;
+                    const link = topResult.link; // Add the link
 
-                    searchResults.forEach((result, index) => {
-                        const resultDiv = document.createElement("div");
-                        resultDiv.classList.add("search-result");
-
-                        const title = result.title;
-                        const snippet = result.snippet;
-                        const link = result.link;
-
-                        resultDiv.innerHTML = `
-                            <h3><a href="${link}" target="_blank">${title}</a></h3>
-                            <p>${snippet}</p>
-                        `;
-
-                        resultsContainer.appendChild(resultDiv);
-                    });
-
-                    const googleResponse = document.createElement("div");
-                    googleResponse.innerHTML = `<p>AI Chatbot: Here are the top search results:</p>`;
-                    googleResponse.appendChild(resultsContainer);
-
-                    // Append the Google search results to the chat box
-                    chatBox.appendChild(googleResponse);
+                    const googleResponse = `AI Chatbot: ${title}. Here's a snippet: ${snippet} <a href="${link}" target="_blank">Read more</a>`;
+                    appendMessage("AI Chatbot", googleResponse);
                 } else {
-                    appendMessage("AI Chatbot", "Sorry, I couldn't find an answer to your question.");
+                    appendMessage("AI Chatbot", "I couldn't find any results for your query.");
                 }
             })
             .catch(function (error) {
-                console.error(error);
-                appendMessage("AI Chatbot", "An error occurred while searching.");
+                console.error("Error fetching results from Google:", error);
+                appendMessage("AI Chatbot", "I encountered an error while fetching results from Google.");
             });
     }
 
-    function interactWithGPT3(userMessage) {
-        const apiKey = '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';
+    // Function to interact with GPT-3
+    function interactWithGPT3(prompt) {
+        const apiKey = 'YOUR_GPT3_API_KEY';
+        const apiUrl = 'https://api.openai.com/v1/engines/davinci/completions';
 
-        axios.post('https://api.openai.com/v1/engines/davinci/completions', {
-            prompt: userMessage,
-            max_tokens: 50,
+        axios.post(apiUrl, {
+            prompt: prompt,
+            max_tokens: 50
         }, {
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(function (response) {
+                const gpt3Response = response.data.choices[0].text;
+                appendMessage("AI Chatbot", gpt3Response);
+            })
+            .catch(function (error) {
+                console.error("Error interacting with GPT-3:", error);
+                appendMessage("AI Chatbot", "I encountered an error while interacting with GPT-3.");
+            });
+    }
+
+    // Function to display help commands
+    function showHelpCommands() {
+        const helpMessage = `
+            AI Chatbot Help:
+            - To ask a question, type your query and press Send.
+            - You can enable Google Mode to search the web by clicking the Google button.
+            - Enable GPT-3 Mode for creative responses by clicking the GPT-3 button.
+            - Click the microphone button to start voice recognition.
+            - Type 'help' to see these commands.
+        `;
+        appendMessage("AI Chatbot", helpMessage);
+    }
+
+    // Event listeners
+    sendButton.addEventListener("click", sendMessage);
+    userInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            sendMessage();
+        }
+    });
+    googleModeButton.addEventListener("click", toggleGoogleMode);
+    gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
+    voiceButton.addEventListener("click", toggleVoiceRecognition);
+
+    // Initialize voice recognition if supported
+    if ("webkitSpeechRecognition" in window) {
+        voiceButton.style.display = "inline-block";
+    }
+    
+    // Add image generation functionality
+    generateImageButton.addEventListener("click", generateImage);
+
+    function generateImage() {
+        const deepaiApiKey = 'd909c5b4-55ac-4fbb-9b4c-36ac1646e577';
+
+        axios.post('https://api.deepai.org/text2img', {
+            text: userInput.value
+        }, {
+            headers: {
+                'api-key': deepaiApiKey,
             },
         })
-        .then(function (response) {
-            const botResponse = response.data.choices[0].text;
-            appendMessage("AI Chatbot", botResponse);
-        })
-        .catch(function (error) {
-            console.error(error);
-            appendMessage("AI Chatbot", "An error occurred while fetching a response from GPT-3.");
-        });
+            .then(function (response) {
+                const imageUrl = response.data.output_url;
+                appendImage(imageUrl);
+            })
+            .catch(function (error) {
+                console.error("Error generating image:", error);
+                appendMessage("AI Chatbot", "I encountered an error while generating the image.");
+            });
     }
 
-    function showHelpCommands() {
-        const helpCommands = [
-            "Available commands:",
-            "- Type 'help' to display this list of commands.",
-            "- Click 'Google Mode' to enable Google search mode.",
-            "- Click 'GPT-3 Mode' to enable GPT-3 chat mode.",
-            "- Click the microphone button to start/stop voice recognition.",
-            "- Type your questions or messages in the input box and press Enter to send.",
-        ];
-
-        helpCommands.forEach((command) => {
-            appendMessage("AI Chatbot", command);
-        });
+    function appendImage(imageUrl) {
+        const imageDiv = document.createElement("div");
+        const image = document.createElement("img");
+        image.src = imageUrl;
+        imageDiv.appendChild(image);
+        chatBox.appendChild(imageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
     }
-
-    // Function to simulate downloading the APK file
-    function downloadApk() {
-        // Replace 'your-apk-file.apk' with the actual file path
-        const apkFilePath = 'AI-Chatbot.apk';
-
-        // Create a temporary anchor element to trigger the download
-        const downloadLink = document.createElement('a');
-        downloadLink.href = apkFilePath;
-        downloadLink.download = 'AI-Chatbot.apk'; // Specify the desired file name
-        downloadLink.style.display = 'none';
-        document.body.appendChild(downloadLink);
-
-        // Trigger the click event to start the download
-        downloadLink.click();
-
-        // Clean up
-        document.body.removeChild(downloadLink);
-    }
-
-    initSpeechRecognition();
 });
