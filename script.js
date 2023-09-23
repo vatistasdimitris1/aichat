@@ -1,3 +1,5 @@
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const chatBox = document.getElementById("chat-box");
     const userInput = document.getElementById("user-input");
@@ -7,28 +9,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const voiceButton = document.getElementById("voice-button");
     const androidButton = document.getElementById("android-button");
     const generateImageButton = document.getElementById("generate-image-button");
-    const chatContainer = document.querySelector(".chat-container");
+    const cursor = document.getElementById("cursor");
 
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
     let isListening = false;
     let recognition;
 
-    // Emoji icons for the "Voice" button
     const voiceButtonIcons = ["🎙️", "🔴"];
 
     const isMouseTrackingEnabled = window.innerWidth > 600;
 
-  const cursor = document.createElement("div");
-    cursor.classList.add("cursor");
-    document.body.appendChild(cursor);
+    if (isMouseTrackingEnabled) {
+        document.addEventListener("mousemove", function (e) {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
 
-    document.addEventListener("mousemove", function (e) {
-        const mouseX = e.clientX;
-        const mouseY = e.clientY;
-
-        cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-    });
+            cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        });
+    }
 
     googleModeButton.addEventListener("click", toggleGoogleMode);
     gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
@@ -94,14 +93,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 interactWithGPT3(userMessage);
             } else if (userMessage.toLowerCase() === "help") {
                 showHelpCommands();
-            } else if (userMessage.toLowerCase().startsWith("generate image")) {
-                // Extract the search query for Unsplash
-                const searchQuery = userMessage.substring(14).trim();
-                if (searchQuery !== "") {
-                    generateImageFromUnsplash(searchQuery);
-                } else {
-                    appendMessage("AI Chatbot", "Please provide a search query for generating an image.");
-                }
             } else {
                 const botResponse = chatbotResponse(userMessage);
                 appendMessage("AI Chatbot", botResponse);
@@ -150,7 +141,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function fetchAnswersFromGoogle(query) {
-        const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
+        // Replace with your Google API key and engine ID
+         const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
         const googleEngineId = 'e66093057c55d4a1d';
 
         axios.get(`https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleEngineId}&q=${query}`)
@@ -184,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         recognition.onstart = function () {
             isListening = true;
-            voiceButton.innerHTML = voiceButtonIcons[1]; // Change the emoji to the "stop" icon
+            voiceButton.innerHTML = voiceButtonIcons[1];
             console.log("Listening...");
         };
 
@@ -197,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         recognition.onend = function () {
             isListening = false;
-            voiceButton.innerHTML = voiceButtonIcons[0]; // Change the emoji back to the "microphone" icon
+            voiceButton.innerHTML = voiceButtonIcons[0];
             console.log("Stopped listening.");
         };
 
@@ -217,48 +209,8 @@ document.addEventListener("DOMContentLoaded", function () {
         appendMessage("AI Chatbot", helpMessage);
     }
 
-    // Function to generate image from Unsplash
-    function generateImageFromUnsplash(searchQuery) {
-        const unsplashApiKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw';
-        const unsplashSecretKey = 'dLmSko3vjSIbHKqhchZrHKoB3GEd-UMURULxOXnVsKY';
-
-        axios.get(`https://api.unsplash.com/photos/random?query=${searchQuery}&client_id=${unsplashApiKey}`)
-            .then(function (response) {
-                const imageUrl = response.data.urls.regular;
-                const imageLink = response.data.links.html;
-
-                // Append the image to the chatbox
-                appendImage(imageUrl);
-
-                // Append the Unsplash link to the chatbox
-                appendLink(imageLink);
-            })
-            .catch(function (error) {
-                console.error("Error generating image from Unsplash:", error);
-                appendMessage("AI Chatbot", "Sorry, I couldn't generate an image at the moment.");
-            });
-    }
-
-    // Function to append an image to the chatbox
-    function appendImage(imageUrl) {
-        const imageDiv = document.createElement("div");
-        imageDiv.classList.add("chat-message");
-        imageDiv.innerHTML = `<img src="${imageUrl}" alt="Generated Image">`;
-        chatBox.appendChild(imageDiv);
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    // Function to append a link to the chatbox
-    function appendLink(link) {
-        const linkDiv = document.createElement("div");
-        linkDiv.classList.add("chat-message");
-        linkDiv.innerHTML = `<a href="${link}" target="_blank">View on Unsplash</a>`;
-        chatBox.appendChild(linkDiv);
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    // Improved GPT-3 interaction function
     function interactWithGPT3(prompt) {
+        // Replace with your OpenAI GPT-3 API key
         const gpt3ApiKey = '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';
 
         axios.post('https://api.openai.com/v1/engines/davinci/completions', {
@@ -281,5 +233,32 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Error interacting with GPT-3:", error);
                 appendMessage("AI Chatbot", "I encountered an error while interacting with GPT-3.");
             });
+    }
+
+    function generateImage() {
+        // Replace with your Unsplash API key
+        const unsplashApiKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw';
+
+        axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature`)
+            .then(function (response) {
+                if (response.data && response.data.urls && response.data.urls.regular) {
+                    const imageUrl = response.data.urls.regular;
+                    appendImage(imageUrl);
+                } else {
+                    appendMessage("AI Chatbot", "I couldn't find any image at the moment.");
+                }
+            })
+            .catch(function (error) {
+                console.error("Error fetching image from Unsplash:", error);
+                appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
+            });
+    }
+
+    function appendImage(imageUrl) {
+        const imageDiv = document.createElement("div");
+        imageDiv.classList.add("chat-message");
+        imageDiv.innerHTML = `<img src="${imageUrl}" alt="Random Image">`;
+        chatBox.appendChild(imageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
     }
 });
