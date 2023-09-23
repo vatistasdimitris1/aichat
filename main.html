@@ -1,47 +1,36 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="logo.png">
-    <title>Chatbot</title>
+    <title>AI Chatbot</title>
 </head>
 <body>
-
-  <img src="logo.png" alt="Logo" class="logo">
-  
-  <div class="chat-container">
-        <!-- Logo placed outside of the chat box -->
-      
-        
-        <div class="chat-box" id="chat-box">
-            <!-- Chat messages will be displayed here -->
+    <div class="chat-container">
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
         </div>
-        
+        <div class="chat-box" id="chat-box">
+            <!-- Chat messages will appear here -->
+        </div>
         <div class="chat-input">
             <input type="text" id="user-input" placeholder="Type your message...">
             <button id="send-button">Send</button>
-            <button id="google-mode-button">Google</button>
-            <button id="gpt3-mode-button">GPT-3</button>
-            <button id="voice-button">🎙️</button> <!-- Voice button with microphone emoji -->
+            <button id="google-mode-button">Google Mode</button>
+            <button id="gpt3-mode-button">GPT-3 Mode</button>
+            <button id="voice-button">🎙️</button>
             <button id="android-button">Download Android App</button>
             <button id="generate-image-button">Generate Image</button>
-             <!-- Add a new button for Unsplash image generation -->
-            <button id="generate-unsplash-image-button">Generate Unsplash Image</button>
-
         </div>
     </div>
+    <div class="cursor" id="cursor"></div>
     <script src="script.js"></script>
-  <div class="cursor"></div>
 </body>
 </html>
-
-
-
-
 
 
