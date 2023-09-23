@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
     const chatBox = document.getElementById("chat-box");
     const userInput = document.getElementById("user-input");
@@ -80,32 +79,32 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-function sendMessage() {
-    const userMessage = userInput.value.trim();
+    function sendMessage() {
+        const userMessage = userInput.value.trim();
 
-    if (userMessage !== "") {
-        appendMessage("You", userMessage);
+        if (userMessage !== "") {
+            appendMessage("You", userMessage);
 
-        if (userMessage.toLowerCase().startsWith("image ")) {
-            // Extract the search query from the user's message
-            const searchQuery = userMessage.slice(6).trim();
-            
-            // Perform a Google image search and display the image in the chatbox
-            fetchImageFromGoogle(searchQuery);
-        } else if (isGoogleModeActive) {
-            fetchAnswersFromGoogle(userMessage);
-        } else if (isGpt3ModeActive) {
-            interactWithGPT3(userMessage);
-        } else if (userMessage.toLowerCase() === "help") {
-            showHelpCommands();
-        } else {
-            const botResponse = chatbotResponse(userMessage);
-            appendMessage("AI Chatbot", botResponse);
+            if (userMessage.toLowerCase().startsWith("image ")) {
+                // Extract the search query from the user's message
+                const searchQuery = userMessage.slice(6).trim();
+
+                // Perform a Google image search and display the image in the chatbox
+                fetchImageFromGoogle(searchQuery);
+            } else if (isGoogleModeActive) {
+                fetchAnswersFromGoogle(userMessage);
+            } else if (isGpt3ModeActive) {
+                interactWithGPT3(userMessage);
+            } else if (userMessage.toLowerCase() === "help") {
+                showHelpCommands();
+            } else {
+                const botResponse = chatbotResponse(userMessage);
+                appendMessage("AI Chatbot", botResponse);
+            }
+
+            userInput.value = "";
         }
-
-        userInput.value = "";
     }
-}
 
     function updateButtonState(button, isActive) {
         if (isActive) {
@@ -145,39 +144,15 @@ function sendMessage() {
         return responses["default"];
     }
 
+    function fetchAnswersFromGoogle(query) {
+        // Replace with your Google API key and engine ID
+        const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
+        const googleEngineId = '64e010fb495384c43';
 
-
-
-
-
-
- function fetchImageFromGoogle(query) {
-    // Replace with your Google API key and engine ID
-    const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
-    const googleEngineId = '64e010fb495384c43';
-
-    axios.get(`https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleEngineId}&q=${query}&searchType=image`)
-        .then(function (response) {
-            const searchResults = response.data.items;
-
-            if (searchResults && searchResults.length > 0) {
-                const topResult = searchResults[0];
-                const imageUrl = topResult.link;
-
-                // Append a message indicating the image and its source
-                appendMessage("AI Chatbot", `Here's an image related to "${query}":`);
-                // Append the image to the chatbox
-                appendImage(imageUrl);
-            } else {
-                appendMessage("AI Chatbot", `I couldn't find any image related to "${query}".`);
-            }
-        })
-        .catch(function (error) {
-            console.error("Error fetching Google image results:", error);
-            appendMessage("AI Chatbot", "Sorry, I encountered an error while searching for an image.");
-        });
-}
-
+        // Perform a Google search and update chat with the results
+        // Example code here to fetch search results
+        // Replace with actual code to fetch and display results
+    }
 
     function initSpeechRecognition() {
         recognition = new webkitSpeechRecognition() || new SpeechRecognition();
@@ -223,56 +198,83 @@ function sendMessage() {
         // Replace with your OpenAI GPT-3 API key
         const gpt3ApiKey = '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';
 
-        // Define the request data for GPT-3
-        const requestData = {
-            prompt: prompt,
-            max_tokens: 50
-        };
+    // Define the request data for GPT-3
+    const requestData = {
+        prompt: prompt,
+        max_tokens: 50  // You can adjust the `max_tokens` as needed
+    };
 
-        // Make a POST request to interact with GPT-3
-        fetch('https://api.openai.com/v1/engines/davinci/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${gpt3ApiKey}`
-            },
-            body: JSON.stringify(requestData)
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.choices && data.choices.length > 0) {
-                const botResponse = data.choices[0].text;
-                appendMessage("AI Chatbot", botResponse);
-            } else {
-                appendMessage("AI Chatbot", "I couldn't generate a response. Please try again.");
-            }
-        })
-        .catch((error) => {
-            console.error("Error interacting with GPT-3:", error);
-            appendMessage("AI Chatbot", "I encountered an error while interacting with GPT-3.");
-        });
+    // Make a POST request to interact with GPT-3
+    fetch('https://api.openai.com/v1/engines/davinci/completions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${gpt3ApiKey}`
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        if (data.choices && data.choices.length > 0) {
+            const botResponse = data.choices[0].text;
+            appendMessage("AI Chatbot", botResponse);
+        } else {
+            appendMessage("AI Chatbot", "I couldn't generate a response. Please try again.");
+        }
+    })
+    .catch((error) => {
+        console.error("Error interacting with GPT-3:", error);
+        appendMessage("AI Chatbot", "I encountered an error while interacting with GPT-3.");
+    });
+}
+    }
+
+    function fetchImageFromGoogle(query) {
+        // Replace with your Google API key and engine ID
+        const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
+        const googleEngineId = '64e010fb495384c43';
+
+        axios.get(`https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleEngineId}&q=${query}&searchType=image`)
+            .then(function (response) {
+                const searchResults = response.data.items;
+
+                if (searchResults && searchResults.length > 0) {
+                    const topResult = searchResults[0];
+                    const imageUrl = topResult.link;
+
+                    // Append a message indicating the image and its source
+                    appendMessage("AI Chatbot", `Here's an image related to "${query}":`);
+                    // Append the image to the chatbox
+                    appendImage(imageUrl);
+                } else {
+                    appendMessage("AI Chatbot", `I couldn't find any image related to "${query}".`);
+                }
+            })
+            .catch(function (error) {
+                console.error("Error fetching Google image results:", error);
+                appendMessage("AI Chatbot", "Sorry, I encountered an error while searching for an image.");
+            });
     }
 
     function generateImage() {
-    // Replace with your Unsplash API key
-    const unsplashApiKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw';
+        // Replace with your Unsplash API key
+        const unsplashApiKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw';
 
-    axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature`)
-        .then(function (response) {
-            if (response.data && response.data.urls && response.data.urls.regular) {
-                const imageUrl = response.data.urls.regular;
-                // Append the image to the chatbox
-                appendImage(imageUrl);
-            } else {
-                appendMessage("AI Chatbot", "I couldn't find any image at the moment.");
-            }
-        })
-        .catch(function (error) {
-            console.error("Error fetching image from Unsplash:", error);
-            appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
-        });
-}
-
+        axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature`)
+            .then(function (response) {
+                if (response.data && response.data.urls && response.data.urls.regular) {
+                    const imageUrl = response.data.urls.regular;
+                    // Append the image to the chatbox
+                    appendImage(imageUrl);
+                } else {
+                    appendMessage("AI Chatbot", "I couldn't find any image at the moment.");
+                }
+            })
+            .catch(function (error) {
+                console.error("Error fetching image from Unsplash:", error);
+                appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
+            });
+    }
 
     function appendImage(imageUrl) {
         const imageDiv = document.createElement("div");
