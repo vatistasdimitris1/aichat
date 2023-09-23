@@ -150,7 +150,8 @@ function sendMessage() {
 
 
 
-  function fetchImageFromGoogle(query) {
+
+ function fetchImageFromGoogle(query) {
     // Replace with your Google API key and engine ID
     const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
     const googleEngineId = '64e010fb495384c43';
