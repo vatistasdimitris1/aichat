@@ -1,156 +1,239 @@
-/* Base styles for all screens */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
+/* Reset some default styles for better consistency */
+* {
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+/* Style the chat container */
 .chat-container {
-    position: relative;
-    width: 80%;
-    max-width: 500px;
-    background-color: #fff;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    padding: 15px;
-    margin: 10px;
-}
-
-.chat-header {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-}
-
-.chat-box {
-    height: 200px;
-    overflow-y: scroll;
-    padding: 10px;
-}
-
-.chat-input {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+/* Style the chat box */
+#chat-box {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    height: 70vh;
+    overflow-y: auto;
+    padding: 20px;
+    position: relative;
+}
+
+/* Style chat messages */
+.chat-message {
+    margin-bottom: 10px;
     padding: 10px;
-    border-top: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
-input[type="text"] {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin: 5px;
+/* Style the input field */
+#user-input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 16px;
 }
 
-button {
-    background-color: #007bff;
+/* Style the send button */
+#send-button {
+    background-color: #007BFF;
     color: #fff;
     border: none;
-    padding: 10px 12px;
-    border-radius: 3px;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
     cursor: pointer;
-    margin: 5px;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-button.active {
-    background-color: #ff5733;
-}
-
-button:hover {
+/* Add hover effect for the send button */
+#send-button:hover {
     background-color: #0056b3;
 }
 
-#generate-image-button:hover {
-    background-color: #f44336;
-    transform: scale(1.05);
-    transition: background-color 0.3s, transform 0.3s;
+/* Add color effect for the send button */
+#send-button:active {
+    background-color: #004099;
+    transform: scale(0.95);
 }
 
+/* Style the Google Mode button */
+#google-mode-button {
+    background-color: #1E7E34;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Add hover effect for the Google Mode button */
 #google-mode-button:hover {
-    background-color: #4CAF50;
-    transform: scale(1.05);
-    transition: background-color 0.3s, transform 0.3s;
+    background-color: #155a27;
 }
 
+/* Add color effect for the Google Mode button */
+#google-mode-button:active {
+    background-color: #0e3c19;
+    transform: scale(0.95);
+}
+
+/* Style the GPT-3 Mode button */
+#gpt3-mode-button {
+    background-color: #FF6A6A;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Add hover effect for the GPT-3 Mode button */
 #gpt3-mode-button:hover {
-    background-color: #ffc107;
-    transform: scale(1.05);
-    transition: background-color 0.3s, transform 0.3s;
+    background-color: #d95353;
 }
 
-#voice-button:hover {
-    background-color: #ffdb58;
-    transform: scale(1.05);
-    transition: background-color 0.3s, transform 0.3s;
+/* Add color effect for the GPT-3 Mode button */
+#gpt3-mode-button:active {
+    background-color: #c93030;
+    transform: scale(0.95);
 }
 
-/* Adjust the logo size for all screens */
-.logo {
-    width: 80px;
+/* Style the Voice button */
+#voice-button {
+    background-color: #FFD700;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
     position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Media query for screens narrower than 600px (typical phone width) */
-@media (max-width: 600px) {
-    .chat-container {
-        width: 95%;
-    }
-
-    .chat-box {
-        height: 150px;
-    }
-
-    .logo {
-        width: 60px;
-    }
-
-    .chat-input {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .android-button-container {
-        position: static;
-        margin-top: 20px;
-    }
-
-    .android-button-container.bottom-center {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-    }
+/* Add hover effect for the Voice button */
+#voice-button:hover {
+    background-color: #ccaa00;
 }
 
+/* Add color effect for the Voice button */
+#voice-button:active {
+    background-color: #b38c00;
+    transform: scale(0.95);
+}
 
-/* Add a circle cursor */
-.cursor {
+/* Style the Android button */
+#android-button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Add hover effect for the Android button */
+#android-button:hover {
+    background-color: #45a049;
+}
+
+/* Add color effect for the Android button */
+#android-button:active {
+    background-color: #3d8e41;
+    transform: scale(0.95);
+}
+
+/* Style the Generate Image button */
+#generate-image-button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Add hover effect for the Generate Image button */
+#generate-image-button:hover {
+    background-color: #0056b3;
+}
+
+/* Add color effect for the Generate Image button */
+#generate-image-button:active {
+    background-color: #004099;
+    transform: scale(0.95);
+}
+
+/* Style the circular cursor */
+.circular-cursor {
     width: 20px;
     height: 20px;
-    background-color: #007bff;
-    border-radius: 0%;
+    border: 2px solid #007BFF;
+    border-radius: 50%;
     position: absolute;
     pointer-events: none;
-    transform: translate(-0%, -0%);
-    transition: transform 0.2s, background-color 0.2s;
+    transform: translate(-50%, -50%);
+    animation: pulse 1s infinite;
 }
 
-/* Add animation to the cursor */
-.cursor.active {
-    transform: scale(1.5) translate(-0%, -0%);
-    background-color: #0056b3;
+@keyframes pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.7;
+    }
 }
 
+/* Style the blue circle for the mouse */
+.cursor {
+    width: 30px;
+    height: 30px;
+    background-color: #007BFF;
+    border-radius: 50%;
+    position: absolute;
+    pointer-events: none;
+    animation: circleExpand 0.5s ease-out, circleFadeOut 1s 0.5s ease-out;
+}
+
+@keyframes circleExpand {
+    0% {
+        transform: scale(0);
+        opacity: 
