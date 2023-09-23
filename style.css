@@ -10,6 +10,7 @@ body {
 }
 
 .chat-container {
+    position: relative;
     width: 80%;
     max-width: 500px;
     background-color: #fff;
@@ -68,42 +69,33 @@ button:hover {
     background-color: #0056b3;
 }
 
-#google-mode-button:hover {
+#generate-image-button:hover {
     background-color: #f44336;
-    transform: scale(1.0);
+    transform: scale(1.05);
     transition: background-color 0.3s, transform 0.3s;
 }
 
-#google-mode-button.active {
-    background-color: #ff5733;
-    transform: scale(1.0);
+#google-mode-button:hover {
+    background-color: #4CAF50;
+    transform: scale(1.05);
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 #gpt3-mode-button:hover {
-    background-color: #4CAF50;
-    transform: scale(1.1);
+    background-color: #ffc107;
+    transform: scale(1.05);
     transition: background-color 0.3s, transform 0.3s;
-}
-
-#gpt3-mode-button.active {
-    background-color: #6dbd63;
-    transform: scale(1.0);
 }
 
 #voice-button:hover {
-    background-color: #ffc107;
-    transform: scale(1.1);
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-#voice-button.active {
     background-color: #ffdb58;
-    transform: scale(1.1);
+    transform: scale(1.05);
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 /* Adjust the logo size for all screens */
 .logo {
-    width: 80px; /* Smaller logo size */
+    width: 80px;
     position: absolute;
     top: 10px;
     left: 50%;
@@ -121,43 +113,24 @@ button:hover {
     }
 
     .logo {
-        width: 60px; /* Smaller logo size for narrow screens */
+        width: 60px;
     }
 
-    /* Center the "Dimitris Vatistas" text and Android button below the chatbot */
     .chat-input {
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
 
-    /* Adjust the Android button's position */
     .android-button-container {
         position: static;
         margin-top: 20px;
     }
-}
- 
-/* Add hover effect to the button */
-#generate-image-button:hover {
-    background-color: #0056b3; /* Change background color on hover */
-    transform: scale(1.1); /* Scale up the button on hover */
-    transition: background-color 0.3s, transform 0.3s; /* Add a smooth transition effect */
-}
 
-/* Add active state for the button when clicked */
-#generate-image-button:active {
-    background-color: #ff5733; /* Change background color when active (clicked) */
-    transform: scale(1.0); /* Restore the original scale */
-}
-
-
-.circular-cursor {
-    width: 20px;
-    height: 20px;
-    background-color: #007bff;
-    border-radius: 50%;
-    position: absolute;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
+    .android-button-container.bottom-center {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
