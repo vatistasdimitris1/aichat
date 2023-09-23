@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (isMouseTrackingEnabled) {
         const cursor = document.createElement("div");
-        let mouseX = 20;
-        let mouseY = 20;
+        let mouseX = 0;
+        let mouseY = 0;
 
         document.addEventListener("mousemove", function (e) {
             mouseX = e.clientX;
