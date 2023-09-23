@@ -144,7 +144,7 @@ button:hover {
     border-radius: 0%;
     position: absolute;
     pointer-events: none;
-    transform: translate(-5%, -5%);
+    transform: translate(-0%, -0%);
     transition: transform 0.2s, background-color 0.2s;
 }
 
