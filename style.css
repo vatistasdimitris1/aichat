@@ -1,3 +1,4 @@
+/* Updated CSS */
 /* Base styles for all screens */
 body {
     font-family: Arial, sans-serif;
@@ -64,8 +65,21 @@ button.active {
     background-color: #ff5733;
 }
 
-button:hover {
-    background-color: #0056b3;
+/* Remove hover effect on the "Generate Image" button */
+#generate-image-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#generate-image-button:hover {
+    background-color: #007bff; /* Maintain the same color on hover */
+    transform: scale(1.0); /* Remove the transform animation on hover */
+    transition: none; /* Remove the transition effect on hover */
 }
 
 #google-mode-button:hover {
@@ -136,34 +150,4 @@ button:hover {
         position: static;
         margin-top: 20px;
     }
-}
- 
-/* Add a tooltip container */
-.tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-/* Add hover effect to the button */
-#generate-image-button:hover {
-  background-color: ; /* Change background color on hover (optional) */
-  color: #fff; /* Change text color on hover (optional) */
-  transform: scale(0.9); /* Scale down the button on hover */
-  transition: transform 0.5s; /* Add a smooth transition effect */
-}
-
-/* Change the text on hover */
-.coming-soon-button:hover::before {
-  content: "Coming Soon"; /* Change the button text on hover */
-}
-
-
-.circular-cursor {
-    width: 20px;
-    height: 20px;
-    background-color: #007bff;
-    border-radius: 50%;
-    position: absolute;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
 }
