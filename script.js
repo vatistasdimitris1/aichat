@@ -215,11 +215,11 @@
         appendMessage("AI Chatbot", helpMessage);
     }
 
-    function generateImage() {
+function generateImage() {
         const deepAiApiKey = 'd909c5b4-55ac-4fbb-9b4c-36ac1646e577';
 
         axios.post('https://api.deepai.org/api/text2img', {
-            text: userInput.value.trim(),
+            text: 'This is an example text to generate an image.',
         }, {
             headers: {
                 'api-key': deepAiApiKey,
@@ -233,8 +233,6 @@
                 console.error("Error generating image:", error);
                 appendMessage("AI Chatbot", "Sorry, I couldn't generate an image at the moment.");
             });
-
-        userInput.value = "";
     }
 
     function appendImage(imageUrl) {
@@ -244,7 +242,6 @@
         chatBox.appendChild(imageDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
     }
-
     function interactWithGPT3(prompt) {
         const gpt3ApiKey = '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';
 
