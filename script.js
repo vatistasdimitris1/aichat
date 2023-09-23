@@ -17,11 +17,10 @@
     // Emoji icons for the "Voice" button
     const voiceButtonIcons = ["🎙️", "🔴"];
 
-    // Check if the screen width is greater than 600px (typical phone width)
-    const isMouseTrackingEnabled = window.innerWidth > 600;
+      const isMouseTrackingEnabled = window.innerWidth > 600;
 
     if (isMouseTrackingEnabled) {
-        const circularCursor = document.createElement("div");
+        const cursor = document.createElement("div");
         let mouseX = 0;
         let mouseY = 0;
 
@@ -29,12 +28,12 @@
             mouseX = e.clientX;
             mouseY = e.clientY;
 
-            circularCursor.style.left = mouseX + "px";
-            circularCursor.style.top = mouseY + "px";
+            cursor.style.left = mouseX + "px";
+            cursor.style.top = mouseY + "px";
         });
 
-        chatBox.appendChild(circularCursor);
-        circularCursor.classList.add("circular-cursor");
+        chatBox.appendChild(cursor);
+        cursor.classList.add("cursor");
     }
 
     googleModeButton.addEventListener("click", toggleGoogleMode);
