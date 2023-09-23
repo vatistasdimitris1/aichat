@@ -8,6 +8,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const androidButton = document.getElementById("android-button");
     const generateImageButton = document.getElementById("generate-image-button");
     const chatContainer = document.querySelector(".chat-container");
+ const circularCursor = document.querySelector(".circular-cursor");
+
+    // ...
+
+    const isMouseTrackingEnabled = window.innerWidth > 600;
+
+    if (isMouseTrackingEnabled) {
+        document.addEventListener("mousemove", function (e) {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            circularCursor.style.left = mouseX + "px";
+            circularCursor.style.top = mouseY + "px";
+        });
+
+        // Show the circular cursor
+        circularCursor.style.display = "block";
+    }
+
 
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
