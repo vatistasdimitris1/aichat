@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const chatBox = document.getElementById("chat-box");
+    const userInput = document.getElementById("user-input");
     const sendButton = document.getElementById("send-button");
     const googleModeButton = document.getElementById("google-mode-button");
     const gpt3ModeButton = document.getElementById("gpt3-mode-button");
@@ -88,7 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function sendMessage() {
-        const userInput = document.getElementById("user-input");
         const userMessage = userInput.value.trim();
 
         if (userMessage !== "") {
@@ -100,6 +100,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 interactWithGPT3(userMessage);
             } else if (userMessage.toLowerCase() === "help") {
                 showHelpCommands();
+            } else if (userMessage.toLowerCase().startsWith("generate image")) {
+                // Extract the search query for Unsplash
+                const searchQuery = userMessage.substring(14).trim();
+                if (searchQuery !== "") {
+                    generateImageFromUnsplash(searchQuery);
+                } else {
+                    appendMessage("AI Chatbot", "Please provide a search query for generating an image.");
+                }
             } else {
                 const botResponse = chatbotResponse(userMessage);
                 appendMessage("AI Chatbot", botResponse);
@@ -215,45 +223,29 @@ document.addEventListener("DOMContentLoaded", function () {
         appendMessage("AI Chatbot", helpMessage);
     }
 
-    function generateImage() {
-        const deepAiApiKey = 'd909c5b4-55ac-4fbb-9b4c-36ac1646e577';
-        const unsplashAccessKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw';
+    // Function to generate image from Unsplash
+    function generateImageFromUnsplash(searchQuery) {
+        const unsplashApiKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw';
         const unsplashSecretKey = 'dLmSko3vjSIbHKqhchZrHKoB3GEd-UMURULxOXnVsKY';
 
-        // Replace 'YOUR_DEEP_AI_API_KEY' with your actual DeepAI API key
-        // Replace 'YOUR_UNSPLASH_ACCESS_KEY' with your actual Unsplash API access key
-        // Replace 'YOUR_UNSPLASH_SECRET_KEY' with your actual Unsplash API secret key
+        axios.get(`https://api.unsplash.com/photos/random?query=${searchQuery}&client_id=${unsplashApiKey}`)
+            .then(function (response) {
+                const imageUrl = response.data.urls.regular;
+                const imageLink = response.data.links.html;
 
-        const randomApi = Math.random() < 0.5 ? 'deepai' : 'unsplash';
-        if (randomApi === 'deepai') {
-            axios.post('https://api.deepai.org/api/text2img', {
-                text: 'This is an example text to generate an image.',
-            }, {
-                headers: {
-                    'api-key': deepAiApiKey,
-                },
+                // Append the image to the chatbox
+                appendImage(imageUrl);
+
+                // Append the Unsplash link to the chatbox
+                appendLink(imageLink);
             })
-                .then(function (response) {
-                    const imageUrl = response.data.output_url;
-                    appendImage(imageUrl);
-                })
-                .catch(function (error) {
-                    console.error("Error generating image with DeepAI:", error);
-                    appendMessage("AI Chatbot", "Sorry, I couldn't generate an image at the moment.");
-                });
-        } else {
-            axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashAccessKey}`)
-                .then(function (response) {
-                    const imageUrl = response.data.urls.regular;
-                    appendImage(imageUrl);
-                })
-                .catch(function (error) {
-                    console.error("Error fetching image from Unsplash:", error);
-                    appendMessage("AI Chatbot", "Sorry, I couldn't fetch an image at the moment.");
-                });
-        }
+            .catch(function (error) {
+                console.error("Error generating image from Unsplash:", error);
+                appendMessage("AI Chatbot", "Sorry, I couldn't generate an image at the moment.");
+            });
     }
 
+    // Function to append an image to the chatbox
     function appendImage(imageUrl) {
         const imageDiv = document.createElement("div");
         imageDiv.classList.add("chat-message");
@@ -262,6 +254,16 @@ document.addEventListener("DOMContentLoaded", function () {
         chatBox.scrollTop = chatBox.scrollHeight;
     }
 
+    // Function to append a link to the chatbox
+    function appendLink(link) {
+        const linkDiv = document.createElement("div");
+        linkDiv.classList.add("chat-message");
+        linkDiv.innerHTML = `<a href="${link}" target="_blank">View on Unsplash</a>`;
+        chatBox.appendChild(linkDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Improved GPT-3 interaction function
     function interactWithGPT3(prompt) {
         const gpt3ApiKey = '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';
 
