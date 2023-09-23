@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function fetchAnswersFromGoogle(query) {
         // Replace with your Google API key and search engine ID
         const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE'; // Replace with your API key
-        const googleEngineId = 'e66093057c55d4a1d'; // Replace with your Engine ID
+        const googleEngineId = '64e010fb495384c43'; // Replace with your Engine ID
 
         // Make a GET request to the Google Custom Search JSON API
         fetch(`https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleEngineId}&q=${query}`)
@@ -252,25 +252,25 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function generateImage() {
-        // Replace with your Unsplash API key
-        const unsplashApiKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw';
+    // Replace with your Unsplash API key
+    const unsplashApiKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw';
 
-        // Make a GET request to Unsplash to generate an image
-        fetch(`https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature`)
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.urls && data.urls.regular) {
-                const imageUrl = data.urls.regular;
+    axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature`)
+        .then(function (response) {
+            if (response.data && response.data.urls && response.data.urls.regular) {
+                const imageUrl = response.data.urls.regular;
+                // Append the image to the chatbox
                 appendImage(imageUrl);
             } else {
                 appendMessage("AI Chatbot", "I couldn't find any image at the moment.");
             }
         })
-        .catch((error) => {
+        .catch(function (error) {
             console.error("Error fetching image from Unsplash:", error);
             appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
         });
-    }
+}
+
 
     function appendImage(imageUrl) {
         const imageDiv = document.createElement("div");
