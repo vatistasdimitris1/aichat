@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
     const chatBox = document.getElementById("chat-box");
-    const userInput = document.getElementById("user-input");
     const sendButton = document.getElementById("send-button");
     const googleModeButton = document.getElementById("google-mode-button");
     const gpt3ModeButton = document.getElementById("gpt3-mode-button");
@@ -89,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function sendMessage() {
+        const userInput = document.getElementById("user-input");
         const userMessage = userInput.value.trim();
 
         if (userMessage !== "") {
@@ -217,22 +217,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function generateImage() {
         const deepAiApiKey = 'd909c5b4-55ac-4fbb-9b4c-36ac1646e577';
+        const unsplashAccessKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw';
+        const unsplashSecretKey = 'dLmSko3vjSIbHKqhchZrHKoB3GEd-UMURULxOXnVsKY';
 
-        axios.post('https://api.deepai.org/api/text2img', {
-            text: 'This is an example text to generate an image.',
-        }, {
-            headers: {
-                'api-key': deepAiApiKey,
-            },
-        })
-            .then(function (response) {
-                const imageUrl = response.data.output_url;
-                appendImage(imageUrl);
+        // Replace 'YOUR_DEEP_AI_API_KEY' with your actual DeepAI API key
+        // Replace 'YOUR_UNSPLASH_ACCESS_KEY' with your actual Unsplash API access key
+        // Replace 'YOUR_UNSPLASH_SECRET_KEY' with your actual Unsplash API secret key
+
+        const randomApi = Math.random() < 0.5 ? 'deepai' : 'unsplash';
+        if (randomApi === 'deepai') {
+            axios.post('https://api.deepai.org/api/text2img', {
+                text: 'This is an example text to generate an image.',
+            }, {
+                headers: {
+                    'api-key': deepAiApiKey,
+                },
             })
-            .catch(function (error) {
-                console.error("Error generating image:", error);
-                appendMessage("AI Chatbot", "Sorry, I couldn't generate an image at the moment.");
-            });
+                .then(function (response) {
+                    const imageUrl = response.data.output_url;
+                    appendImage(imageUrl);
+                })
+                .catch(function (error) {
+                    console.error("Error generating image with DeepAI:", error);
+                    appendMessage("AI Chatbot", "Sorry, I couldn't generate an image at the moment.");
+                });
+        } else {
+            axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashAccessKey}`)
+                .then(function (response) {
+                    const imageUrl = response.data.urls.regular;
+                    appendImage(imageUrl);
+                })
+                .catch(function (error) {
+                    console.error("Error fetching image from Unsplash:", error);
+                    appendMessage("AI Chatbot", "Sorry, I couldn't fetch an image at the moment.");
+                });
+        }
     }
 
     function appendImage(imageUrl) {
