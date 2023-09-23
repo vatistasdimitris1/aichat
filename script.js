@@ -148,7 +148,9 @@ function sendMessage() {
 
 
 
- function fetchImageFromGoogle(query) {
+
+
+  function fetchImageFromGoogle(query) {
     // Replace with your Google API key and engine ID
     const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
     const googleEngineId = '64e010fb495384c43';
@@ -174,6 +176,8 @@ function sendMessage() {
             appendMessage("AI Chatbot", "Sorry, I encountered an error while searching for an image.");
         });
 }
+
+
     function initSpeechRecognition() {
         recognition = new webkitSpeechRecognition() || new SpeechRecognition();
         recognition.continuous = false;
