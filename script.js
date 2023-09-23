@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
     let isListening = false;
     let recognition;
 
+    // Emoji icons for the "Voice" button
+    const voiceButtonIcons = ["🎙️", "🔴"];
+
     // Check if the screen width is greater than 600px (typical phone width)
     const isMouseTrackingEnabled = window.innerWidth > 600;
 
@@ -180,6 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         recognition.onstart = function () {
             isListening = true;
+            voiceButton.innerHTML = voiceButtonIcons[1]; // Change the emoji to the "stop" icon
             console.log("Listening...");
         };
 
@@ -192,6 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         recognition.onend = function () {
             isListening = false;
+            voiceButton.innerHTML = voiceButtonIcons[0]; // Change the emoji back to the "microphone" icon
             console.log("Stopped listening.");
         };
 
@@ -202,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function downloadApk() {
-        const apkLink = "https://www.example.com/android-app.apk";
+        const apkLink = "AI-Chatbot";
         window.open(apkLink, "_blank");
     }
 
@@ -212,29 +217,25 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function generateImage() {
-        const userMessage = userInput.value.trim();
+        const deepAiApiKey = 'd909c5b4-55ac-4fbb-9b4c-36ac1646e577';
 
-        if (userMessage !== "") {
-            const deepAiApiKey = 'd909c5b4-55ac-4fbb-9b4c-36ac1646e577';
-
-            axios.post('https://api.deepai.org/api/text2img', {
-                text: userMessage,
-            }, {
-                headers: {
-                    'api-key': deepAiApiKey,
-                },
+        axios.post('https://api.deepai.org/api/text2img', {
+            text: userInput.value.trim(),
+        }, {
+            headers: {
+                'api-key': deepAiApiKey,
+            },
+        })
+            .then(function (response) {
+                const imageUrl = response.data.output_url;
+                appendImage(imageUrl);
             })
-                .then(function (response) {
-                    const imageUrl = response.data.output_url;
-                    appendImage(imageUrl);
-                })
-                .catch(function (error) {
-                    console.error("Error generating image:", error);
-                    appendMessage("AI Chatbot", "Sorry, I couldn't generate an image at the moment.");
-                });
+            .catch(function (error) {
+                console.error("Error generating image:", error);
+                appendMessage("AI Chatbot", "Sorry, I couldn't generate an image at the moment.");
+            });
 
-            userInput.value = "";
-        }
+        userInput.value = "";
     }
 
     function appendImage(imageUrl) {
@@ -246,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function interactWithGPT3(prompt) {
-        const gpt3ApiKey = 'YOUR_GPT3_API_KEY';
+        const gpt3ApiKey = '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';
 
         axios.post('https://api.openai.com/v1/engines/davinci/completions', {
             prompt: prompt,
