@@ -4,7 +4,7 @@ body {
     background-color: #f7f7f7;
     margin: 0;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
     height: 100vh;
     position: relative;
@@ -20,6 +20,17 @@ body {
     padding: 15px;
     margin: 10px;
     position: relative;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.chat-header img {
+    width: 30px; /* Smaller logo size */
+    margin-right: 10px;
 }
 
 .chat-box {
@@ -63,46 +74,4 @@ button:hover {
     background-color: #0056b3;
     transform: scale(1.1);
     transition: background-color 0.3s, transform 0.3s;
-}
-
-#google-mode-button:hover {
-    background-color: #f44336;
-}
-
-#google-mode-button.active {
-    background-color: #ff5733;
-}
-
-#gpt3-mode-button:hover {
-    background-color: #4CAF50;
-}
-
-#gpt3-mode-button.active {
-    background-color: #6dbd63;
-}
-
-#voice-button:hover {
-    background-color: #ffc107;
-}
-
-#voice-button.active {
-    background-color: #ffdb58;
-}
-
-#android-button:hover {
-    background-color: #007bff;
-}
-
-#generate-image-button:hover {
-    background-color: #007bff;
-}
-
-.circular-cursor {
-    width: 20px;
-    height: 20px;
-    background-color: #007bff;
-    border-radius: 50%;
-    position: absolute;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
 }
