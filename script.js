@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
     gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
     sendButton.addEventListener("click", sendMessage);
     voiceButton.addEventListener("click", toggleVoiceRecognition);
-    
+
     // Added event listener for Android button click
     androidButton.addEventListener("click", downloadApk);
 
@@ -182,19 +182,37 @@ document.addEventListener("DOMContentLoaded", function () {
                 const searchResults = response.data.items;
 
                 if (searchResults && searchResults.length > 0) {
-                    const topResult = searchResults[0];
-                    const title = topResult.title;
-                    const snippet = topResult.snippet;
+                    const resultsContainer = document.createElement("div");
 
-                    const googleResponse = `AI Chatbot: ${title}. Here's a snippet: ${snippet}`;
-                    appendMessage("AI Chatbot", googleResponse);
+                    searchResults.forEach((result, index) => {
+                        const resultDiv = document.createElement("div");
+                        resultDiv.classList.add("search-result");
+
+                        const title = result.title;
+                        const snippet = result.snippet;
+                        const link = result.link;
+
+                        resultDiv.innerHTML = `
+                            <h3><a href="${link}" target="_blank">${title}</a></h3>
+                            <p>${snippet}</p>
+                        `;
+
+                        resultsContainer.appendChild(resultDiv);
+                    });
+
+                    const googleResponse = document.createElement("div");
+                    googleResponse.innerHTML = `<p>AI Chatbot: Here are the top search results:</p>`;
+                    googleResponse.appendChild(resultsContainer);
+
+                    // Append the Google search results to the chat box
+                    chatBox.appendChild(googleResponse);
                 } else {
                     appendMessage("AI Chatbot", "Sorry, I couldn't find an answer to your question.");
                 }
             })
             .catch(function (error) {
                 console.error(error);
-                appendMessage("Google", "An error occurred while searching.");
+                appendMessage("AI Chatbot", "An error occurred while searching.");
             });
     }
 
