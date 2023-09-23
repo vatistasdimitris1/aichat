@@ -134,3 +134,15 @@ button:hover {
         transform: translateX(-50%);
     }
 }
+
+
+.circular-cursor {
+    width: 20px;
+    height: 20px;
+    background-color: #007bff;
+    border-radius: 50%;
+    position: absolute;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    display: none; /* Hide the circle by default */
+}
