@@ -8,34 +8,31 @@ document.addEventListener("DOMContentLoaded", function () {
     const androidButton = document.getElementById("android-button");
     const generateImageButton = document.getElementById("generate-image-button");
     const chatContainer = document.querySelector(".chat-container");
- const circularCursor = document.querySelector(".circular-cursor");
-
-    // ...
-
-    const isMouseTrackingEnabled = window.innerWidth > 600;
-
-    if (isMouseTrackingEnabled) {
-        document.addEventListener("mousemove", function (e) {
-            const mouseX = e.clientX;
-            const mouseY = e.clientY;
-
-            circularCursor.style.left = mouseX + "px";
-            circularCursor.style.top = mouseY + "px";
-        });
-
-        // Show the circular cursor
-        circularCursor.style.display = "block";
-    }
-
 
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
     let isListening = false;
     let recognition;
 
+    // Check if the screen width is greater than 600px (typical phone width)
     const isMouseTrackingEnabled = window.innerWidth > 600;
 
-  
+    if (isMouseTrackingEnabled) {
+        const circularCursor = document.createElement("div");
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener("mousemove", function (e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            circularCursor.style.left = mouseX + "px";
+            circularCursor.style.top = mouseY + "px";
+        });
+
+        chatBox.appendChild(circularCursor);
+        circularCursor.classList.add("circular-cursor");
+    }
 
     googleModeButton.addEventListener("click", toggleGoogleMode);
     gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
@@ -205,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function downloadApk() {
-        const apkLink = "AI-Chatbot.apk";
+        const apkLink = "https://www.example.com/android-app.apk";
         window.open(apkLink, "_blank");
     }
 
@@ -215,23 +212,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function generateImage() {
-        const deepAiApiKey = 'd909c5b4-55ac-4fbb-9b4c-36ac1646e577';
+        const userMessage = userInput.value.trim();
 
-        axios.post('https://api.deepai.org/api/text2img', {
-            text: 'This is an example text to generate an image.',
-        }, {
-            headers: {
-                'api-key': deepAiApiKey,
-            },
-        })
-            .then(function (response) {
-                const imageUrl = response.data.output_url;
-                appendImage(imageUrl);
+        if (userMessage !== "") {
+            const deepAiApiKey = 'd909c5b4-55ac-4fbb-9b4c-36ac1646e577';
+
+            axios.post('https://api.deepai.org/api/text2img', {
+                text: userMessage,
+            }, {
+                headers: {
+                    'api-key': deepAiApiKey,
+                },
             })
-            .catch(function (error) {
-                console.error("Error generating image:", error);
-                appendMessage("AI Chatbot", "Sorry, I couldn't generate an image at the moment.");
-            });
+                .then(function (response) {
+                    const imageUrl = response.data.output_url;
+                    appendImage(imageUrl);
+                })
+                .catch(function (error) {
+                    console.error("Error generating image:", error);
+                    appendMessage("AI Chatbot", "Sorry, I couldn't generate an image at the moment.");
+                });
+
+            userInput.value = "";
+        }
     }
 
     function appendImage(imageUrl) {
@@ -243,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function interactWithGPT3(prompt) {
-        const gpt3ApiKey = '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';
+        const gpt3ApiKey = 'YOUR_GPT3_API_KEY';
 
         axios.post('https://api.openai.com/v1/engines/davinci/completions', {
             prompt: prompt,
