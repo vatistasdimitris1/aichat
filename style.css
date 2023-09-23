@@ -143,10 +143,10 @@ button:hover {
 
 /* Cursor Styles */
 .cursor {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     background-color: #007BFF;
-    border-radius: 50%;
+    border-radius: 30%;
     position: fixed;
     pointer-events: none;
     z-index: 9999;
