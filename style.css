@@ -26,14 +26,14 @@ body {
 
 /* Logo container styles */
 .logo-container {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 /* Logo image styles */
 .logo {
-    width: 25px;
+    width: 30px;
     position: absolute;
-    top: 10px;
+    top: 15px;
     left: 50%;
     transform: translateX(-50%);
 }
