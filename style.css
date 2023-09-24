@@ -9,9 +9,8 @@ body {
     height: 100vh;
 }
 
-/* Modify the chat container and chat box styles */
 .chat-container {
-    width: 100%;
+    width: 80%;
     max-width: 500px;
     background-color: #fff;
     border-radius: 20px;
@@ -19,13 +18,7 @@ body {
     overflow: hidden;
     padding: 15px;
     margin: 10px;
-    height: 400px; /* Adjust the height as needed */
-}
-
-.chat-box {
-    height: 100%; /* Adjust the height as a percentage of the chat container */
-    overflow-y: scroll;
-    padding: 10px;
+    height: 400px; /* Adjust the chatbox height */
 }
 
 .chat-header {
@@ -35,7 +28,11 @@ body {
     text-align: center;
 }
 
-
+.chat-box {
+    height: 200px;
+    overflow-y: scroll;
+    padding: 10px;
+}
 
 .chat-input {
     display: flex;
@@ -66,10 +63,6 @@ button {
 
 button.active {
     background-color: #ff5733;
-}
-
-button:hover {
-    background-color: #0056b3;
 }
 
 #google-mode-button:hover {
@@ -105,6 +98,22 @@ button:hover {
     transform: scale(1.1);
 }
 
+#generate-image-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#generate-image-button:hover {
+    background-color: #f44336;
+    transform: scale(1.0);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
 /* Adjust the logo size for all screens */
 .logo {
     width: 80px; /* Smaller logo size */
@@ -117,11 +126,12 @@ button:hover {
 /* Media query for screens narrower than 600px (typical phone width) */
 @media (max-width: 600px) {
     .chat-container {
-        width: 170%;
+        width: 95%;
+        height: 500px; /* Adjust the chatbox height for phones */
     }
 
     .chat-box {
-        height: 180px;
+        height: 70%; /* Adjust the height as a percentage of the chat container */
     }
 
     .logo {
@@ -144,13 +154,6 @@ button:hover {
 
 /* Add a tooltip container */
 .tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-/* Style the button without hover effect */
-#generate-image-button {
-  background-color: #f44336; /* Set the default background color */
-  color: #fff; /* Set the default text color */
-  transition: none; /* Remove transition effect */
+    position: relative;
+    display: inline-block;
 }
