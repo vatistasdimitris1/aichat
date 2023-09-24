@@ -1,9 +1,3 @@
-
-
-// Your Google API Key and Custom Search Engine ID
-const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
-const googleEngineId = 'e66093057c55d4a1d';
-
 document.addEventListener("DOMContentLoaded", function () {
     const chatBox = document.getElementById("chat-box");
     const userInput = document.getElementById("user-input");
@@ -13,24 +7,33 @@ document.addEventListener("DOMContentLoaded", function () {
     const voiceButton = document.getElementById("voice-button");
     const androidButton = document.getElementById("android-button");
     const generateImageButton = document.getElementById("generate-image-button");
-    const cursor = document.getElementById("cursor");
+    const chatContainer = document.querySelector(".chat-container");
 
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
     let isListening = false;
     let recognition;
 
+    // Emoji icons for the "Voice" button
     const voiceButtonIcons = ["🎙️", "🔴"];
 
     const isMouseTrackingEnabled = window.innerWidth > 600;
 
     if (isMouseTrackingEnabled) {
-        document.addEventListener("mousemove", function (e) {
-            const mouseX = e.clientX;
-            const mouseY = e.clientY;
+        const cursor = document.createElement("div");
+        let mouseX = 0;
+        let mouseY = 0;
 
-            cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        document.addEventListener("mousemove", function (e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            cursor.style.left = mouseX + "px";
+            cursor.style.top = mouseY + "px";
         });
+
+        chatBox.appendChild(cursor);
+        cursor.classList.add("cursor");
     }
 
     googleModeButton.addEventListener("click", toggleGoogleMode);
@@ -144,6 +147,34 @@ document.addEventListener("DOMContentLoaded", function () {
         return responses["default"];
     }
 
+    function fetchAnswersFromGoogle(query) {
+        const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
+        const googleEngineId = 'e66093057c55d4a1d';
+
+        axios.get(`https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleEngineId}&q=${query}`)
+            .then(function (response) {
+                const searchResults = response.data.items;
+
+                if (searchResults && searchResults.length > 0) {
+                    const topResult = searchResults[0];
+                    const title = topResult.title;
+                    const snippet = topResult.snippet;
+                    const link = topResult.link;
+
+                    const googleResponse = `AI Chatbot: ${title}. Here's a snippet: ${snippet}<br><a href="${link}" target="_blank">Read more</a>`;
+                    appendMessage("AI Chatbot", googleResponse);
+                } else {
+                    const noResultsResponse = "AI Chatbot: I couldn't find any relevant results.";
+                    appendMessage("AI Chatbot", noResultsResponse);
+                }
+            })
+            .catch(function (error) {
+                console.error("Error fetching Google results:", error);
+                const errorMessage = "AI Chatbot: Sorry, I encountered an error while fetching results from Google.";
+                appendMessage("AI Chatbot", errorMessage);
+            });
+    }
+
     function initSpeechRecognition() {
         recognition = new webkitSpeechRecognition() || new SpeechRecognition();
         recognition.continuous = false;
@@ -151,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         recognition.onstart = function () {
             isListening = true;
-            voiceButton.innerHTML = voiceButtonIcons[1];
+            voiceButton.innerHTML = voiceButtonIcons[1]; // Change the emoji to the "stop" icon
             console.log("Listening...");
         };
 
@@ -164,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         recognition.onend = function () {
             isListening = false;
-            voiceButton.innerHTML = voiceButtonIcons[0];
+            voiceButton.innerHTML = voiceButtonIcons[0]; // Change the emoji back to the "microphone" icon
             console.log("Stopped listening.");
         };
 
@@ -184,65 +215,56 @@ document.addEventListener("DOMContentLoaded", function () {
         appendMessage("AI Chatbot", helpMessage);
     }
 
-    function interactWithGPT3(prompt) {
-        // Replace with your OpenAI GPT-3 API key
-         const gpt3ApiKey = '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'
-
-        // Define the request data for GPT-3
-        const requestData = {
-            prompt: prompt,
-            max_tokens: 50  // You can adjust the `max_tokens` as needed
-        };
-
-        // Make a POST request to interact with GPT-3
-        fetch('https://api.openai.com/v1/engines/davinci/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${gpt3ApiKey}`
-            },
-            body: JSON.stringify(requestData)
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.choices && data.choices.length > 0) {
-                const botResponse = data.choices[0].text;
-                appendMessage("AI Chatbot", botResponse);
-            } else {
-                appendMessage("AI Chatbot", "I couldn't generate a response. Please try again.");
-            }
-        })
-        .catch((error) => {
-            console.error("Error interacting with GPT-3:", error);
-            appendMessage("AI Chatbot", "I encountered an error while interacting with GPT-3.");
-        });
-    }
-
     function generateImage() {
-        // Replace with your Unsplash API key
-        const unsplashApiKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw';
+        const deepAiApiKey = 'd909c5b4-55ac-4fbb-9b4c-36ac1646e577';
 
-        axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature`)
+        axios.post('https://api.deepai.org/api/text2img', {
+            text: 'This is an example text to generate an image.',
+        }, {
+            headers: {
+                'api-key': deepAiApiKey,
+            },
+        })
             .then(function (response) {
-                if (response.data && response.data.urls && response.data.urls.regular) {
-                    const imageUrl = response.data.urls.regular;
-                    // Append the image to the chatbox
-                    appendImage(imageUrl);
-                } else {
-                    appendMessage("AI Chatbot", "I couldn't find any image at the moment.");
-                }
+                const imageUrl = response.data.output_url;
+                appendImage(imageUrl);
             })
             .catch(function (error) {
-                console.error("Error fetching image from Unsplash:", error);
-                appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
+                console.error("Error generating image:", error);
+                appendMessage("AI Chatbot", "Sorry, I couldn't generate an image at the moment.");
             });
     }
 
     function appendImage(imageUrl) {
         const imageDiv = document.createElement("div");
         imageDiv.classList.add("chat-message");
-        imageDiv.innerHTML = `<img src="${imageUrl}" alt="Random Image">`;
+        imageDiv.innerHTML = `<img src="${imageUrl}" alt="Generated Image">`;
         chatBox.appendChild(imageDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function interactWithGPT3(prompt) {
+        const gpt3ApiKey = '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';
+
+        axios.post('https://api.openai.com/v1/engines/davinci/completions', {
+            prompt: prompt,
+            max_tokens: 50
+        }, {
+            headers: {
+                'Authorization': `Bearer ${gpt3ApiKey}`,
+            },
+        })
+            .then(function (response) {
+                if (response.data.choices && response.data.choices.length > 0) {
+                    const botResponse = response.data.choices[0].text;
+                    appendMessage("AI Chatbot", botResponse);
+                } else {
+                    appendMessage("AI Chatbot", "I couldn't generate a response. Please try again.");
+                }
+            })
+            .catch(function (error) {
+                console.error("Error interacting with GPT-3:", error);
+                appendMessage("AI Chatbot", "I encountered an error while interacting with GPT-3.");
+            });
     }
 });
