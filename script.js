@@ -1,3 +1,5 @@
+
+
 // Your Google API Key and Custom Search Engine ID
 const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
 const googleEngineId = 'e66093057c55d4a1d';
@@ -184,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function interactWithGPT3(prompt) {
         // Replace with your OpenAI GPT-3 API key
-        const gpt3ApiKey = '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';
+         const gpt3ApiKey = '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'
 
         // Define the request data for GPT-3
         const requestData = {
