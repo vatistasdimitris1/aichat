@@ -227,9 +227,7 @@ const unsplashApiKeys = [
   'gDtZjJFx8FmKrTlLZR9VlizhcZqwX15yN6PcnYCivXc',
   'aZv59f-SjpvG817rmtaGk-kKxg-RHVfQqjKVeXqUsRQ',
   'VXM2l6zSbJKTIKbNaVvm1DSfxsh3qAVlrnTAYsF9Nks',
-  'zqNisiBRmXaNPPir5g3bwSfkWnTzaQSII6C4EF3l-54',
-  // Add more API keys as needed
-];
+  'zqNisiBRmXaNPPir5g3bwSfkWnTzaQSII6C4EF3l-54'];
 
 let currentApiKeyIndex = 0;
 
