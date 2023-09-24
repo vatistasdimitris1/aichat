@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function generateImage() {
         // Replace with your Unsplash API key
-        const unsplashApiKey = 'YOUR_UNSPLASH_API_KEY';
+        const unsplashApiKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw';
 
         axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature`)
             .then(function (response) {
