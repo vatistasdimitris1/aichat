@@ -9,6 +9,20 @@ body {
     height: 100vh;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-container {
+    margin-top: 20px; /* Adjust the margin to position the logo */
+}
+
+.logo {
+    width: 20px; /* Set the logo size to 20px */
+}
+
 .chat-container {
     width: 80%;
     max-width: 500px;
