@@ -1,46 +1,30 @@
-/* Reset some default styles for consistency */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Base styles for the entire page */
+/* Base styles for all screens */
 body {
     font-family: Arial, sans-serif;
     background-color: #f7f7f7;
+    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
+    height: 100vh;
 }
 
-/* Container for the chat application */
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
 }
 
-/* Logo container styles */
 .logo-container {
-    margin-top: 30px;
+    margin-top: 20px; /* Adjust the margin to position the logo */
 }
 
-/* Logo image styles */
 .logo {
-    width: 20px;
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 30px; /* Set the logo size to 20px */
 }
 
-/* Chat container styles */
 .chat-container {
-    width: 95%;
+    width: 80%;
     max-width: 500px;
     background-color: #fff;
     border-radius: 20px;
@@ -48,25 +32,22 @@ body {
     overflow: hidden;
     padding: 15px;
     margin: 10px;
-    min-height: 600px;
+    height: 600px; /* Increase the chatbox height */
 }
 
-/* Chat header styles */
 .chat-header {
     background-color: #007bff;
     color: #fff;
-    padding: 5px;
+    padding: 5px; /* Reduce header padding */
     text-align: center;
 }
 
-/* Chat box styles */
 .chat-box {
-    height: 400px;
+    height: 400px; /* Increase the chat box height */
     overflow-y: scroll;
     padding: 10px;
 }
 
-/* Chat input container styles */
 .chat-input {
     display: flex;
     flex-wrap: wrap;
@@ -76,66 +57,60 @@ body {
     border-top: 1px solid #ccc;
 }
 
-/* Text input styles */
 input[type="text"] {
     flex: 1;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 3px;
     margin: 5px;
-    width: 100%;
 }
 
 /* Button styles */
 button {
+    background-color: #007bff;
     color: #fff;
     border: none;
     padding: 10px 12px;
     border-radius: 3px;
     cursor: pointer;
     margin: 5px;
-    width: 45%;
     transition: background-color 0.3s, transform 0.3s;
 }
 
-/* Google Mode Button styles */
-#google-mode-button {
+button.active {
+    background-color: #ff5733;
+}
+
+button#google-mode-button,
+button#generate-image-button {
     background-color: #007bff;
 }
 
-#google-mode-button:hover {
-    background-color: #f44336;
-    transform: scale(1.1);
-}
-
-#google-mode-button.active {
-    background-color: #ff5733;
+button#google-mode-button:hover,
+button#generate-image-button:hover {
+    background-color: #0056b3;
     transform: scale(1.0);
 }
 
-/* GPT-3 Mode Button styles */
-#gpt3-mode-button {
-    background-color: #4CAF50;
+button#google-mode-button:active,
+button#generate-image-button:active {
+    background-color: #00337a;
 }
 
-#gpt3-mode-button:hover {
-    background-color: #6dbd63;
+button#gpt3-mode-button,
+button#voice-button {
+    background-color: #007bff;
+}
+
+button#gpt3-mode-button:hover,
+button#voice-button:hover {
+    background-color: #009c00;
     transform: scale(1.1);
 }
 
-#gpt3-mode-button.active {
-    background-color: #6dbd63;
-    transform: scale(1.0);
-}
-
-/* Voice Button styles */
-#voice-button {
-    background-color: #ffc107;
-}
-
-#voice-button:hover {
-    background-color: #ffdb58;
-    transform: scale(1.1);
+button#gpt3-mode-button:active,
+button#voice-button:active {
+    background-color: #007f00;
 }
 
 #voice-button.active {
@@ -143,55 +118,37 @@ button {
     transform: scale(1.1);
 }
 
-/* Generate Image Button styles */
-#generate-image-button {
-    background-color: #007bff;
-}
-
-#generate-image-button:hover {
-    background-color: #f44336;
-    transform: scale(1.1);
-}
-
-/* Active button styles */
-button.active {
-    background-color: #ff5733;
-}
-
-/* Tooltip container styles */
-.tooltip {
-    position: relative;
-    display: inline-block;
-}
-
 /* Media query for screens narrower than 600px (typical phone width) */
 @media (max-width: 600px) {
-    /* Adjust chat container for smaller screens */
     .chat-container {
         width: 95%;
-        height: auto;
+        height: 500px; /* Adjust the chatbox height for phones */
     }
 
-    /* Limit chat box height on smaller screens */
     .chat-box {
-        max-height: 60%;
+        height: 70%; /* Adjust the height as a percentage of the chat container */
     }
 
-    /* Slightly larger logo size for narrow screens */
     .logo {
-        width: 40px;
+        width: 60px; /* Smaller logo size for narrow screens */
     }
 
-    /* Center chat input elements vertically and horizontally */
+    /* Center the "Dimitris Vatistas" text and Android button below the chatbot */
     .chat-input {
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
 
-    /* Adjust Android button position */
+    /* Adjust the Android button's position */
     .android-button-container {
         position: static;
         margin-top: 20px;
     }
+}
+
+/* Add a tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
 }
