@@ -16,11 +16,11 @@ body {
 }
 
 .logo-container {
-    margin-top: 20px; /* Adjust the margin to position the logo */
+    margin-top: 17px; /* Adjust the margin to position the logo */
 }
 
 .logo {
-    width: 20px; /* Set the logo size to 20px */
+    width: 30px; /* Set the logo size to 20px */
 }
 
 .chat-container {
