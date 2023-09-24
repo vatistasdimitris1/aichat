@@ -7,6 +7,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const voiceButton = document.getElementById("voice-button");
   const androidButton = document.getElementById("android-button");
   const generateImageButton = document.getElementById("generate-image-button");
+ const nicknameInput = document.getElementById("nickname-input"); // New element
+
+    let chatbotNickname = "AI Chatbot"; // Default nickname
+
+    // Other variables and code ...
+
+    // Listen for the user setting their nickname
+    nicknameInput.addEventListener("change", function () {
+        const newNickname = nicknameInput.value;
+        if (newNickname.trim() !== "") {
+            chatbotNickname = newNickname; // Update the chatbot's nickname
+            appendMessage(chatbotNickname, "I'll go by " + newNickname + " from now on!");
+            nicknameInput.value = ""; // Clear the input field
+        }
+    });
 
   let isGoogleModeActive = false;
   let isGpt3ModeActive = false;
