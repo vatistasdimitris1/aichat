@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const voiceButton = document.getElementById("voice-button");
   const androidButton = document.getElementById("android-button");
   const generateImageButton = document.getElementById("generate-image-button");
- 
 
   let isGoogleModeActive = false;
   let isGpt3ModeActive = false;
@@ -17,34 +16,24 @@ document.addEventListener("DOMContentLoaded", function () {
   // Emoji icons for the "Voice" button
   const voiceButtonIcons = ["🎙️", "🔴"];
 
-  const isMouseTrackingEnabled = window.innerWidth > 600;
+  // Your Unsplash API keys
+  const unsplashApiKeys = [
+    '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw',
+    '6lockMXxpnmP6tUBLyLNwl0OM-3jOjP1USUEDHVYyAA',
+    'rUJtjSVD6hIScs9DOdosw36v5J7qTdzHc8yQv2V7iOk',
+    'gDtZjJFx8FmKrTlLZR9VlizhcZqwX15yN6PcnYCivXc',
+    'aZv59f-SjpvG817rmtaGk-kKxg-RHVfQqjKVeXqUsRQ',
+    'VXM2l6zSbJKTIKbNaVvm1DSfxsh3qAVlrnTAYsF9Nks',
+    'zqNisiBRmXaNPPir5g3bwSfkWnTzaQSII6C4EF3l-54'
+  ];
 
-  if (isMouseTrackingEnabled) {
-    const cursor = document.createElement("div");
-    let mouseX = 0;
-    let mouseY = 0;
+  let currentApiKeyIndex = 0;
 
-    document.addEventListener("mousemove", function (e) {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-
-      cursor.style.left = mouseX + "px";
-      cursor.style.top = mouseY + "px";
-    });
-
-    chatBox.appendChild(cursor);
-    cursor.classList.add("cursor");
+  function getNextUnsplashApiKey() {
+    const apiKey = unsplashApiKeys[currentApiKeyIndex];
+    currentApiKeyIndex = (currentApiKeyIndex + 1) % unsplashApiKeys.length;
+    return apiKey;
   }
-
-  googleModeButton.addEventListener("click", toggleGoogleMode);
-  gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
-  sendButton.addEventListener("click", sendMessage);
-  voiceButton.addEventListener("click", toggleVoiceRecognition);
-  androidButton.addEventListener("click", downloadApk);
-  generateImageButton.addEventListener("click", generateImage);
-
-  // Your Unsplash API key
-  const unsplashApiKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw';
 
   function toggleGoogleMode() {
     isGoogleModeActive = !isGoogleModeActive;
@@ -151,7 +140,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function fetchAnswersFromGoogle(query) {
-    // Replace with your Google Custom Search API key and Engine ID
     const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
     const googleEngineId = 'e66093057c55d4a1d';
 
@@ -219,45 +207,24 @@ document.addEventListener("DOMContentLoaded", function () {
     appendMessage("AI Chatbot", helpMessage);
   }
 
- // Your Unsplash API keys
-const unsplashApiKeys = [
-  '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw',
-  '6lockMXxpnmP6tUBLyLNwl0OM-3jOjP1USUEDHVYyAA',
-  'rUJtjSVD6hIScs9DOdosw36v5J7qTdzHc8yQv2V7iOk',
-  'gDtZjJFx8FmKrTlLZR9VlizhcZqwX15yN6PcnYCivXc',
-  'aZv59f-SjpvG817rmtaGk-kKxg-RHVfQqjKVeXqUsRQ',
-  'VXM2l6zSbJKTIKbNaVvm1DSfxsh3qAVlrnTAYsF9Nks',
-  'zqNisiBRmXaNPPir5g3bwSfkWnTzaQSII6C4EF3l-54'];
+  function generateImage() {
+    const apiKey = getNextUnsplashApiKey();
 
-let currentApiKeyIndex = 0;
+    axios.get(`https://api.unsplash.com/photos/random?client_id=${apiKey}&query=nature`)
+      .then(function (response) {
+        if (response.data && response.data.urls && response.data.urls.regular) {
+          const imageUrl = response.data.urls.regular;
+          appendImage(imageUrl);
+        } else {
+          appendMessage("AI Chatbot", "I couldn't find any image at the moment.");
+        }
+      })
+      .catch(function (error) {
+        console.error("Error fetching image from Unsplash:", error);
+        appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
+      });
+  }
 
-function getNextUnsplashApiKey() {
-  // Get the next API key in the array
-  const apiKey = unsplashApiKeys[currentApiKeyIndex];
-
-  // Increment the index for the next use (loop back to the first key if needed)
-  currentApiKeyIndex = (currentApiKeyIndex + 1) % unsplashApiKeys.length;
-
-  return apiKey;
-}
-
-function generateImage() {
-  const apiKey = getNextUnsplashApiKey();
-
-  axios.get(`https://api.unsplash.com/photos/random?client_id=${apiKey}&query=nature`)
-    .then(function (response) {
-      if (response.data && response.data.urls && response.data.urls.regular) {
-        const imageUrl = response.data.urls.regular;
-        appendImage(imageUrl);
-      } else {
-        appendMessage("AI Chatbot", "I couldn't find any image at the moment.");
-      }
-    })
-    .catch(function (error) {
-      console.error("Error fetching image from Unsplash:", error);
-      appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
-    });
-}
   function interactWithGPT3(prompt) {
     const gpt3ApiKey = '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';
 
@@ -282,5 +249,12 @@ function generateImage() {
         appendMessage("AI Chatbot", "I encountered an error while interacting with GPT-3.");
       });
   }
-});
 
+  // Event listeners
+  googleModeButton.addEventListener("click", toggleGoogleMode);
+  gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
+  sendButton.addEventListener("click", sendMessage);
+  voiceButton.addEventListener("click", toggleVoiceRecognition);
+  androidButton.addEventListener("click", downloadApk);
+  generateImageButton.addEventListener("click", generateImage);
+});
