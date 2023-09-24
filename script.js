@@ -1,3 +1,7 @@
+// Your Google API Key and Custom Search Engine ID
+const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
+const googleEngineId = 'e66093057c55d4a1d';
+
 document.addEventListener("DOMContentLoaded", function () {
     const chatBox = document.getElementById("chat-box");
     const userInput = document.getElementById("user-input");
@@ -5,6 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const googleModeButton = document.getElementById("google-mode-button");
     const gpt3ModeButton = document.getElementById("gpt3-mode-button");
     const voiceButton = document.getElementById("voice-button");
+    const androidButton = document.getElementById("android-button");
+    const generateImageButton = document.getElementById("generate-image-button");
     const cursor = document.getElementById("cursor");
 
     let isGoogleModeActive = false;
@@ -29,6 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
     gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
     sendButton.addEventListener("click", sendMessage);
     voiceButton.addEventListener("click", toggleVoiceRecognition);
+    androidButton.addEventListener("click", downloadApk);
+    generateImageButton.addEventListener("click", generateImage);
 
     function toggleGoogleMode() {
         isGoogleModeActive = !isGoogleModeActive;
@@ -164,6 +172,11 @@ document.addEventListener("DOMContentLoaded", function () {
         };
     }
 
+    function downloadApk() {
+        const apkLink = "AI-Chatbot.apk";
+        window.open(apkLink, "_blank");
+    }
+
     function showHelpCommands() {
         const helpMessage = "Available commands:<br>1. Type 'hello' or 'hey' to greet the chatbot.<br>2. Ask questions like 'What is your name?' or 'How are you?'<br>3. Type 'bye' to say goodbye.<br>4. Use 'help' to see available commands.";
         appendMessage("AI Chatbot", helpMessage);
@@ -171,12 +184,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function interactWithGPT3(prompt) {
         // Replace with your OpenAI GPT-3 API key
-        const gpt3ApiKey = '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';
+        const gpt3ApiKey = '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';
 
         // Define the request data for GPT-3
         const requestData = {
             prompt: prompt,
-            max_tokens: 50
+            max_tokens: 50  // You can adjust the `max_tokens` as needed
         };
 
         // Make a POST request to interact with GPT-3
@@ -201,5 +214,33 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error interacting with GPT-3:", error);
             appendMessage("AI Chatbot", "I encountered an error while interacting with GPT-3.");
         });
+    }
+
+    function generateImage() {
+        // Replace with your Unsplash API key
+        const unsplashApiKey = 'YOUR_UNSPLASH_API_KEY';
+
+        axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature`)
+            .then(function (response) {
+                if (response.data && response.data.urls && response.data.urls.regular) {
+                    const imageUrl = response.data.urls.regular;
+                    // Append the image to the chatbox
+                    appendImage(imageUrl);
+                } else {
+                    appendMessage("AI Chatbot", "I couldn't find any image at the moment.");
+                }
+            })
+            .catch(function (error) {
+                console.error("Error fetching image from Unsplash:", error);
+                appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
+            });
+    }
+
+    function appendImage(imageUrl) {
+        const imageDiv = document.createElement("div");
+        imageDiv.classList.add("chat-message");
+        imageDiv.innerHTML = `<img src="${imageUrl}" alt="Random Image">`;
+        chatBox.appendChild(imageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
     }
 });
