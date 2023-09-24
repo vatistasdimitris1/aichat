@@ -1,155 +1,160 @@
 /* Base styles for all screens */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .container {
-    width: 80%;
-    max-width: 500px;
-    background-color: #fff;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    padding: 15px;
-    margin: 10px;
+  width: 80%;
+  max-width: 500px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  padding: 15px;
+  margin: 10px;
 }
 
 .chat-header {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
 }
 
 .chat-box {
-    height: 300px; /* Set the height of the chat box to show messages */
-    overflow-y: scroll;
-    padding: 10px;
+  height: 300px; /* Set the height of the chat box to show messages */
+  overflow-y: scroll;
+  padding: 10px;
 }
 
 .user-input {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    border-top: 1px solid #ccc;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-top: 1px solid #ccc;
 }
 
 input[type="text"] {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin: 5px;
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 5px;
 }
 
 button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 12px;
-    border-radius: 3px;
-    cursor: pointer;
-    margin: 5px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 5px;
 }
 
 button.active {
-    background-color: #ff5733;
+  background-color: #ff5733;
 }
 
 #google-mode-button:hover {
-    background-color: #f44336;
-    transform: scale(1.0);
-    transition: background-color 0.3s, transform 0.3s;
+  background-color: #f44336;
+  transform: scale(1.0);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 #google-mode-button.active {
-    background-color: #ff5733;
-    transform: scale(1.0);
+  background-color: #ff5733;
+  transform: scale(1.0);
 }
 
 #gpt3-mode-button:hover {
-    background-color: #4CAF50;
-    transform: scale(1.1);
-    transition: background-color 0.3s, transform 0.3s;
+  background-color: #4CAF50;
+  transform: scale(1.1);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 #gpt3-mode-button.active {
-    background-color: #6dbd63;
-    transform: scale(1.0);
+  background-color: #6dbd63;
+  transform: scale(1.0);
 }
 
 #voice-button:hover {
-    background-color: #ffc107;
-    transform: scale(1.1);
-    transition: background-color 0.3s, transform 0.3s;
+  background-color: #ffc107;
+  transform: scale(1.1);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 #voice-button.active {
-    background-color: #ffdb58;
-    transform: scale(1.1);
+  background-color: #ffdb58;
+  transform: scale(1.1);
 }
 
 #generate-image-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 12px;
-    border-radius: 3px;
-    cursor: pointer;
-    margin: 5px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 5px;
 }
 
 #generate-image-button:hover {
-    background-color: #f44336;
-    transform: scale(1.0);
-    transition: background-color 0.3s, transform 0.3s;
+  background-color: #f44336;
+  transform: scale(1.0);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 /* Adjust the logo size for all screens */
 .logo {
-    width: 80px; /* Smaller logo size */
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+  width: 80px; /* Smaller logo size */
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* Media query for screens narrower than 600px (typical phone width) */
 @media (max-width: 600px) {
-    .container {
-        width: 95%;
-    }
+  .container {
+    width: 95%;
+  }
 
-    .chat-box {
-        height: 150px; /* Adjust the chat box height for phones */
-    }
+  .chat-box {
+    height: 150px; /* Adjust the chat box height for phones */
+  }
 
-    .logo {
-        width: 60px; /* Smaller logo size for narrow screens */
-    }
+  .logo {
+    width: 60px; /* Smaller logo size for narrow screens */
+  }
 
-    .user-input {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+  .user-input {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
-    .android-button-container {
-        position: static;
-        margin-top: 20px;
-    }
+  .android-button-container {
+    position: static;
+    margin-top: 20px;
+  }
 }
 
 /* Add a tooltip container */
 .tooltip {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
+}
+
+.chat-message img {
+  max-width: 100%; /* Ensure images fit inside chat messages */
+  height: auto; /* Maintain aspect ratio */
 }
