@@ -67,12 +67,11 @@ button.active {
   background-color: #ff5733;
 }
 
-/* Style the Google Mode button */
+/* Style the Google Mode button with the 🔍 emoji */
 #google-mode-button {
-  background-image: url('google.png');
-  background-size: contain; /* Adjust sizing as needed */
-  background-repeat: no-repeat;
-  background-position: center;
+  background-image: none; /* Remove the background image */
+  font-size: 24px; /* Adjust the font size as needed */
+  line-height: 30px; /* Match line height to button height */
   width: 30px; /* Adjust the width and height as needed */
   height: 30px;
   border: none;
