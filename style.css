@@ -18,18 +18,18 @@ body {
     overflow: hidden;
     padding: 15px;
     margin: 10px;
-    height: 400px; /* Adjust the chatbox height */
+    height: 600px; /* Increase the chatbox height */
 }
 
 .chat-header {
     background-color: #007bff;
     color: #fff;
-    padding: 10px;
+    padding: 5px; /* Reduce header padding */
     text-align: center;
 }
 
 .chat-box {
-    height: 200px;
+    height: 400px; /* Increase the chat box height */
     overflow-y: scroll;
     padding: 10px;
 }
