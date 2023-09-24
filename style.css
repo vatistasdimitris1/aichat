@@ -70,10 +70,10 @@ button.active {
 /* Style the Google Mode button with the 🔍 emoji */
 #google-mode-button {
   background-image: none; /* Remove the background image */
-  font-size: 24px; /* Adjust the font size as needed */
-  line-height: 30px; /* Match line height to button height */
-  width: 30px; /* Adjust the width and height as needed */
-  height: 30px;
+  font-size: 20px; /* Adjust the font size as needed */
+  line-height: 20px; /* Match line height to button height */
+  width: 20px; /* Adjust the width and height as needed */
+  height: 20px;
   border: none;
   cursor: pointer;
 }
