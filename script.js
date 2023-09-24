@@ -218,30 +218,47 @@ document.addEventListener("DOMContentLoaded", function () {
     appendMessage("AI Chatbot", helpMessage);
   }
 
-  function generateImage() {
-    axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature`)
-      .then(function (response) {
-        if (response.data && response.data.urls && response.data.urls.regular) {
-          const imageUrl = response.data.urls.regular;
-          appendImage(imageUrl);
-        } else {
-          appendMessage("AI Chatbot", "I couldn't find any image at the moment.");
-        }
-      })
-      .catch(function (error) {
-        console.error("Error fetching image from Unsplash:", error);
-        appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
-      });
-  }
+ // Your Unsplash API keys
+const unsplashApiKeys = [
+  '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw',
+  '6lockMXxpnmP6tUBLyLNwl0OM-3jOjP1USUEDHVYyAA',
+  'rUJtjSVD6hIScs9DOdosw36v5J7qTdzHc8yQv2V7iOk',
+  'gDtZjJFx8FmKrTlLZR9VlizhcZqwX15yN6PcnYCivXc',
+  'aZv59f-SjpvG817rmtaGk-kKxg-RHVfQqjKVeXqUsRQ',
+  'VXM2l6zSbJKTIKbNaVvm1DSfxsh3qAVlrnTAYsF9Nks',
+  'zqNisiBRmXaNPPir5g3bwSfkWnTzaQSII6C4EF3l-54',
+  // Add more API keys as needed
+];
 
-  function appendImage(imageUrl) {
-    const imageDiv = document.createElement("div");
-    imageDiv.classList.add("chat-message");
-    imageDiv.innerHTML = `<img src="${imageUrl}" alt="Generated Image">`;
-    chatBox.appendChild(imageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
+let currentApiKeyIndex = 0;
 
+function getNextUnsplashApiKey() {
+  // Get the next API key in the array
+  const apiKey = unsplashApiKeys[currentApiKeyIndex];
+
+  // Increment the index for the next use (loop back to the first key if needed)
+  currentApiKeyIndex = (currentApiKeyIndex + 1) % unsplashApiKeys.length;
+
+  return apiKey;
+}
+
+function generateImage() {
+  const apiKey = getNextUnsplashApiKey();
+
+  axios.get(`https://api.unsplash.com/photos/random?client_id=${apiKey}&query=nature`)
+    .then(function (response) {
+      if (response.data && response.data.urls && response.data.urls.regular) {
+        const imageUrl = response.data.urls.regular;
+        appendImage(imageUrl);
+      } else {
+        appendMessage("AI Chatbot", "I couldn't find any image at the moment.");
+      }
+    })
+    .catch(function (error) {
+      console.error("Error fetching image from Unsplash:", error);
+      appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
+    });
+}
   function interactWithGPT3(prompt) {
     const gpt3ApiKey = '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';
 
