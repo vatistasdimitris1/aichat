@@ -117,7 +117,7 @@ button:hover {
 /* Media query for screens narrower than 600px (typical phone width) */
 @media (max-width: 600px) {
     .chat-container {
-        width: 100%;
+        width: 170%;
     }
 
     .chat-box {
