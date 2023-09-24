@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const voiceButton = document.getElementById("voice-button");
     const androidButton = document.getElementById("android-button");
     const generateImageButton = document.getElementById("generate-image-button");
-    const chatContainer = document.querySelector(".chat-container");
 
     let isGoogleModeActive = false;
     let isGpt3ModeActive = false;
@@ -42,6 +41,9 @@ document.addEventListener("DOMContentLoaded", function () {
     voiceButton.addEventListener("click", toggleVoiceRecognition);
     androidButton.addEventListener("click", downloadApk);
     generateImageButton.addEventListener("click", generateImage);
+
+    // Your Unsplash API key
+    const unsplashApiKey = '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw';
 
     function toggleGoogleMode() {
         isGoogleModeActive = !isGoogleModeActive;
@@ -148,6 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function fetchAnswersFromGoogle(query) {
+        // Replace with your Google Custom Search API key and Engine ID
         const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
         const googleEngineId = 'e66093057c55d4a1d';
 
@@ -182,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         recognition.onstart = function () {
             isListening = true;
-            voiceButton.innerHTML = voiceButtonIcons[1]; // Change the emoji to the "stop" icon
+            voiceButton.innerHTML = voiceButtonIcons[1];
             console.log("Listening...");
         };
 
@@ -195,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         recognition.onend = function () {
             isListening = false;
-            voiceButton.innerHTML = voiceButtonIcons[0]; // Change the emoji back to the "microphone" icon
+            voiceButton.innerHTML = voiceButtonIcons[0];
             console.log("Stopped listening.");
         };
 
@@ -216,22 +219,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function generateImage() {
-        const deepAiApiKey = 'd909c5b4-55ac-4fbb-9b4c-36ac1646e577';
-
-        axios.post('https://api.deepai.org/api/text2img', {
-            text: 'This is an example text to generate an image.',
-        }, {
-            headers: {
-                'api-key': deepAiApiKey,
-            },
-        })
+        axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature`)
             .then(function (response) {
-                const imageUrl = response.data.output_url;
-                appendImage(imageUrl);
+                if (response.data && response.data.urls && response.data.urls.regular) {
+                    const imageUrl = response.data.urls.regular;
+                    appendImage(imageUrl);
+                } else {
+                    appendMessage("AI Chatbot", "I couldn't find any image at the moment.");
+                }
             })
             .catch(function (error) {
-                console.error("Error generating image:", error);
-                appendMessage("AI Chatbot", "Sorry, I couldn't generate an image at the moment.");
+                console.error("Error fetching image from Unsplash:", error);
+                appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
             });
     }
 
