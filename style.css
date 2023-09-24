@@ -117,11 +117,11 @@ button:hover {
 /* Media query for screens narrower than 600px (typical phone width) */
 @media (max-width: 600px) {
     .chat-container {
-        width: 95%;
+        width: 100%;
     }
 
     .chat-box {
-        height: 150px;
+        height: 180px;
     }
 
     .logo {
