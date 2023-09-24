@@ -1,153 +1,159 @@
-/* Reset some default styles and set a base font */
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-/* Create a container to hold the chat interface */
-.container {
-  width: 80%;
-  max-width: 500px;
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  padding: 15px;
-  margin: 10px;
-}
-
-/* Style the chat header */
-.chat-header {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px;
-  text-align: center;
-}
-
-/* Style the chat box to display messages */
-.chat-box {
-  height: 500px;
-  overflow-y: scroll;
-  padding: 10px;
-}
-
-/* Style the user input area */
-.user-input {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  border-top: 1px solid #ccc;
-}
-
-/* Style the text input field */
-input[type="text"] {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  margin: 5px;
-}
-
-/* Style buttons */
-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 12px;
-  border-radius: 3px;
-  cursor: pointer;
-  margin: 5px;
-}
-
-/* Style the active state of buttons */
-button.active {
-  background-color: #ff5733;
-}
-
-/* Style the Google Mode button with the 🔍 emoji */
-#google-mode-button {
-  background-image: none; /* Remove the background image */
-  font-size: 20px; /* Adjust the font size as needed */
-  line-height: 20px; /* Match line height to button height */
-  width: 20px; /* Adjust the width and height as needed */
-  height: 20px;
-  border: none;
-  cursor: pointer;
-}
-
-/* Style the GPT-3 Mode button on hover */
-#gpt3-mode-button:hover {
-  background-color: #4CAF50;
-  transform: scale(1.1);
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-/* Style the active state of the GPT-3 Mode button */
-#gpt3-mode-button.active {
-  background-color: #6dbd63;
-  transform: scale(1.0);
-}
-
-/* Style the Voice button on hover */
-#voice-button:hover {
-  background-color: #ffc107;
-  transform: scale(1.1);
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-/* Style the active state of the Voice button */
-#voice-button.active {
-  background-color: #ffdb58;
-  transform: scale(1.1);
-}
-
-/* Style the Generate Image button */
-#generate-image-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 12px;
-  border-radius: 3px;
-  cursor: pointer;
-  margin: 5px;
-}
-
-/* Style the Generate Image button on hover */
-#generate-image-button:hover {
-  background-color: #f44336;
-  transform: scale(1.0);
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-/* Style the logo for all screens */
-.logo {
-  width: 80px;
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* Media query for screens narrower than 600px */
-@media (max-width: 600px) {
-  .container {
-    width: 95%;
-  }
-
-  .chat-box {
-    height: 150px;
-  }
-
-  .logo {
-    width: 60px;
-  }
-
-  .user-input {
-    flex-direction: column;
+/* Base styles for all screens */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    text-align: center;
-  }
+    height: 100vh;
 }
+
+.chat-container {
+    width: 80%;
+    max-width: 500px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    padding: 15px;
+    margin: 10px;
+    height: 400px; /* Adjust the chatbox height */
+}
+
+.chat-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+.chat-box {
+    height: 200px;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+.chat-input {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 5px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button.active {
+    background-color: #ff5733;
+}
+
+#google-mode-button:hover {
+    background-color: #f44336;
+    transform: scale(1.0);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#google-mode-button.active {
+    background-color: #ff5733;
+    transform: scale(1.0);
+}
+
+#gpt3-mode-button:hover {
+    background-color: #4CAF50;
+    transform: scale(1.1);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#gpt3-mode-button.active {
+    background-color: #6dbd63;
+    transform: scale(1.0);
+}
+
+#voice-button:hover {
+    background-color: #ffc107;
+    transform: scale(1.1);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#voice-button.active {
+    background-color: #ffdb58;
+    transform: scale(1.1);
+}
+
+#generate-image-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#generate-image-button:hover {
+    background-color: #f44336;
+    transform: scale(1.0);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Adjust the logo size for all screens */
+.logo {
+    width: 80px; /* Smaller logo size */
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Media query for screens narrower than 600px (typical phone width) */
+@media (max-width: 600px) {
+    .chat-container {
+        width: 95%;
+        height: 500px; /* Adjust the chatbox height for phones */
+    }
+
+    .chat-box {
+        height: 70%; /* Adjust the height as a percentage of the chat container */
+    }
+
+    .logo {
+        width: 60px; /* Smaller logo size for narrow screens */
+    }
+
+    /* Center the "Dimitris Vatistas" text and Android button below the chatbot */
+    .chat-input {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* Adjust the Android button's position */
+    .android-button-container {
+        position: static;
+        margin-top: 20px;
+    }
+}
+
+/* Add a tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
