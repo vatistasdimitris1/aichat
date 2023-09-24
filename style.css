@@ -160,7 +160,7 @@ button.active {
 }
 
 #google-mode-button {
-  background-image: url('google-logo.png');
+  background-image: url('google.png');
   background-size: contain; /* Adjust sizing as needed */
   background-repeat: no-repeat;
   background-position: center;
