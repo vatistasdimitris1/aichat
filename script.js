@@ -13,6 +13,19 @@ document.addEventListener("DOMContentLoaded", function () {
   let isListening = false;
   let recognition;
 
+// Add an event listener for the "Reset Chat" button
+const resetButton = document.getElementById("reset-button");
+
+resetButton.addEventListener("click", function () {
+    // Clear the chat box
+    chatBox.innerHTML = "";
+
+    // You can also add any additional reset functionality here
+
+    // Scroll to the top of the chat box
+    chatBox.scrollTop = 0;
+
+
   // Emoji icons for the "Voice" button
   const voiceButtonIcons = ["🎙️", "🔴"];
 
