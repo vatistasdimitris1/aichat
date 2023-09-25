@@ -225,3 +225,26 @@ button#android-button:hover {
 button#android-button:active {
     background-color: #1c638e;
 }
+
+
+/* Reset Button styles */
+#reset-button {
+    background-color: #e74c3c; /* Change the background color */
+    color: #fff;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 5px;
+    width: 45%;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#reset-button:hover {
+    background-color: #c0392b;
+    transform: scale(1.1);
+}
+
+#reset-button:active {
+    background-color: #941c15;
+}
