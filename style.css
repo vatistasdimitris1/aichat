@@ -238,13 +238,40 @@ button#android-button:active {
     margin: 5px;
     width: 45%;
     transition: background-color 0.3s, transform 0.3s;
+    position: relative; /* Add position relative for pseudo-elements */
 }
 
 #reset-button:hover {
     background-color: #c0392b;
-    transform: scale(1.1);
+    transform: scale(1.05); /* Add a slight scale effect on hover */
 }
 
-#reset-button:active {
-    background-color: #941c15;
+#reset-button::before, /* Create a pseudo-element for the animation */
+#reset-button::after {
+    content: "↩️"; /* Add the "↩️" emoji content */
+    position: absolute;
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: opacity 0.3s, transform 0.3s;
 }
+
+#reset-button:hover::before, /* Show the emoji on hover */
+#reset-button:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#reset-button::before {
+    left: 50%;
+    top: 50%;
+    font-size: 20px;
+    transform: translate(-50%, -50%);
+}
+
+#reset-button::after {
+    left: 50%;
+    top: 50%;
+    font-size: 20px;
+    transform: translate(-50%, -50%);
+}
+
