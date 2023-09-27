@@ -294,6 +294,20 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
+// Event listener for the input field to send a message on "Enter" key press
+userInput.addEventListener("keydown", function (event) {
+  if (event.key === "Enter" && !event.shiftKey) {
+    // Prevent the default behavior of the "Enter" key (e.g., new line in text area)
+    event.preventDefault();
+
+    const userMessage = userInput.value.trim();
+    if (userMessage !== "") {
+      appendMessage("You", userMessage);
+      handleUserMessage(userMessage);
+      userInput.value = "";
+    }
+  }  
+
   // Event listeners
   googleModeButton.addEventListener("click", toggleGoogleMode);
   gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
