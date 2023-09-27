@@ -13,29 +13,70 @@ document.addEventListener("DOMContentLoaded", function () {
   let isListening = false;
   let recognition;
 
-
-
-
   // Emoji icons for the "Voice" button
   const voiceButtonIcons = ["🎙️", "🔴"];
 
-  // Your Unsplash API keys
+  // Define an array of Unsplash API keys with usage counts and last reset dates
   const unsplashApiKeys = [
-    '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw',
-    '6lockMXxpnmP6tUBLyLNwl0OM-3jOjP1USUEDHVYyAA',
-    'rUJtjSVD6hIScs9DOdosw36v5J7qTdzHc8yQv2V7iOk',
-    'gDtZjJFx8FmKrTlLZR9VlizhcZqwX15yN6PcnYCivXc',
-    'aZv59f-SjpvG817rmtaGk-kKxg-RHVfQqjKVeXqUsRQ',
-    'VXM2l6zSbJKTIKbNaVvm1DSfxsh3qAVlrnTAYsF9Nks',
-    'zqNisiBRmXaNPPir5g3bwSfkWnTzaQSII6C4EF3l-54'
+    {
+      key: '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw',
+      usageCount: 0,
+      lastResetDate: new Date(),
+    },
+    {
+      key: '6lockMXxpnmP6tUBLyLNwl0OM-3jOjP1USUEDHVYyAA',
+      usageCount: 0,
+      lastResetDate: new Date(),
+    },
+    {
+      key: 'rUJtjSVD6hIScs9DOdosw36v5J7qTdzHc8yQv2V7iOk',
+      usageCount: 0,
+      lastResetDate: new Date(),
+    },
+    {
+      key: 'gDtZjJFx8FmKrTlLZR9VlizhcZqwX15yN6PcnYCivXc',
+      usageCount: 0,
+      lastResetDate: new Date(),
+    },
+    {
+      key: 'aZv59f-SjpvG817rmtaGk-kKxg-RHVfQqjKVeXqUsRQ',
+      usageCount: 0,
+      lastResetDate: new Date(),
+    },
+    {
+      key: 'VXM2l6zSbJKTIKbNaVvm1DSfxsh3qAVlrnTAYsF9Nks',
+      usageCount: 0,
+      lastResetDate: new Date(),
+    },
+    {
+      key: 'zqNisiBRmXaNPPir5g3bwSfkWnTzaQSII6C4EF3l-54',
+      usageCount: 0,
+      lastResetDate: new Date(),
+    },
   ];
 
-  let currentApiKeyIndex = 0;
-
+  // Function to get the next available API key
   function getNextUnsplashApiKey() {
-    const apiKey = unsplashApiKeys[currentApiKeyIndex];
-    currentApiKeyIndex = (currentApiKeyIndex + 1) % unsplashApiKeys.length;
-    return apiKey;
+    // Find the first API key with usage count less than 50
+    const apiKeyData = unsplashApiKeys.find((keyData) => keyData.usageCount < 50);
+
+    if (apiKeyData) {
+      apiKeyData.usageCount++; // Increment the usage count
+      return apiKeyData.key;
+    } else {
+      // If all keys have been used 50 times, check if a month has passed
+      const currentDate = new Date();
+      unsplashApiKeys.forEach((keyData) => {
+        if (currentDate.getMonth() !== keyData.lastResetDate.getMonth()) {
+          // Reset the usage count and update the last reset date
+          keyData.usageCount = 0;
+          keyData.lastResetDate = currentDate;
+        }
+      });
+
+      // Now, try again to get the next available API key
+      return getNextUnsplashApiKey();
+    }
   }
 
   function toggleGoogleMode() {
@@ -210,7 +251,7 @@ document.addEventListener("DOMContentLoaded", function () {
     appendMessage("AI Chatbot", helpMessage);
   }
 
-  function generateImage() {
+   function generateImage() {
     const apiKey = getNextUnsplashApiKey();
 
     axios.get(`https://api.unsplash.com/photos/random?client_id=${apiKey}&query=nature`)
