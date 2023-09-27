@@ -57,6 +57,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to get the next available API key
   function getNextUnsplashApiKey() {
+    const apiKeyData = unsplashApiKeys[currentApiKeyIndex];
+    currentApiKeyIndex = (currentApiKeyIndex + 1) % unsplashApiKeys.length;
+    apiKeyData.usageCount++; // Increment the usage count
+    return apiKeyData.key;
+  }
     // Find the first API key with usage count less than 50
     const apiKeyData = unsplashApiKeys.find((keyData) => keyData.usageCount < 50);
 
