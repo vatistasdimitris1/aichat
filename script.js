@@ -231,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function interactWithGPT3(prompt) {
     const gpt3ApiKey = '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';
 
-    axios.post('https://api.openai.com/v1/engines/davinci/completions', {
+    axios.post('https://api.openai.com/v1/completions', {
       prompt: prompt,
       max_tokens: 50
     }, {
