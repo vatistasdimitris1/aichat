@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const voiceButtonIcons = ["🎙️", "🔴"];
 
   // Define an array of Unsplash API keys with usage counts and last reset dates
-  const unsplashApiKeys = [
+     const unsplashApiKeys = [
     {
       key: '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw',
       usageCount: 0,
@@ -54,34 +54,16 @@ document.addEventListener("DOMContentLoaded", function () {
       lastResetDate: new Date(),
     },
   ];
+  
 
-  // Function to get the next available API key
+  let currentApiKeyIndex = 0;
+
+  // Function to get the next available API key and cycle through them
   function getNextUnsplashApiKey() {
     const apiKeyData = unsplashApiKeys[currentApiKeyIndex];
     currentApiKeyIndex = (currentApiKeyIndex + 1) % unsplashApiKeys.length;
     apiKeyData.usageCount++; // Increment the usage count
     return apiKeyData.key;
-  }
-    // Find the first API key with usage count less than 50
-    const apiKeyData = unsplashApiKeys.find((keyData) => keyData.usageCount < 50);
-
-    if (apiKeyData) {
-      apiKeyData.usageCount++; // Increment the usage count
-      return apiKeyData.key;
-    } else {
-      // If all keys have been used 50 times, check if a month has passed
-      const currentDate = new Date();
-      unsplashApiKeys.forEach((keyData) => {
-        if (currentDate.getMonth() !== keyData.lastResetDate.getMonth()) {
-          // Reset the usage count and update the last reset date
-          keyData.usageCount = 0;
-          keyData.lastResetDate = currentDate;
-        }
-      });
-
-      // Now, try again to get the next available API key
-      return getNextUnsplashApiKey();
-    }
   }
 
   function toggleGoogleMode() {
@@ -299,19 +281,20 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-// Event listener for the input field to send a message on "Enter" key press
-userInput.addEventListener("keydown", function (event) {
-  if (event.key === "Enter" && !event.shiftKey) {
-    // Prevent the default behavior of the "Enter" key (e.g., new line in text area)
-    event.preventDefault();
+  // Event listener for the input field to send a message on "Enter" key press
+  userInput.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      // Prevent the default behavior of the "Enter" key (e.g., new line in text area)
+      event.preventDefault();
 
-    const userMessage = userInput.value.trim();
-    if (userMessage !== "") {
-      appendMessage("You", userMessage);
-      handleUserMessage(userMessage);
-      userInput.value = "";
+      const userMessage = userInput.value.trim();
+      if (userMessage !== "") {
+        appendMessage("You", userMessage);
+        sendMessage();
+        userInput.value = "";
+      }
     }
-  }  
+  });
 
   // Event listeners
   googleModeButton.addEventListener("click", toggleGoogleMode);
