@@ -17,8 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initialize Unsplash API keys
   const unsplashApiKeys = [
-    "8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw",
+    "",
     "6lockMXxpnmP6tUBLyLNwl0OM-3jOjP1USUEDHVYyAA",
+    "rUJtjSVD6hIScs9DOdosw36v5J7qTdzHc8yQv2V7iOk",
+    "",
     // Add more API keys here
   ];
   let currentApiKeyIndex = 0;
