@@ -95,72 +95,72 @@ button {
     cursor: pointer;
     margin: 5px;
     width: 45%;
+    font-size: 16px;
     transition: background-color 0.3s, transform 0.3s;
-    font-size: 16px; /* Adjust font size for buttons */
 }
 
-.google-button.active {
+/* Google button styles */
+.google-button {
     background-color: #4285f4;
-    color: white;
 }
 
-.google-button.active:hover {
+.google-button:hover {
     background-color: #357ae8;
 }
 
-.google-button.active:active {
+.google-button:active {
     background-color: #2e5ad7;
 }
 
-.voice-button.active {
+/* Voice button styles */
+.voice-button {
     background-color: #34a853;
-    color: white;
 }
 
-.voice-button.active:hover {
+.voice-button:hover {
     background-color: #2e8b57;
 }
 
-.voice-button.active:active {
+.voice-button:active {
     background-color: #297c4e;
 }
 
-.send-button.active {
+/* Send button styles */
+.send-button {
     background-color: #007bff;
-    color: white;
 }
 
-.send-button.active:hover {
+.send-button:hover {
     background-color: #0056b3;
 }
 
-.send-button.active:active {
+.send-button:active {
     background-color: #004a9d;
 }
 
-.wiki-button.active {
+/* Wikipedia button styles */
+.wiki-button {
     background-color: #1d9b50;
-    color: white;
 }
 
-.wiki-button.active:hover {
+.wiki-button:hover {
     background-color: #167c40;
 }
 
-.wiki-button.active:active {
+.wiki-button:active {
     background-color: #126a34;
 }
 
-.android-button.active {
+/* Android button styles */
+.android-button {
     background-color: #0080ff;
-    color: white;
 }
 
-.android-button.active:hover {
+.android-button:hover {
     background-color: #0063cc;
 }
 
-.android-button.active:active {
+.android-button:active {
     background-color: #0052aa;
 }
 
