@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const voiceButton = document.getElementById("voice-button");
   const androidButton = document.getElementById("android-button");
   const generateImageButton = document.getElementById("generate-image-button");
-  const wikipediaModeButton = document.getElementById("wikipedia-mode-button"); // Added Wikipedia mode button
+  const wikipediaModeButton = document.getElementById("wikipedia-mode-button");
 
   let isGoogleModeActive = false;
   let isListening = false;
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function toggleGoogleMode() {
     isGoogleModeActive = !isGoogleModeActive;
     updateButtonState(googleModeButton, isGoogleModeActive);
-    updateButtonState(wikipediaModeButton, false); // Turn off Wikipedia mode
+    updateButtonState(wikipediaModeButton, false);
   }
 
   function toggleVoiceRecognition() {
@@ -207,6 +207,11 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error fetching image from Unsplash:", error);
         appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
       });
+  }
+
+  function downloadApk() {
+    appendMessage("AI Chatbot", "Downloading Android App...");
+    // Add code to handle the Android app download here.
   }
 
   userInput.addEventListener("keydown", function (event) {
