@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 document.addEventListener("DOMContentLoaded", function () {
   const chatBox = document.getElementById("chat-box");
   const userInput = document.getElementById("user-input");
@@ -236,7 +234,7 @@ function downloadApk() {
   // Create an anchor element to trigger the download
   const downloadLink = document.createElement('a');
   downloadLink.href = androidAppDownloadLink;
-  downloadLink.download = 'your-android-app.apk'; // Specify the file name
+  downloadLink.download = 'AI-Chatbot.apk'; // Specify the file name
 
   // Trigger the click event to initiate the download
   downloadLink.click();
@@ -246,16 +244,4 @@ function downloadApk() {
 
   // Remove the anchor element from the DOM (optional)
   downloadLink.remove();
-}
-
-// Attach the downloadApk function to the "Download Android App" button click event
-androidButton.addEventListener("click", downloadApk);
-
-
-function showWikipedia() {
-  appendMessage("AI Chatbot", "You clicked the Wikipedia button!");
-}
-
-function downloadApk() {
-  appendMessage("AI Chatbot", "You clicked the Android app download button!");
 }
