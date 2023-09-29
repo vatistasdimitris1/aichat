@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const voiceButton = document.getElementById("voice-button");
   const androidButton = document.getElementById("android-button");
   const generateImageButton = document.getElementById("generate-image-button");
-  const wikipediaModeButton = document.getElementById("wikipedia-mode-button");
+  const wikipediaButton = document.getElementById("wikipedia-button");
 
   let isGoogleModeActive = false;
   let isListening = false;
@@ -34,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
   function toggleGoogleMode() {
     isGoogleModeActive = !isGoogleModeActive;
     updateButtonState(googleModeButton, isGoogleModeActive);
-    updateButtonState(wikipediaModeButton, false);
   }
 
   function toggleVoiceRecognition() {
@@ -90,8 +89,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateButtonState(button, isActive) {
     if (isActive) {
+      button.textContent = button.textContent.split(" ")[0];
       button.classList.add("active");
     } else {
+      button.textContent = button.textContent.split(" ")[0];
       button.classList.remove("active");
     }
   }
@@ -186,11 +187,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  function showHelpCommands() {
-    const helpMessage = "Available commands:<br>1. Type 'hello' or 'hey' to greet the chatbot.<br>2. Ask questions like 'What is your name?' or 'How are you?'<br>3. Type 'bye' to say goodbye.<br>4. Use 'help' to see available commands.";
-    appendMessage("AI Chatbot", helpMessage);
-  }
-
   function generateImage() {
     const apiKey = getNextUnsplashApiKey();
 
@@ -207,11 +203,6 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error fetching image from Unsplash:", error);
         appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
       });
-  }
-
-  function downloadApk() {
-    appendMessage("AI Chatbot", "Downloading Android App...");
-    // Add code to handle the Android app download here.
   }
 
   userInput.addEventListener("keydown", function (event) {
@@ -231,12 +222,40 @@ document.addEventListener("DOMContentLoaded", function () {
   voiceButton.addEventListener("click", toggleVoiceRecognition);
   androidButton.addEventListener("click", downloadApk);
   generateImageButton.addEventListener("click", generateImage);
-  wikipediaModeButton.addEventListener("click", toggleWikipediaMode); // Added event listener for Wikipedia mode
-
-  // Function to toggle Wikipedia mode
-  function toggleWikipediaMode() {
-    isGoogleModeActive = false;
-    updateButtonState(wikipediaModeButton, true);
-    updateButtonState(googleModeButton, false);
-  }
+  wikipediaButton.addEventListener("click", showWikipedia);
 });
+
+// Function to handle the Android app download
+function downloadApk() {
+  // Specify the path to your Android app's APK file
+  const androidAppFilePath = 'AI-Chatbot.apk';
+
+  // Create a full URL by combining the current page's origin with the file path
+  const androidAppDownloadLink = window.location.origin + androidAppFilePath;
+
+  // Create an anchor element to trigger the download
+  const downloadLink = document.createElement('a');
+  downloadLink.href = androidAppDownloadLink;
+  downloadLink.download = 'your-android-app.apk'; // Specify the file name
+
+  // Trigger the click event to initiate the download
+  downloadLink.click();
+
+  // Optionally, you can show a message in the chat box
+  appendMessage("AI Chatbot", "Downloading the Android app...");
+
+  // Remove the anchor element from the DOM (optional)
+  downloadLink.remove();
+}
+
+// Attach the downloadApk function to the "Download Android App" button click event
+androidButton.addEventListener("click", downloadApk);
+
+
+function showWikipedia() {
+  appendMessage("AI Chatbot", "You clicked the Wikipedia button!");
+}
+
+function downloadApk() {
+  appendMessage("AI Chatbot", "You clicked the Android app download button!");
+}
