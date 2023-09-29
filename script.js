@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const voiceButton = document.getElementById("voice-button");
   const androidButton = document.getElementById("android-button");
   const generateImageButton = document.getElementById("generate-image-button");
+  const wikipediaModeButton = document.getElementById("wikipedia-mode-button"); // Added Wikipedia mode button
 
   let isGoogleModeActive = false;
   let isListening = false;
@@ -33,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function toggleGoogleMode() {
     isGoogleModeActive = !isGoogleModeActive;
     updateButtonState(googleModeButton, isGoogleModeActive);
+    updateButtonState(wikipediaModeButton, false); // Turn off Wikipedia mode
   }
 
   function toggleVoiceRecognition() {
@@ -88,10 +90,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateButtonState(button, isActive) {
     if (isActive) {
-      button.textContent = `${button.textContent.split(" ")[0]} (Active)`;
       button.classList.add("active");
     } else {
-      button.textContent = button.textContent.split(" ")[0];
       button.classList.remove("active");
     }
   }
@@ -226,4 +226,12 @@ document.addEventListener("DOMContentLoaded", function () {
   voiceButton.addEventListener("click", toggleVoiceRecognition);
   androidButton.addEventListener("click", downloadApk);
   generateImageButton.addEventListener("click", generateImage);
+  wikipediaModeButton.addEventListener("click", toggleWikipediaMode); // Added event listener for Wikipedia mode
+
+  // Function to toggle Wikipedia mode
+  function toggleWikipediaMode() {
+    isGoogleModeActive = false;
+    updateButtonState(wikipediaModeButton, true);
+    updateButtonState(googleModeButton, false);
+  }
 });
