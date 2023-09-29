@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 document.addEventListener("DOMContentLoaded", function () {
   const chatBox = document.getElementById("chat-box");
   const userInput = document.getElementById("user-input");
@@ -13,56 +15,20 @@ document.addEventListener("DOMContentLoaded", function () {
   let isListening = false;
   let recognition;
 
-  // Emoji icons for the "Voice" button
   const voiceButtonIcons = ["🎙️", "🔴"];
 
-  // Define an array of Unsplash API keys with usage counts and last reset dates
-     const unsplashApiKeys = [
-    {
-      key: '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw',
-      usageCount: 0,
-      lastResetDate: new Date(),
-    },
-    {
-      key: '6lockMXxpnmP6tUBLyLNwl0OM-3jOjP1USUEDHVYyAA',
-      usageCount: 0,
-      lastResetDate: new Date(),
-    },
-    {
-      key: 'rUJtjSVD6hIScs9DOdosw36v5J7qTdzHc8yQv2V7iOk',
-      usageCount: 0,
-      lastResetDate: new Date(),
-    },
-    {
-      key: 'gDtZjJFx8FmKrTlLZR9VlizhcZqwX15yN6PcnYCivXc',
-      usageCount: 0,
-      lastResetDate: new Date(),
-    },
-    {
-      key: 'aZv59f-SjpvG817rmtaGk-kKxg-RHVfQqjKVeXqUsRQ',
-      usageCount: 0,
-      lastResetDate: new Date(),
-    },
-    {
-      key: 'VXM2l6zSbJKTIKbNaVvm1DSfxsh3qAVlrnTAYsF9Nks',
-      usageCount: 0,
-      lastResetDate: new Date(),
-    },
-    {
-      key: 'zqNisiBRmXaNPPir5g3bwSfkWnTzaQSII6C4EF3l-54',
-      usageCount: 0,
-      lastResetDate: new Date(),
-    },
+  const unsplashApiKeys = [
+"8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw",
+"6lockMXxpnmP6tUBLyLNwl0OM-3jOjP1USUEDHVYyAA",
+    // Define your Unsplash API keys here
   ];
-  
 
   let currentApiKeyIndex = 0;
 
-  // Function to get the next available API key and cycle through them
   function getNextUnsplashApiKey() {
     const apiKeyData = unsplashApiKeys[currentApiKeyIndex];
     currentApiKeyIndex = (currentApiKeyIndex + 1) % unsplashApiKeys.length;
-    apiKeyData.usageCount++; // Increment the usage count
+    apiKeyData.usageCount++;
     return apiKeyData.key;
   }
 
@@ -82,14 +48,14 @@ document.addEventListener("DOMContentLoaded", function () {
         initSpeechRecognition();
       }
       requestMicrophonePermission()
-        .then(function (permissionGranted) {
+        .then((permissionGranted) => {
           if (permissionGranted) {
             recognition.start();
           } else {
             console.error("Microphone permission denied.");
           }
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.error("Error requesting microphone permission:", error);
         });
     } else {
@@ -98,14 +64,14 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function requestMicrophonePermission() {
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve) => {
       navigator.mediaDevices
         .getUserMedia({ audio: true })
-        .then(function (stream) {
+        .then((stream) => {
           stream.getTracks().forEach((track) => track.stop());
           resolve(true);
         })
-        .catch(function (error) {
+        .catch(() => {
           resolve(false);
         });
     });
@@ -171,11 +137,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function fetchAnswersFromGoogle(query) {
-    const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
-    const googleEngineId = 'e66093057c55d4a1d';
+   const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
+  const googleEngineId = 'e66093057c55d4a1d';
 
     axios.get(`https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleEngineId}&q=${query}`)
-      .then(function (response) {
+      .then((response) => {
         const searchResults = response.data.items;
 
         if (searchResults && searchResults.length > 0) {
@@ -191,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
           appendMessage("AI Chatbot", noResultsResponse);
         }
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.error("Error fetching Google results:", error);
         const errorMessage = "AI Chatbot: Sorry, I encountered an error while fetching results from Google.";
         appendMessage("AI Chatbot", errorMessage);
@@ -203,34 +169,29 @@ document.addEventListener("DOMContentLoaded", function () {
     recognition.continuous = false;
     recognition.interimResults = false;
 
-    recognition.onstart = function () {
+    recognition.onstart = () => {
       isListening = true;
       voiceButton.innerHTML = voiceButtonIcons[1];
       console.log("Listening...");
     };
 
-    recognition.onresult = function (event) {
+    recognition.onresult = (event) => {
       const result = event.results[0][0].transcript;
       userInput.value = result;
       sendMessage();
       recognition.stop();
     };
 
-    recognition.onend = function () {
+    recognition.onend = () => {
       isListening = false;
       voiceButton.innerHTML = voiceButtonIcons[0];
       console.log("Stopped listening.");
     };
 
-    recognition.onerror = function (event) {
+    recognition.onerror = (event) => {
       console.error("Speech recognition error:", event.error);
       isListening = false;
     };
-  }
-
-  function downloadApk() {
-    const apkLink = "AI-Chatbot.apk";
-    window.open(apkLink, "_blank");
   }
 
   function showHelpCommands() {
@@ -238,11 +199,11 @@ document.addEventListener("DOMContentLoaded", function () {
     appendMessage("AI Chatbot", helpMessage);
   }
 
-   function generateImage() {
+  function generateImage() {
     const apiKey = getNextUnsplashApiKey();
 
     axios.get(`https://api.unsplash.com/photos/random?client_id=${apiKey}&query=nature`)
-      .then(function (response) {
+      .then((response) => {
         if (response.data && response.data.urls && response.data.urls.regular) {
           const imageUrl = response.data.urls.regular;
           appendImage(imageUrl);
@@ -250,14 +211,14 @@ document.addEventListener("DOMContentLoaded", function () {
           appendMessage("AI Chatbot", "I couldn't find any image at the moment.");
         }
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.error("Error fetching image from Unsplash:", error);
         appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
       });
   }
 
   function interactWithGPT3(prompt) {
-    const gpt3ApiKey = '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';
+    const gpt3ApiKey = 'YOUR_GPT3_API_KEY'; // Replace with your GPT-3 API key
 
     axios.post('https://api.openai.com/v1/chat/completions', {
       prompt: prompt,
@@ -267,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
         'Authorization': `Bearer ${gpt3ApiKey}`,
       },
     })
-      .then(function (response) {
+      .then((response) => {
         if (response.data.choices && response.data.choices.length > 0) {
           const botResponse = response.data.choices[0].text;
           appendMessage("AI Chatbot", botResponse);
@@ -275,16 +236,14 @@ document.addEventListener("DOMContentLoaded", function () {
           appendMessage("AI Chatbot", "I couldn't generate a response. Please try again.");
         }
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.error("Error interacting with GPT-3:", error);
         appendMessage("AI Chatbot", "I encountered an error while interacting with GPT-3.");
       });
   }
 
-  // Event listener for the input field to send a message on "Enter" key press
   userInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter" && !event.shiftKey) {
-      // Prevent the default behavior of the "Enter" key (e.g., new line in text area)
       event.preventDefault();
 
       const userMessage = userInput.value.trim();
@@ -296,7 +255,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Event listeners
   googleModeButton.addEventListener("click", toggleGoogleMode);
   gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
   sendButton.addEventListener("click", sendMessage);
