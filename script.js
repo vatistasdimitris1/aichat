@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // DOM elements
   const chatBox = document.getElementById("chat-box");
   const userInput = document.getElementById("user-input");
   const sendButton = document.getElementById("send-button");
@@ -9,11 +8,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const androidButton = document.getElementById("android-button");
   const generateImageButton = document.getElementById("generate-image-button");
 
-  // Chat modes and voice recognition variables
   let isGoogleModeActive = false;
   let isGpt3ModeActive = false;
   let isListening = false;
   let recognition;
+
+  // Emoji icons for the "Voice" button
+  const voiceButtonIcons = ["🎙️", "🔴"];
 
   // Initialize Unsplash API keys
   const unsplashApiKeys = [
@@ -27,24 +28,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to get the next available API key and cycle through them
   function getNextUnsplashApiKey() {
-    const apiKey = unsplashApiKeys[currentApiKeyIndex];
-    currentApiKeyIndex = (currentApiKeyIndex + 1) % unsplashApiKeys.length;
+    let apiKey = "";
+    while (!apiKey) {
+      const apiKeyData = unsplashApiKeys[currentApiKeyIndex];
+      if (apiKeyData) {
+        apiKey = apiKeyData;
+        currentApiKeyIndex = (currentApiKeyIndex + 1) % unsplashApiKeys.length;
+      }
+    }
     return apiKey;
   }
 
-  // Function to toggle Google Mode
   function toggleGoogleMode() {
     isGoogleModeActive = !isGoogleModeActive;
     updateButtonState(googleModeButton, isGoogleModeActive);
   }
 
-  // Function to toggle GPT-3 Mode
   function toggleGpt3Mode() {
     isGpt3ModeActive = !isGpt3ModeActive;
     updateButtonState(gpt3ModeButton, isGpt3ModeActive);
   }
 
-  // Function to toggle voice recognition
   function toggleVoiceRecognition() {
     if (!isListening) {
       if (!recognition) {
@@ -66,7 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Function to request microphone permission
   function requestMicrophonePermission() {
     return new Promise(function (resolve, reject) {
       navigator.mediaDevices
@@ -81,7 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Function to send a user message
   function sendMessage() {
     const userMessage = userInput.value.trim();
 
@@ -103,10 +105,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Function to update button state (active/inactive)
   function updateButtonState(button, isActive) {
     if (isActive) {
-      button.textContent = button.textContent.split(" ")[0] + " (Active)";
+      button.textContent = `${button.textContent.split(" ")[0]} (Active)`;
       button.classList.add("active");
     } else {
       button.textContent = button.textContent.split(" ")[0];
@@ -114,7 +115,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Function to append a message to the chat box
   function appendMessage(sender, message) {
     const messageDiv = document.createElement("div");
     messageDiv.classList.add("chat-message");
@@ -123,16 +123,15 @@ document.addEventListener("DOMContentLoaded", function () {
     chatBox.scrollTop = chatBox.scrollHeight;
   }
 
-  // Function to generate a chatbot response
   function chatbotResponse(userMessage) {
     const lowerCaseMessage = userMessage.toLowerCase();
     const responses = {
-      hello: "Hello! How can I assist you?",
-      hey: "Hello! How can I assist you?",
+      "hello": "Hello! How can I assist you?",
+      "hey": "Hello! How can I assist you?",
       "how are you": "I'm just a computer program, but I'm here to help!",
       "what is your name": "I'm your AI chatbot. You can call me Jarvis.",
-      bye: "Goodbye! If you have more questions, feel free to ask.",
-      default: "I'm not sure I understand. Can you please rephrase your question?",
+      "bye": "Goodbye! If you have more questions, feel free to ask.",
+      "default": "I'm not sure I understand. Can you please rephrase your question?"
     };
 
     for (const keyword in responses) {
@@ -141,147 +140,140 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    return responses.default;
+    return responses["default"];
   }
 
-  // Function to fetch answers from Google
   function fetchAnswersFromGoogle(query) {
-    const googleApiKey = "AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE";
-    const googleEngineId = "e66093057c55d4a1d";
+    const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
+    const googleEngineId = 'e66093057c55d4a1d';
 
-    axios
-      .get(
-        `https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleEngineId}&q=${query}`
-      )
+    axios.get(`https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleEngineId}&q=${query}`)
       .then(function (response) {
         const searchResults = response.data.items;
 
         if (searchResults && searchResults.length > 0) {
           const topResult = searchResults[0];
-          appendMessage("Google", topResult.title);
-          appendMessage("Google", topResult.link);
+          const title = topResult.title;
+          const snippet = topResult.snippet;
+          const link = topResult.link;
+
+          const googleResponse = `AI Chatbot: ${title}. Here's a snippet: ${snippet}<br><a href="${link}" target="_blank">Read more</a>`;
+          appendMessage("AI Chatbot", googleResponse);
         } else {
-          appendMessage("Google", "No results found.");
+          const noResultsResponse = "AI Chatbot: I couldn't find any relevant results.";
+          appendMessage("AI Chatbot", noResultsResponse);
         }
       })
       .catch(function (error) {
-        console.error("Error fetching data from Google:", error);
-        appendMessage("Google", "An error occurred while fetching data.");
+        console.error("Error fetching Google results:", error);
+        const errorMessage = "AI Chatbot: Sorry, I encountered an error while fetching results from Google.";
+        appendMessage("AI Chatbot", errorMessage);
       });
   }
 
-  // Function to initialize speech recognition
   function initSpeechRecognition() {
-    recognition = new webkitSpeechRecognition();
-    recognition.continuous = true;
+    recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+    recognition.continuous = false;
     recognition.interimResults = false;
 
     recognition.onstart = function () {
       isListening = true;
-      updateButtonState(voiceButton, true);
+      voiceButton.innerHTML = voiceButtonIcons[1];
+      console.log("Listening...");
+    };
+
+    recognition.onresult = function (event) {
+      const result = event.results[0][0].transcript;
+      userInput.value = result;
+      sendMessage();
+      recognition.stop();
     };
 
     recognition.onend = function () {
       isListening = false;
-      updateButtonState(voiceButton, false);
+      voiceButton.innerHTML = voiceButtonIcons[0];
+      console.log("Stopped listening.");
     };
 
-    recognition.onresult = function (event) {
-      const result = event.results[event.results.length - 1];
-      const spokenText = result[0].transcript;
-      appendMessage("You (Voice)", spokenText);
-      sendMessage();
+    recognition.onerror = function (event) {
+      console.error("Speech recognition error:", event.error);
+      isListening = false;
     };
   }
 
-  // Function to interact with GPT-3
-  function interactWithGPT3(prompt) {
-    // Replace with your GPT-3 API call
-    const apiKey = 'YOUR_GPT3_API_KEY'; // Replace with your actual GPT-3 API key
-    const apiUrl = 'https://api.openai.com/v1/engines/davinci/completions'; // Adjust the API URL based on your GPT-3 plan
+  function downloadApk() {
+    const apkLink = "AI-Chatbot.apk";
+    window.open(apkLink, "_blank");
+  }
 
-    // Define the data to send to the API
-    const requestData = {
-      prompt: prompt,
-      max_tokens: 50, // Adjust as needed
-    };
+  function showHelpCommands() {
+    const helpMessage = "Available commands:<br>1. Type 'hello' or 'hey' to greet the chatbot.<br>2. Ask questions like 'What is your name?' or 'How are you?'<br>3. Type 'bye' to say goodbye.<br>4. Use 'help' to see available commands.";
+    appendMessage("AI Chatbot", helpMessage);
+  }
 
-    // Make an HTTP POST request to the GPT-3 API
-    axios
-      .post(apiUrl, requestData, {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-      })
+  function generateImage() {
+    const apiKey = getNextUnsplashApiKey();
+
+    axios.get(`https://api.unsplash.com/photos/random?client_id=${apiKey}&query=nature`)
       .then(function (response) {
-        const botResponse = response.data.choices[0].text;
-        appendMessage('GPT-3', botResponse);
+        if (response.data && response.data.urls && response.data.urls.regular) {
+          const imageUrl = response.data.urls.regular;
+          appendImage(imageUrl);
+        } else {
+          appendMessage("AI Chatbot", "I couldn't find any image at the moment.");
+        }
       })
       .catch(function (error) {
-        console.error('Error interacting with GPT-3:', error);
-        appendMessage('GPT-3', 'An error occurred while fetching the response.');
+        console.error("Error fetching image from Unsplash:", error);
+        appendMessage("AI Chatbot", "Sorry, I encountered an error while fetching an image.");
       });
   }
 
-  // Function to show help commands
-  function showHelpCommands() {
-    const helpCommands = [
-      "1. Type a message and click 'Send' to chat with the AI chatbot.",
-      "2. Use 'Toggle Google Mode' to switch to Google search mode.",
-      "3. Use 'Toggle GPT-3 Mode' to switch to GPT-3 response mode (coming soon).",
-      "4. Use 'Voice' to enable voice recognition and speak to the chatbot.",
-      "5. Use 'Generate Image' to fetch an image related to your message.",
-      "6. Use 'Download Android App' to download our Android app.",
-    ];
-    helpCommands.forEach((command) => appendMessage("Commands", command));
+  function interactWithGPT3(prompt) {
+    const gpt3ApiKey = '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';
+
+    axios.post('https://api.openai.com/v1/chat/completions', {
+      prompt: prompt,
+      max_tokens: 50
+    }, {
+      headers: {
+        'Authorization': `Bearer ${gpt3ApiKey}`,
+      },
+    })
+      .then(function (response) {
+        if (response.data.choices && response.data.choices.length > 0) {
+          const botResponse = response.data.choices[0].text;
+          appendMessage("AI Chatbot", botResponse);
+        } else {
+          appendMessage("AI Chatbot", "I couldn't generate a response. Please try again.");
+        }
+      })
+      .catch(function (error) {
+        console.error("Error interacting with GPT-3:", error);
+        appendMessage("AI Chatbot", "I encountered an error while interacting with GPT-3.");
+      });
   }
 
-  // Event listeners
-  sendButton.addEventListener("click", sendMessage);
-  googleModeButton.addEventListener("click", toggleGoogleMode);
-  gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
-  voiceButton.addEventListener("click", toggleVoiceRecognition);
-  androidButton.addEventListener("click", () => {
-    window.open("https://your-android-app-link.com", "_blank");
-  });
-  generateImageButton.addEventListener("click", () => {
-    const userMessage = userInput.value.trim();
-    if (userMessage !== "") {
-      const apiKey = getNextUnsplashApiKey();
-      fetchUnsplashImage(userMessage, apiKey)
-        .then((imageUrl) => appendImage("Unsplash", imageUrl))
-        .catch((error) => {
-          console.error("Error fetching Unsplash image:", error);
-          appendMessage("Unsplash", "An error occurred while fetching the image.");
-        });
+  // Event listener for the input field to send a message on "Enter" key press
+  userInput.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      // Prevent the default behavior of the "Enter" key (e.g., new line in text area)
+      event.preventDefault();
+
+      const userMessage = userInput.value.trim();
+      if (userMessage !== "") {
+        appendMessage("You", userMessage);
+        sendMessage();
+        userInput.value = "";
+      }
     }
   });
 
-  // Function to fetch an image from Unsplash
-  function fetchUnsplashImage(query, apiKey) {
-    return new Promise(function (resolve, reject) {
-      const apiUrl = `https://api.unsplash.com/photos/random?query=${query}&client_id=${apiKey}`;
-      axios
-        .get(apiUrl)
-        .then(function (response) {
-          const imageUrl = response.data.urls.regular;
-          resolve(imageUrl);
-        })
-        .catch(function (error) {
-          reject(error);
-        });
-    });
-  }
-
-  // Function to append an image to the chat box
-  function appendImage(sender, imageUrl) {
-    const imageElement = document.createElement("img");
-    imageElement.src = imageUrl;
-    imageElement.alt = "Image from Unsplash";
-    appendMessage(sender, imageElement.outerHTML);
-  }
-
-  // Initial message from the AI chatbot
-  appendMessage("AI Chatbot", "Hello! How can I assist you?");
+  // Event listeners
+  googleModeButton.addEventListener("click", toggleGoogleMode);
+  gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
+  sendButton.addEventListener("click", sendMessage);
+  voiceButton.addEventListener("click", toggleVoiceRecognition);
+  androidButton.addEventListener("click", downloadApk);
+  generateImageButton.addEventListener("click", generateImage);
 });
