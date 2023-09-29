@@ -96,6 +96,7 @@ button {
     margin: 5px;
     width: 45%;
     transition: background-color 0.3s, transform 0.3s;
+    font-size: 16px; /* Adjust font size for buttons */
 }
 
 /* Google Mode Button styles */
@@ -108,14 +109,9 @@ button {
     transform: scale(1.1);
 }
 
-/* Wikipedia Mode Button styles */
-#wikipedia-mode-button {
-    background-color: #007bff;
-}
-
-#wikipedia-mode-button:hover {
-    background-color: #3366ff;
-    transform: scale(1.1);
+#google-mode-button.active {
+    background-color: #ff5733;
+    transform: scale(1.0);
 }
 
 /* Voice Button styles */
@@ -128,6 +124,11 @@ button {
     transform: scale(1.1);
 }
 
+#voice-button.active {
+    background-color: #ffdb58;
+    transform: scale(1.1);
+}
+
 /* Generate Image Button styles */
 #generate-image-button {
     background-color: #007bff;
@@ -136,6 +137,36 @@ button {
 #generate-image-button:hover {
     background-color: #f44336;
     transform: scale(1.1);
+}
+
+/* Wikipedia Button styles */
+#wikipedia-button {
+    background-color: #ff9800; /* Change the background color for the Wikipedia button */
+}
+
+#wikipedia-button:hover {
+    background-color: #ffbd45; /* Change the background color on hover */
+    animation: shake 0.5s ease infinite; /* Add a custom animation on hover */
+    transform-origin: center;
+}
+
+/* Custom animation for the Wikipedia button */
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+    75% {
+        transform: translateX(-5px);
+    }
+    100% {
+        transform: translateX(5px);
+    }
 }
 
 /* Active button styles */
@@ -179,4 +210,34 @@ button.active {
         position: static;
         margin-top: 20px;
     }
+}
+
+/* Color change for specific buttons */
+button#send-button {
+    background-color: #3498db; /* Change the color of the "Send" button */
+}
+
+button#android-button {
+    background-color: #3498db; /* Change the color of the "Android" button */
+}
+
+/* Hover and active styles for buttons */
+button#send-button:hover {
+    background-color: #2980b9;
+    transform: scale(1.0);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button#send-button:active {
+    background-color: #1c638e;
+}
+
+button#android-button:hover {
+    background-color: #2980b9;
+    transform: scale(1.0);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button#android-button:active {
+    background-color: #1c638e;
 }
