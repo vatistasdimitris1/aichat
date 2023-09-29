@@ -5,21 +5,19 @@ document.addEventListener("DOMContentLoaded", function () {
   const userInput = document.getElementById("user-input");
   const sendButton = document.getElementById("send-button");
   const googleModeButton = document.getElementById("google-mode-button");
-  const gpt3ModeButton = document.getElementById("gpt3-mode-button");
   const voiceButton = document.getElementById("voice-button");
   const androidButton = document.getElementById("android-button");
   const generateImageButton = document.getElementById("generate-image-button");
 
   let isGoogleModeActive = false;
-  let isGpt3ModeActive = false;
   let isListening = false;
   let recognition;
 
   const voiceButtonIcons = ["🎙️", "🔴"];
 
   const unsplashApiKeys = [
-"8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw",
-"6lockMXxpnmP6tUBLyLNwl0OM-3jOjP1USUEDHVYyAA",
+    "8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw",
+    "6lockMXxpnmP6tUBLyLNwl0OM-3jOjP1USUEDHVYyAA",
     // Define your Unsplash API keys here
   ];
 
@@ -35,11 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
   function toggleGoogleMode() {
     isGoogleModeActive = !isGoogleModeActive;
     updateButtonState(googleModeButton, isGoogleModeActive);
-  }
-
-  function toggleGpt3Mode() {
-    isGpt3ModeActive = !isGpt3ModeActive;
-    updateButtonState(gpt3ModeButton, isGpt3ModeActive);
   }
 
   function toggleVoiceRecognition() {
@@ -85,13 +78,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (isGoogleModeActive) {
         fetchAnswersFromGoogle(userMessage);
-      } else if (isGpt3ModeActive) {
-        interactWithGPT3(userMessage);
-      } else if (userMessage.toLowerCase() === "help") {
-        showHelpCommands();
       } else {
-        const botResponse = chatbotResponse(userMessage);
-        appendMessage("AI Chatbot", botResponse);
+        fetchAnswersFromWikipedia(userMessage);
       }
 
       userInput.value = "";
@@ -116,29 +104,9 @@ document.addEventListener("DOMContentLoaded", function () {
     chatBox.scrollTop = chatBox.scrollHeight;
   }
 
-  function chatbotResponse(userMessage) {
-    const lowerCaseMessage = userMessage.toLowerCase();
-    const responses = {
-      "hello": "Hello! How can I assist you?",
-      "hey": "Hello! How can I assist you?",
-      "how are you": "I'm just a computer program, but I'm here to help!",
-      "what is your name": "I'm your AI chatbot. You can call me Jarvis.",
-      "bye": "Goodbye! If you have more questions, feel free to ask.",
-      "default": "I'm not sure I understand. Can you please rephrase your question?"
-    };
-
-    for (const keyword in responses) {
-      if (lowerCaseMessage.includes(keyword)) {
-        return responses[keyword];
-      }
-    }
-
-    return responses["default"];
-  }
-
   function fetchAnswersFromGoogle(query) {
-   const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
-  const googleEngineId = 'e66093057c55d4a1d';
+    const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
+    const googleEngineId = 'e66093057c55d4a1d';
 
     axios.get(`https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleEngineId}&q=${query}`)
       .then((response) => {
@@ -194,6 +162,30 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   }
 
+  function fetchAnswersFromWikipedia(query) {
+    axios.get(`https://en.wikipedia.org/w/api.php?action=opensearch&search=${query}&format=json`)
+      .then((response) => {
+        const searchResults = response.data;
+
+        if (searchResults[1].length > 0) {
+          const title = searchResults[1][0];
+          const snippet = searchResults[2][0];
+          const link = searchResults[3][0];
+
+          const wikipediaResponse = `AI Chatbot: ${title}. Here's a snippet: ${snippet}<br><a href="${link}" target="_blank">Read more</a>`;
+          appendMessage("AI Chatbot", wikipediaResponse);
+        } else {
+          const noResultsResponse = "AI Chatbot: I couldn't find any relevant results on Wikipedia.";
+          appendMessage("AI Chatbot", noResultsResponse);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching Wikipedia results:", error);
+        const errorMessage = "AI Chatbot: Sorry, I encountered an error while fetching results from Wikipedia.";
+        appendMessage("AI Chatbot", errorMessage);
+      });
+  }
+
   function showHelpCommands() {
     const helpMessage = "Available commands:<br>1. Type 'hello' or 'hey' to greet the chatbot.<br>2. Ask questions like 'What is your name?' or 'How are you?'<br>3. Type 'bye' to say goodbye.<br>4. Use 'help' to see available commands.";
     appendMessage("AI Chatbot", helpMessage);
@@ -217,31 +209,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  function interactWithGPT3(prompt) {
-    const gpt3ApiKey = 'YOUR_GPT3_API_KEY'; // Replace with your GPT-3 API key
-
-    axios.post('https://api.openai.com/v1/chat/completions', {
-      prompt: prompt,
-      max_tokens: 50
-    }, {
-      headers: {
-        'Authorization': `Bearer ${gpt3ApiKey}`,
-      },
-    })
-      .then((response) => {
-        if (response.data.choices && response.data.choices.length > 0) {
-          const botResponse = response.data.choices[0].text;
-          appendMessage("AI Chatbot", botResponse);
-        } else {
-          appendMessage("AI Chatbot", "I couldn't generate a response. Please try again.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error interacting with GPT-3:", error);
-        appendMessage("AI Chatbot", "I encountered an error while interacting with GPT-3.");
-      });
-  }
-
   userInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
@@ -256,8 +223,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   googleModeButton.addEventListener("click", toggleGoogleMode);
-  gpt3ModeButton.addEventListener("click", toggleGpt3Mode);
-  sendButton.addEventListener("click", sendMessage);
   voiceButton.addEventListener("click", toggleVoiceRecognition);
   androidButton.addEventListener("click", downloadApk);
   generateImageButton.addEventListener("click", generateImage);
