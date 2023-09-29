@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const sendButton = document.getElementById("send-button");
   const googleModeButton = document.getElementById("google-mode-button");
   const voiceButton = document.getElementById("voice-button");
-  const androidButton = document.getElementById("android-button");
   const generateImageButton = document.getElementById("generate-image-button");
   const wikipediaButton = document.getElementById("wikipedia-button");
 
@@ -13,16 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
   let recognition;
 
   const voiceButtonIcons = ["🎙️", "🔴"];
-  let microphoneInput = "";
+  const defaultImageSize = "200px"; // Default image size
 
   function toggleGoogleMode() {
     isGoogleModeActive = !isGoogleModeActive;
     updateButtonState(googleModeButton, isGoogleModeActive);
-    if (isGoogleModeActive) {
-      wikipediaButton.disabled = true;
-    } else {
-      wikipediaButton.disabled = false;
-    }
   }
 
   function toggleVoiceRecognition() {
@@ -69,11 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (isGoogleModeActive) {
         fetchAnswersFromGoogle(userMessage);
       } else {
-        if (wikipediaButton.classList.contains("active")) {
-          fetchAnswersFromWikipedia(userMessage);
-        } else {
-          appendMessage("AI Chatbot", "Please activate Wikipedia mode to use this feature.");
-        }
+        fetchAnswersFromWikipedia(userMessage);
       }
 
       userInput.value = "";
@@ -97,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function fetchAnswersFromGoogle(query) {
+    // Replace with your Google API Key and Custom Search Engine ID
     const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
     const googleEngineId = 'e66093057c55d4a1d';
 
@@ -131,21 +122,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     recognition.onstart = () => {
       isListening = true;
-      voiceButton.innerHTML = voiceButtonIcons[1];
+      voiceButton.textContent = voiceButtonIcons[1];
       console.log("Listening...");
     };
 
     recognition.onresult = (event) => {
       const result = event.results[0][0].transcript;
-      microphoneInput = result;
-      userInput.value = microphoneInput;
+      userInput.value = result;
+      sendMessage();
       recognition.stop();
-      sendMessage(); // Automatically send the message from microphone input
     };
 
     recognition.onend = () => {
       isListening = false;
-      voiceButton.innerHTML = voiceButtonIcons[0];
+      voiceButton.textContent = voiceButtonIcons[0];
       console.log("Stopped listening.");
     };
 
@@ -180,9 +170,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function generateImage() {
-    const apiKey = 'zqNisiBRmXaNPPir5g3bwSfkWnTzaQSII6C4EF3l-54'; // Replace with your Unsplash API key
+    // Replace with your Unsplash API Key
+    const unsplashApiKey = 'zqNisiBRmXaNPPir5g3bwSfkWnTzaQSII6C4EF3l-54';
 
-    axios.get(`https://api.unsplash.com/photos/random?client_id=${apiKey}&query=nature`)
+    axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature`)
       .then((response) => {
         if (response.data && response.data.urls && response.data.urls.regular) {
           const imageUrl = response.data.urls.regular;
@@ -198,10 +189,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function appendImage(imageUrl) {
-    const imageDiv = document.createElement("div");
-    imageDiv.classList.add("chat-image");
-    imageDiv.innerHTML = `<img src="${imageUrl}" alt="Image"/>`;
-    chatBox.appendChild(imageDiv);
+    const imageElement = document.createElement("img");
+    imageElement.src = imageUrl;
+    imageElement.style.maxWidth = defaultImageSize; // Set the image size
+    chatBox.appendChild(imageElement);
     chatBox.scrollTop = chatBox.scrollHeight;
   }
 
@@ -215,45 +206,27 @@ document.addEventListener("DOMContentLoaded", function () {
   sendButton.addEventListener("click", sendMessage);
   googleModeButton.addEventListener("click", toggleGoogleMode);
   voiceButton.addEventListener("click", toggleVoiceRecognition);
-  androidButton.addEventListener("click", downloadApk);
   generateImageButton.addEventListener("click", generateImage);
-  wikipediaButton.addEventListener("click", function () {
-    if (wikipediaButton.classList.contains("active")) {
-      wikipediaButton.classList.remove("active");
-    } else {
-      wikipediaButton.classList.add("active");
-    }
-  });
+  wikipediaButton.addEventListener("click", showWikipedia);
+  wikipediaButton.classList.add("inactive"); // Set Wikipedia button initially inactive
 });
 
-// Function to handle the Android app download with a file path
+function showWikipedia() {
+  if (wikipediaButton.classList.contains("active")) {
+    // Only fetch Wikipedia if the button is active
+    fetchAnswersFromWikipedia(userInput.value.trim());
+  }
+}
+
+// Function to handle the Android app download
 function downloadApk() {
-  // Specify the path to your Android app's APK file
-  const androidAppFilePath = 'aichat/AI-Chatbot.apk'; // Replace with the actual file path
-
-  // Create a blob from the APK file
-  fetch(androidAppFilePath)
-    .then((response) => response.blob())
-    .then((blob) => {
-      // Create a blob URL for the APK file
-      const blobUrl = URL.createObjectURL(blob);
-
-      // Create an anchor element to trigger the download
-      const downloadLink = document.createElement('a');
-      downloadLink.href = blobUrl;
-      downloadLink.download = 'AI-Chatbot.apk'; // Specify the file name
-
-      // Trigger the click event to initiate the download
-      downloadLink.click();
-
-      // Optionally, you can show a message in the chat box
-      appendMessage("AI Chatbot", "Downloading the Android app...");
-
-      // Remove the anchor element from the DOM (optional)
-      downloadLink.remove();
-    })
-    .catch((error) => {
-      console.error("Error downloading the APK file:", error);
-      appendMessage("AI Chatbot", "Sorry, I encountered an error while downloading the Android app.");
-    });
+  // Replace with the code to handle the Android app download with a file path
+  const androidAppFilePath = '/aichat/AI-Chatbot.apk'; // Replace with your file path
+  const androidAppDownloadLink = window.location.origin + androidAppFilePath;
+  const downloadLink = document.createElement('a');
+  downloadLink.href = androidAppDownloadLink;
+  downloadLink.download = 'AI-Chatbot.apk';
+  downloadLink.click();
+  appendMessage("AI Chatbot", "Downloading the Android app...");
+  downloadLink.remove();
 }
