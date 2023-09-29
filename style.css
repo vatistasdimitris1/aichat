@@ -108,24 +108,14 @@ button {
     transform: scale(1.1);
 }
 
-#google-mode-button.active {
-    background-color: #ff5733;
-    transform: scale(1.0);
+/* Wikipedia Mode Button styles */
+#wikipedia-mode-button {
+    background-color: #007bff;
 }
 
-/* GPT-3 Mode Button styles */
-#gpt3-mode-button {
-    background-color: #4CAF50;
-}
-
-#gpt3-mode-button:hover {
-    background-color: #6dbd63;
+#wikipedia-mode-button:hover {
+    background-color: #3366ff;
     transform: scale(1.1);
-}
-
-#gpt3-mode-button.active {
-    background-color: #6dbd63;
-    transform: scale(1.0);
 }
 
 /* Voice Button styles */
@@ -134,11 +124,6 @@ button {
 }
 
 #voice-button:hover {
-    background-color: #ffdb58;
-    transform: scale(1.1);
-}
-
-#voice-button.active {
     background-color: #ffdb58;
     transform: scale(1.1);
 }
@@ -195,83 +180,3 @@ button.active {
         margin-top: 20px;
     }
 }
-
-/* Color change for specific buttons */
-button#send-button {
-    background-color: #3498db; /* Change the color of the "Send" button */
-}
-
-button#android-button {
-    background-color: #3498db; /* Change the color of the "Android" button */
-}
-
-/* Hover and active styles for buttons */
-button#send-button:hover {
-    background-color: #2980b9;
-    transform: scale(1.0);
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-button#send-button:active {
-    background-color: #1c638e;
-}
-
-button#android-button:hover {
-    background-color: #2980b9;
-    transform: scale(1.0);
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-button#android-button:active {
-    background-color: #1c638e;
-}
-
-
-/* Reset Button styles */
-#reset-button {
-    background-color: #e74c3c; /* Change the background color */
-    color: #fff;
-    border: none;
-    padding: 10px 12px;
-    border-radius: 3px;
-    cursor: pointer;
-    margin: 5px;
-    width: 45%;
-    transition: background-color 0.3s, transform 0.3s;
-    position: relative; /* Add position relative for pseudo-elements */
-}
-
-#reset-button:hover {
-    background-color: #c0392b;
-    transform: scale(1.05); /* Add a slight scale effect on hover */
-}
-
-#reset-button::before, /* Create a pseudo-element for the animation */
-#reset-button::after {
-    content: "↩️"; /* Add the "↩️" emoji content */
-    position: absolute;
-    opacity: 0;
-    transform: translateY(-100%);
-    transition: opacity 0.3s, transform 0.3s;
-}
-
-#reset-button:hover::before, /* Show the emoji on hover */
-#reset-button:hover::after {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-#reset-button::before {
-    left: 50%;
-    top: 50%;
-    font-size: 20px;
-    transform: translate(-50%, -50%);
-}
-
-#reset-button::after {
-    left: 50%;
-    top: 50%;
-    font-size: 20px;
-    transform: translate(-50%, -50%);
-}
-
