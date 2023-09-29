@@ -99,55 +99,69 @@ button {
     font-size: 16px; /* Adjust font size for buttons */
 }
 
-/* Google Mode Button styles */
-#google-mode-button {
+.google-button.active {
+    background-color: #4285f4;
+    color: white;
+}
+
+.google-button.active:hover {
+    background-color: #357ae8;
+}
+
+.google-button.active:active {
+    background-color: #2e5ad7;
+}
+
+.voice-button.active {
+    background-color: #34a853;
+    color: white;
+}
+
+.voice-button.active:hover {
+    background-color: #2e8b57;
+}
+
+.voice-button.active:active {
+    background-color: #297c4e;
+}
+
+.send-button.active {
     background-color: #007bff;
+    color: white;
 }
 
-#google-mode-button:hover {
-    background-color: #f44336;
-    transform: scale(1.1);
+.send-button.active:hover {
+    background-color: #0056b3;
 }
 
-#google-mode-button.active {
-    background-color: #ff5733;
-    transform: scale(1.0);
+.send-button.active:active {
+    background-color: #004a9d;
 }
 
-/* Voice Button styles */
-#voice-button {
-    background-color: #ffc107;
+.wiki-button.active {
+    background-color: #1d9b50;
+    color: white;
 }
 
-#voice-button:hover {
-    background-color: #ffdb58;
-    transform: scale(1.1);
+.wiki-button.active:hover {
+    background-color: #167c40;
 }
 
-#voice-button.active {
-    background-color: #ffdb58;
-    transform: scale(1.1);
+.wiki-button.active:active {
+    background-color: #126a34;
 }
 
-/* Generate Image Button styles */
-#generate-image-button {
-    background-color: #007bff;
+.android-button.active {
+    background-color: #0080ff;
+    color: white;
 }
 
-#generate-image-button:hover {
-    background-color: #f44336;
-    transform: scale(1.1);
+.android-button.active:hover {
+    background-color: #0063cc;
 }
 
-/* Wikipedia Button styles */
-#wikipedia-button {
-    background-color: #ff9800; /* Change the background color for the Wikipedia button */
-}
-
-#wikipedia-button:hover {
-    background-color: #ffbd45; /* Change the background color on hover */
-    animation: shake 0.5s ease infinite; /* Add a custom animation on hover */
-    transform-origin: center;
+.android-button.active:active {
+    background-color: #0052aa;
 }
 
 /* Custom animation for the Wikipedia button */
