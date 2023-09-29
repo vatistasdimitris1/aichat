@@ -16,27 +16,54 @@ document.addEventListener("DOMContentLoaded", function () {
   // Emoji icons for the "Voice" button
   const voiceButtonIcons = ["🎙️", "🔴"];
 
-  // Initialize Unsplash API keys
-  const unsplashApiKeys = [
-    "",
-    "6lockMXxpnmP6tUBLyLNwl0OM-3jOjP1USUEDHVYyAA",
-    "rUJtjSVD6hIScs9DOdosw36v5J7qTdzHc8yQv2V7iOk",
-    "",
-    // Add more API keys here
+  // Define an array of Unsplash API keys with usage counts and last reset dates
+     const unsplashApiKeys = [
+    {
+      key: '8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw',
+      usageCount: 0,
+      lastResetDate: new Date(),
+    },
+    {
+      key: '6lockMXxpnmP6tUBLyLNwl0OM-3jOjP1USUEDHVYyAA',
+      usageCount: 0,
+      lastResetDate: new Date(),
+    },
+    {
+      key: 'rUJtjSVD6hIScs9DOdosw36v5J7qTdzHc8yQv2V7iOk',
+      usageCount: 0,
+      lastResetDate: new Date(),
+    },
+    {
+      key: 'gDtZjJFx8FmKrTlLZR9VlizhcZqwX15yN6PcnYCivXc',
+      usageCount: 0,
+      lastResetDate: new Date(),
+    },
+    {
+      key: 'aZv59f-SjpvG817rmtaGk-kKxg-RHVfQqjKVeXqUsRQ',
+      usageCount: 0,
+      lastResetDate: new Date(),
+    },
+    {
+      key: 'VXM2l6zSbJKTIKbNaVvm1DSfxsh3qAVlrnTAYsF9Nks',
+      usageCount: 0,
+      lastResetDate: new Date(),
+    },
+    {
+      key: 'zqNisiBRmXaNPPir5g3bwSfkWnTzaQSII6C4EF3l-54',
+      usageCount: 0,
+      lastResetDate: new Date(),
+    },
   ];
+  
+
   let currentApiKeyIndex = 0;
 
   // Function to get the next available API key and cycle through them
   function getNextUnsplashApiKey() {
-    let apiKey = "";
-    while (!apiKey) {
-      const apiKeyData = unsplashApiKeys[currentApiKeyIndex];
-      if (apiKeyData) {
-        apiKey = apiKeyData;
-        currentApiKeyIndex = (currentApiKeyIndex + 1) % unsplashApiKeys.length;
-      }
-    }
-    return apiKey;
+    const apiKeyData = unsplashApiKeys[currentApiKeyIndex];
+    currentApiKeyIndex = (currentApiKeyIndex + 1) % unsplashApiKeys.length;
+    apiKeyData.usageCount++; // Increment the usage count
+    return apiKeyData.key;
   }
 
   function toggleGoogleMode() {
@@ -211,7 +238,7 @@ document.addEventListener("DOMContentLoaded", function () {
     appendMessage("AI Chatbot", helpMessage);
   }
 
-  function generateImage() {
+   function generateImage() {
     const apiKey = getNextUnsplashApiKey();
 
     axios.get(`https://api.unsplash.com/photos/random?client_id=${apiKey}&query=nature`)
