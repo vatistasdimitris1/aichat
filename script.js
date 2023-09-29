@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const voiceButtonIcons = ["🎙️", "🔴"];
 
   const unsplashApiKeys = [
-    "8q0rws8EKli9yg3iTgCL3q5ruPP4Bc8kmrMfTN9P2Lw",
     "6lockMXxpnmP6tUBLyLNwl0OM-3jOjP1USUEDHVYyAA",
     // Define your Unsplash API keys here
   ];
