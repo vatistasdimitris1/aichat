@@ -54,6 +54,30 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+function classicConversation(query) {
+  // Define predefined responses based on user queries
+  const responses = {
+    "hello": "Hi there! How can I assist you today?",
+    "Γεια": "Γεια σας! Πώς μπορώ να σας βοηθήσω σήμερα;",
+    "how are you": "I'm just a chatbot, but I'm here to help. What can I do for you?",
+    "what's your name": "I'm a chatbot created to assist with information and tasks.",
+    "bye": "Goodbye! If you have more questions in the future, feel free to ask.",
+    // Add more query-response pairs as needed
+  };
+
+  // Convert the user's query to lowercase for case-insensitive matching
+  const lowerCaseQuery = query.toLowerCase();
+
+  // Check if there's a predefined response for the user's query
+  if (responses.hasOwnProperty(lowerCaseQuery)) {
+    const response = responses[lowerCaseQuery];
+    appendMessage("AI Chatbot", response);
+  } else {
+    // If no predefined response matches, provide a default response
+    appendMessage("AI Chatbot", "I'm not sure how to respond to that.");
+  }
+}
+
   function sendMessage() {
     const userMessage = userInput.value.trim();
 
