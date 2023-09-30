@@ -101,7 +101,7 @@ button {
 
 /* Google button styles */
 .google-button {
-    background-color: #4285f4;
+    background-color: #0080ff;
 }
 
 .google-button:hover {
@@ -114,7 +114,7 @@ button {
 
 /* Voice button styles */
 .voice-button {
-    background-color: #34a853;
+    background-color: #0080ff;
 }
 
 .voice-button:hover {
@@ -127,7 +127,7 @@ button {
 
 /* Send button styles */
 .send-button {
-    background-color: #007bff;
+    background-color: #0080ff;
 }
 
 .send-button:hover {
@@ -140,7 +140,7 @@ button {
 
 /* Wikipedia button styles */
 .wiki-button {
-    background-color: #1d9b50;
+    background-color: #0080ff;
 }
 
 .wiki-button:hover {
