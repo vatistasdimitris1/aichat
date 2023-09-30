@@ -100,67 +100,67 @@ button {
 }
 
 /* Google button styles */
-.google-button {
-    background-color: #0080ff;
+#google-mode-button {
+    background-color: #4285f4;
 }
 
-.google-button:hover {
+#google-mode-button:hover {
     background-color: #357ae8;
 }
 
-.google-button:active {
+#google-mode-button:active {
     background-color: #2e5ad7;
 }
 
 /* Voice button styles */
-.voice-button {
-    background-color: #0080ff;
+#voice-button {
+    background-color: #34a853;
 }
 
-.voice-button:hover {
+#voice-button:hover {
     background-color: #2e8b57;
 }
 
-.voice-button:active {
+#voice-button:active {
     background-color: #297c4e;
 }
 
 /* Send button styles */
-.send-button {
-    background-color: #0080ff;
+#send-button {
+    background-color: #007bff;
 }
 
-.send-button:hover {
+#send-button:hover {
     background-color: #0056b3;
 }
 
-.send-button:active {
+#send-button:active {
     background-color: #004a9d;
 }
 
 /* Wikipedia button styles */
-.wiki-button {
-    background-color: #0080ff;
+#wikipedia-button {
+    background-color: #1d9b50;
 }
 
-.wiki-button:hover {
+#wikipedia-button:hover {
     background-color: #167c40;
 }
 
-.wiki-button:active {
+#wikipedia-button:active {
     background-color: #126a34;
 }
 
 /* Android button styles */
-.android-button {
+#android-button {
     background-color: #0080ff;
 }
 
-.android-button:hover {
+#android-button:hover {
     background-color: #0063cc;
 }
 
-.android-button:active {
+#android-button:active {
     background-color: #0052aa;
 }
 
@@ -220,38 +220,38 @@ button.active {
     }
 
     /* Adjust Android button position */
-    .android-button-container {
+    #android-button {
         position: static;
         margin-top: 20px;
     }
 }
 
 /* Color change for specific buttons */
-button#send-button {
+#send-button {
     background-color: #3498db; /* Change the color of the "Send" button */
 }
 
-button#android-button {
+#android-button {
     background-color: #3498db; /* Change the color of the "Android" button */
 }
 
 /* Hover and active styles for buttons */
-button#send-button:hover {
+#send-button:hover {
     background-color: #2980b9;
     transform: scale(1.0);
     transition: background-color 0.3s, transform 0.3s;
 }
 
-button#send-button:active {
+#send-button:active {
     background-color: #1c638e;
 }
 
-button#android-button:hover {
+#android-button:hover {
     background-color: #2980b9;
     transform: scale(1.0);
     transition: background-color 0.3s, transform 0.3s;
 }
 
-button#android-button:active {
+#android-button:active {
     background-color: #1c638e;
 }
