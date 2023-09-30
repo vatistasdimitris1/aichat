@@ -164,6 +164,23 @@ button {
     background-color: #0052aa;
 }
 
+/* Generate Image button styles */
+#generate-image-button {
+    background-color: #e67e22; /* Change the background color of the "Generate Image" button */
+}
+
+#generate-image-button:hover {
+    background-color: #d35400; /* Change the background color on hover */
+    transform: scale(1.05); /* Scale up slightly on hover */
+    transition: background-color 0.3s, transform 0.3s; /* Add transition effect */
+}
+
+#generate-image-button:active {
+    background-color: #a04000; /* Change the background color on click */
+    transform: scale(1); /* Restore the original size on click */
+}
+
+
 /* Custom animation for the Wikipedia button */
 @keyframes shake {
     0% {
