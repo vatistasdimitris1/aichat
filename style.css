@@ -114,16 +114,21 @@ button {
 
 /* Voice button styles */
 #voice-button {
-    background-color: #34a853;
+    background-color: #f1c40f; /* Change the background color of the "Voice" button to yellow */
+    color: #000; /* Change the text color to black */
 }
 
 #voice-button:hover {
-    background-color: #2e8b57;
+    background-color: #f39c12; /* Change the background color on hover */
+    transform: scale(1.05); /* Scale up slightly on hover */
+    transition: background-color 0.3s, transform 0.3s; /* Add transition effect */
 }
 
 #voice-button:active {
-    background-color: #297c4e;
+    background-color: #d4ac0d; /* Change the background color on click */
+    transform: scale(1); /* Restore the original size on click */
 }
+
 
 /* Send button styles */
 #send-button {
