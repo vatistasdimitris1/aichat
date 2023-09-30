@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Get DOM elements
     const chatBox = document.getElementById("chat-box");
     const userInput = document.getElementById("user-input");
     const sendButton = document.getElementById("send-button");
@@ -8,18 +9,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const wikipediaButton = document.getElementById("wikipedia-button");
     const androidButton = document.getElementById("android-button");
 
+    // Initialize state variables
     let isGoogleModeActive = false;
     let isListening = false;
     let recognition;
 
+    // Voice button icons
     const voiceButtonIcons = ["🎙️", "🔴"];
-    const defaultImageSize = "200px"; // Default image size
+    const defaultImageSize = "300px"; // Default image size
 
+    // Toggle Google Mode button
     function toggleGoogleMode() {
         isGoogleModeActive = !isGoogleModeActive;
         updateButtonState(googleModeButton, isGoogleModeActive);
     }
 
+    // Toggle Voice Recognition button
     function toggleVoiceRecognition() {
         if (!isListening) {
             if (!recognition) {
@@ -41,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // Request microphone permission
     function requestMicrophonePermission() {
         return new Promise((resolve) => {
             navigator.mediaDevices
@@ -55,29 +61,27 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // Handle classic conversation
     function classicConversation(query) {
-        // Define predefined responses based on user queries
         const responses = {
             "hello": "Hi there! How can I assist you today?",
             "how are you": "I'm just a chatbot, but I'm here to help. What can I do for you?",
             "what's your name": "I'm a chatbot created to assist with information and tasks.",
-            "bye": "Goodbye! If you have more questions in the future, feel free to ask.",
+            "bye": "Goodbye! If you have more questions in the future, feel free to ask."
             // Add more query-response pairs as needed
         };
 
-        // Convert the user's query to lowercase for case-insensitive matching
         const lowerCaseQuery = query.toLowerCase();
 
-        // Check if there's a predefined response for the user's query
         if (responses.hasOwnProperty(lowerCaseQuery)) {
             const response = responses[lowerCaseQuery];
             appendMessage("AI Chatbot", response);
         } else {
-            // If no predefined response matches, provide a default response
             appendMessage("AI Chatbot", "I'm not sure how to respond to that.");
         }
     }
 
+    // Send a user message
     function sendMessage() {
         const userMessage = userInput.value.trim();
 
@@ -98,14 +102,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // Update button state and add/remove "(active)" text
     function updateButtonState(button, isActive) {
         if (isActive) {
             button.classList.add("active");
+            button.textContent += " (active)";
         } else {
             button.classList.remove("active");
+            button.textContent = button.textContent.replace(" (active)", "");
         }
     }
 
+    // Append a message to the chat box
     function appendMessage(sender, message) {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("chat-message");
@@ -114,8 +122,8 @@ document.addEventListener("DOMContentLoaded", function () {
         chatBox.scrollTop = chatBox.scrollHeight;
     }
 
+    // Fetch answers from Google
     function fetchAnswersFromGoogle(query) {
-        // Replace with your Google API Key and Custom Search Engine ID
         const googleApiKey = 'AIzaSyDPVqP6l-NdTAJ1Zg5oKFiLORz-M5tDZvE';
         const googleEngineId = 'e66093057c55d4a1d';
 
@@ -143,6 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
+    // Initialize speech recognition
     function initSpeechRecognition() {
         recognition = new webkitSpeechRecognition() || new SpeechRecognition();
         recognition.continuous = false;
@@ -173,6 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
     }
 
+    // Fetch answers from Wikipedia
     function fetchAnswersFromWikipedia(query) {
         axios.get(`https://en.wikipedia.org/w/api.php?action=opensearch&search=${query}&format=json`)
             .then((response) => {
@@ -197,8 +207,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
+    // Generate an image
     function generateImage() {
-        // Replace with your Unsplash API Key
         const unsplashApiKey = 'zqNisiBRmXaNPPir5g3bwSfkWnTzaQSII6C4EF3l-54';
 
         axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature`)
@@ -216,14 +226,16 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
+    // Append an image to the chat box
     function appendImage(imageUrl) {
         const imageElement = document.createElement("img");
         imageElement.src = imageUrl;
-        imageElement.style.maxWidth = defaultImageSize; // Set the image size
+        imageElement.style.maxWidth = defaultImageSize;
         chatBox.appendChild(imageElement);
         chatBox.scrollTop = chatBox.scrollHeight;
     }
 
+    // Handle Enter key press for sending messages
     userInput.addEventListener("keydown", function (event) {
         if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault();
@@ -231,6 +243,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // Add click event listeners for buttons
     sendButton.addEventListener("click", sendMessage);
     googleModeButton.addEventListener("click", toggleGoogleMode);
     voiceButton.addEventListener("click", toggleVoiceRecognition);
@@ -238,16 +251,15 @@ document.addEventListener("DOMContentLoaded", function () {
     wikipediaButton.addEventListener("click", showWikipedia);
     androidButton.addEventListener("click", downloadApk);
 
+    // Handle Wikipedia button behavior
     function showWikipedia() {
         if (wikipediaButton.classList.contains("active")) {
-            // Only fetch Wikipedia if the button is active
             fetchAnswersFromWikipedia(userInput.value.trim());
         }
     }
 
-    // Function to handle the Android app download
+    // Handle Android app download
     function downloadApk() {
-        // Replace with the code to handle the Android app download with a file path
         const androidAppFilePath = '/aichat/AI-Chatbot.apk'; // Replace with your file path
         const androidAppDownloadLink = window.location.origin + androidAppFilePath;
         const downloadLink = document.createElement('a');
