@@ -277,3 +277,27 @@ button.active {
 #android-button:active {
     background-color: #1c638e;
 }
+
+/* ... (previous CSS code) */
+
+/* Small button styles */
+.small-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.small-button:hover {
+    background-color: #0056b3;
+}
+
+.small-button:active {
+    background-color: #004a9d;
+}
+
+/* ... (rest of the CSS code) */
